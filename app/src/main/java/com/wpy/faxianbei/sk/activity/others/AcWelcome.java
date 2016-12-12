@@ -1,9 +1,14 @@
-package com.wpy.faxianbei.sk;
+package com.wpy.faxianbei.sk.activity.others;
 
 import android.app.Activity;
 import android.os.Bundle;
 
-public class AcWelcome extends Activity {
+import com.wpy.faxianbei.sk.R;
+
+/**
+ * 欢迎界面
+ */
+public class AcWelcome extends CheckPermissionsActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

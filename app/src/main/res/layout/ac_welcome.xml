@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.wpy.faxianbei.sk.AcWelcome">
+    tools:context="com.wpy.faxianbei.sk.activity.others.AcWelcome">
 
     <TextView
         android:layout_width="wrap_content"
