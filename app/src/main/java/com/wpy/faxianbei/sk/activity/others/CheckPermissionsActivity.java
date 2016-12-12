@@ -16,11 +16,11 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 
-
 import com.wpy.faxianbei.sk.R;
 
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  * 继承了Activity，实现Android6.0的运行时权限检测
  * 需要进行运行时权限检测的Activity可以继承这个类
@@ -32,7 +32,7 @@ public class CheckPermissionsActivity extends Activity
 	 * 需要进行检测的权限数组
 	 */
 	protected String[] needPermissions = {
-			Manifest.permission.INTERNET
+			Manifest.permission.INTERNET,
 			};
 	/**
 	 * 子Activity传入的perimission
@@ -58,7 +58,6 @@ public class CheckPermissionsActivity extends Activity
 		{
 			mInputPermission = null;
 		}
-
 	}
 
 	@Override
@@ -195,4 +194,5 @@ public class CheckPermissionsActivity extends Activity
 		}
 		return super.onKeyDown(keyCode, event);
 	}
+		
 }
