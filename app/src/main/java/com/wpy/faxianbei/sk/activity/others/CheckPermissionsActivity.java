@@ -6,17 +6,24 @@ package com.wpy.faxianbei.sk.activity.others;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.admin.DevicePolicyManager;
+import android.content.BroadcastReceiver;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 
 import com.wpy.faxianbei.sk.R;
+import com.wpy.faxianbei.sk.broadcast.LockBroadCast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +35,11 @@ import java.util.List;
 public class CheckPermissionsActivity extends Activity
 		implements
 			ActivityCompat.OnRequestPermissionsResultCallback {
+
+	private BroadcastReceiver broadcastReceiver;
+	private   IntentFilter filter;
+
+
 	/**
 	 * 需要进行检测的权限数组
 	 */
@@ -62,7 +74,27 @@ public class CheckPermissionsActivity extends Activity
 		{
 			mInputPermission = null;
 		}
+		initBroadCast();
 	}
+
+	private void initBroadCast() {
+		broadcastReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				//AdminReceiver 继承自 DeviceAdminReceiver
+				ComponentName componentName = new ComponentName(CheckPermissionsActivity.this, LockBroadCast.class);
+				Intent device = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+				device.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+				device.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION, "一键锁屏");
+				CheckPermissionsActivity.this.startActivity(device);
+			}
+		};
+		filter=new IntentFilter();
+		filter.addAction("com.wpy.faxianbei.sk.getLockauthority");
+		//注册广播
+		CheckPermissionsActivity.this.registerReceiver(broadcastReceiver,filter);
+	}
+
 
 	@Override
 	protected void onResume() {
@@ -74,8 +106,17 @@ public class CheckPermissionsActivity extends Activity
 				checkPermissions(needPermissions);
 			}
 		}
+		//重新注册广播
+		CheckPermissionsActivity.this.registerReceiver(broadcastReceiver,filter);
 	}
-	
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		//注销广播
+		CheckPermissionsActivity.this.unregisterReceiver(broadcastReceiver);
+	}
+
 	/**
 	 * 
 	 * @param

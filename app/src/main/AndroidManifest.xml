@@ -3,6 +3,7 @@
     package="com.wpy.faxianbei.sk">
 
     <!-- 基础模块（必须加入以下声明）START -->
+    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -19,10 +20,35 @@
         <activity android:name=".activity.others.AcWelcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.others.LockMain"
+            android:launchMode="singleInstance"
+            android:theme="@style/ThemeSwipeBack"/>
+
+        <receiver
+            android:name=".broadcast.LockBroadCast"
+            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+            <meta-data
+                android:name="android.app.device_admin"
+                android:resource="@xml/device_admin" />
+            <intent-filter>
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
+            </intent-filter>
+        </receiver>
+
+
+        <receiver android:name=".broadcast.ScreenBroadcastReceiver"
+            android:permission="android.permission.DISABLE_KEYGUARD" >
+            <intent-filter>
+                <action android:name="android.intent.action.SCREEN_ON" />
+                <action android:name="android.intent.action.SCREEN_OFF" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+            </receiver>
+
+        <service android:name=".service.LockInBackGroundService"/>
     </application>
 
 </manifest>
