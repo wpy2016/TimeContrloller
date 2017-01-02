@@ -6,21 +6,38 @@ package com.wpy.faxianbei.sk.entity;
 
 public class Lessions {
 
+    /**
+     * 老师名字
+     */
     private String teacher;
 
+    /**
+     * 上课周次
+     */
     private String week;
 
+    /**
+     * 课程名称
+     */
     private String lesson;
 
+    /**
+     * 上课的位置
+     */
     private String location;
 
+    /**
+     * 上课的时间，也就是节次
+     */
     private String time;
 
+    /**
+     * 星期几
+     */
     private String day;
 
     public Lessions() {
     }
-
     public Lessions(String teacher, String week, String location, String lesson,
                     String time, String day) {
         this.teacher = teacher;
@@ -30,7 +47,6 @@ public class Lessions {
         this.time = time;
         this.day = day;
     }
-
     public void setTeacher(String teacher){
         this.teacher = teacher;
     }

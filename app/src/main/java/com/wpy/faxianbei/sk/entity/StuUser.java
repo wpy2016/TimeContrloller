@@ -5,20 +5,46 @@ package com.wpy.faxianbei.sk.entity;
  */
 
 public class StuUser {
+
+    /**
+     * 学号
+     */
     private String studentId;
 
+
+    /**
+     * 生日
+     */
     private String studentBirthDay;
 
+    /**
+     * 性别
+     */
     private String studentGender;
 
+    /**
+     * 专业
+     */
     private String studentMajor;
 
+    /**
+     * 姓名
+     */
     private String studentName;
 
+    /**
+     * 民族
+     */
     private String studentNation;
 
+    /**
+     * 学院
+     */
     private String studentAcademy;
 
+    /**
+     * 班级
+     */
     private String studentClass;
 
     public StuUser(String studentId, String studentBirthDay, String studentMajor,

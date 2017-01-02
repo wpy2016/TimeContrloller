@@ -5,50 +5,58 @@
     <!-- 基础模块（必须加入以下声明）START -->
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <!-- 基础模块 END -->
+    <uses-permission android:name="android.permission.BIND_SCREENING_SERVICE" />
 
+    <!-- 基础模块 END -->
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.others.AcWelcome">
+        <activity android:name=".activity.welcome.AcWelcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.others.LockMain"
+        <activity
+            android:name=".activity.lock.LockMain"
             android:launchMode="singleInstance"
-            android:theme="@style/ThemeSwipeBack"/>
+            android:theme="@style/ThemeSwipeBack" />
 
         <receiver
             android:name=".broadcast.LockBroadCast"
-            android:permission="android.permission.BIND_DEVICE_ADMIN" >
+            android:permission="android.permission.BIND_DEVICE_ADMIN">
             <meta-data
                 android:name="android.app.device_admin"
                 android:resource="@xml/device_admin" />
+
             <intent-filter>
                 <action android:name="android.app.action.DEVICE_ADMIN_ENABLED" />
             </intent-filter>
         </receiver>
-
-
-        <receiver android:name=".broadcast.ScreenBroadcastReceiver"
-            android:permission="android.permission.DISABLE_KEYGUARD" >
+        <receiver
+            android:name=".broadcast.ScreenBroadcastReceiver"
+            android:permission="android.permission.DISABLE_KEYGUARD">
             <intent-filter>
                 <action android:name="android.intent.action.SCREEN_ON" />
                 <action android:name="android.intent.action.SCREEN_OFF" />
                 <action android:name="android.intent.action.USER_PRESENT" />
             </intent-filter>
-            </receiver>
+        </receiver>
 
-        <service android:name=".service.LockInBackGroundService"/>
+        <service
+            android:name=".service.LockInBackGroundService1"
+            android:enabled="true" />
+        <service
+            android:name=".service.LockInBackGroundService2"
+            android:enabled="true" />
     </application>
 
 </manifest>
