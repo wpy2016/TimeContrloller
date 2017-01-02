@@ -1,4 +1,4 @@
-package com.wpy.faxianbei.sk.activity.others;
+package com.wpy.faxianbei.sk.activity.other;
 
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;

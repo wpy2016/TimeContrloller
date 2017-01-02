@@ -1,15 +1,13 @@
-package com.wpy.faxianbei.sk.activity.others;
+package com.wpy.faxianbei.sk.activity.lock;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.wpy.faxianbei.sk.R;
+import com.wpy.faxianbei.sk.activity.other.SwipeBackActivity;
 import com.wpy.faxianbei.sk.ui.SwipeBackLayout;
 
 /**
@@ -19,6 +17,11 @@ import com.wpy.faxianbei.sk.ui.SwipeBackLayout;
 public class LockMain extends SwipeBackActivity {
 
     private Context mContext;
+
+    /**
+     * 锁屏的资源id
+     */
+    public static int LockImgId=R.drawable.welcome_logo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

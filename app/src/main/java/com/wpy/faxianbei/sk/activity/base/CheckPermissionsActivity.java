@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.wpy.faxianbei.sk.activity.others;
+package com.wpy.faxianbei.sk.activity.base;
 
 import android.Manifest;
 import android.app.Activity;
@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.KeyEvent;
 
 import com.wpy.faxianbei.sk.R;
