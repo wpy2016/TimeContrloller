@@ -4,6 +4,7 @@
     <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <!-- Customize your theme here. -->
     </style>
+
     <style name="Theme.Swipe.Back" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:windowBackground">@android:color/transparent</item>
@@ -11,8 +12,15 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <!-- 向右划进入前一个界面-->
     <style name="ThemeSwipeBack" parent="Theme.Swipe.Back">
         <item name="colorPrimary">#3F51B5</item>
         <item name="colorPrimaryDark">#3F51B5</item>
+    </style>
+
+    <!--全屏的样式，没有title，没有actionbar-->
+    <style name="AppTheme.NoActionBar">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
     </style>
 </resources>

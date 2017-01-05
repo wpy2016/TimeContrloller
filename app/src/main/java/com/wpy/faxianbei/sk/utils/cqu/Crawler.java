@@ -273,9 +273,7 @@ public class Crawler {
 				line = bufferedReader.readLine();
 			}
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (ProtocolException e) {
-			e.printStackTrace();
 		}
 
 		String result = parserStuIforHtml(stringBuilder.toString());

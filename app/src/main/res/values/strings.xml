@@ -6,6 +6,4 @@
     <string name="setting">设置</string>
     <string name="iknow">我知道了</string>
     <string name="leftswipe">左划关闭哦</string>
-    <string name="title_activity_mvp_base">MvpBaseActivity</string>
-
 </resources>

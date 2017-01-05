@@ -6,6 +6,7 @@ package com.wpy.faxianbei.sk.activity.base;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.app.admin.DevicePolicyManager;
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
@@ -37,6 +38,7 @@ public class CheckPermissionsActivity extends Activity
 
 	private BroadcastReceiver broadcastReceiver;
 	private   IntentFilter filter;
+	protected ProgressDialog progressDialog;
 
 
 	/**
@@ -74,6 +76,7 @@ public class CheckPermissionsActivity extends Activity
 			mInputPermission = null;
 		}
 		initBroadCast();
+		createProgressDialog();
 	}
 
 	private void initBroadCast() {
@@ -238,5 +241,9 @@ public class CheckPermissionsActivity extends Activity
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-		
+
+	private void createProgressDialog(){
+		progressDialog=new ProgressDialog(CheckPermissionsActivity.this);
+		progressDialog.setMessage("正在光速加载哦....");
+	}
 }
