@@ -17,6 +17,8 @@ import com.wpy.faxianbei.sk.entity.Teacher;
 
 public class SKApplication extends Application {
 
+    public static String mSavePath;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -25,6 +27,8 @@ public class SKApplication extends Application {
         AVObject.registerSubclass(LessonTable.class);
         AVUser.alwaysUseSubUserClass(SkUser.class);
         AVOSCloud.initialize(this,"FFwHvC1gi4JDqPnfqkOmshDH-9Nh9j0Va","aLETvSFc2y1G2jmBWeBpSX96");
+        //图片保存路径
+        mSavePath = getExternalFilesDir(null).getAbsolutePath();
     }
 
 

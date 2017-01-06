@@ -32,7 +32,7 @@ public class PresenterImplRegister extends BasePresenter<IViewRegister> {
     public void signUp() {
         if (getViewInterface() != null) {
             if (!getViewInterface().getImgPath().isEmpty()) {
-                if (!new File(getViewInterface().getImgPath()).exists()) {
+                if (new File(getViewInterface().getImgPath()).exists()) {
                     new BaseAsycTask<String,String,StuUser,IViewRegister>(getViewInterface(),new ErrorUtilTencent())
                     {
                         StuUser user;

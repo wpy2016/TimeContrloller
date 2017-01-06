@@ -48,6 +48,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/peiyuwang/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/avoscloud-sdk/v3.15.6/2eed0a2e9e379494186bf98fed3770de5d39a7b5/avoscloud-sdk-v3.15.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="2eed0a2e9e379494186bf98fed3770de5d39a7b5">
+        <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/avoscloud-sdk-v3.15.6_888ce8cefff72602a3642f0d510d5881da1fbf08/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/peiyuwang/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.1/support-annotations-25.0.1.jar"
         jumboMode="true"
         optimize="true"
@@ -93,12 +102,12 @@
     </item>
     <item
         is-multidex="true"
-        jar="/home/peiyuwang/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/avoscloud-sdk/v3.15.4/71bbe2681e7833dbbfdfa4b099917d68f22d52b2/avoscloud-sdk-v3.15.4.jar"
+        jar="/home/peiyuwang/Coding/SK/app/libs/jsoup-1.10.1.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="71bbe2681e7833dbbfdfa4b099917d68f22d52b2">
-        <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/avoscloud-sdk-v3.15.4_b38d899bd734c90cad11cc98ec0ef36b4be50072/classes.dex" />
+        sha1="6b471012876a440ae746860d80738be2dd104655">
+        <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/2/jsoup-1.10.1_fd613f0dad6a0e7b8c839069c6cc5caf1f62be8b/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -142,8 +151,17 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="df41e0602233308f5293a26ddb426cedfe216ffc">
+        sha1="41333cafef19083aaeda6c13f2e6cbb838c0d5f0">
         <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_33e2258f56a21f494afddbb784f95ea668c2339f/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/peiyuwang/Coding/SK/app/libs/gson-1.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="0e420e7635e40fbef3e2cc257c702b1427962d1d">
+        <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/2/gson-1.6_88c7882183dd2750164046fd1733d6b97ae5bfce/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -174,11 +192,20 @@
     </item>
     <item
         is-multidex="true"
+        jar="/home/peiyuwang/Coding/SK/app/libs/validation.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="c390bc07baa8207abefb5e48aafd275f00d0c124">
+        <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/2/validation_88518899aa59582c1a08ab443c0b444e719e1b79/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/home/peiyuwang/Coding/SK/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="26cd6801964f85f8db833409ffe345aaa8d9dbd7">
+        sha1="9e6f3f3d92e785ba7c1d5a9efcebc1afd9b908e2">
         <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_14d9ba024ae26a837dbd5ac15e758e8b3d119e11/classes.dex" />
     </item>
     <item

@@ -1,13 +1,25 @@
 package com.wpy.faxianbei.sk.activity.register.view;
 
+import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,18 +28,22 @@ import com.throrinstudio.android.common.libs.validator.Validate;
 import com.throrinstudio.android.common.libs.validator.validator.EmailValidator;
 import com.throrinstudio.android.common.libs.validator.validator.NotEmptyValidator;
 import com.wpy.faxianbei.sk.R;
+import com.wpy.faxianbei.sk.activity.base.ClipActivity;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
 import com.wpy.faxianbei.sk.activity.login.presenter.PresenterImplLogin;
 import com.wpy.faxianbei.sk.activity.login.view.IViewLogin;
 import com.wpy.faxianbei.sk.activity.register.presenter.PresenterImplRegister;
 import com.wpy.faxianbei.sk.adapter.RegisterLoginPagerAdaper;
+import com.wpy.faxianbei.sk.application.SKApplication;
 import com.wpy.faxianbei.sk.ui.CircleIndicator;
 import com.wpy.faxianbei.sk.ui.anim.DepthPageTransformer;
+import com.wpy.faxianbei.sk.utils.general.FileUtil;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +75,38 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
     Form mFormRegister =new Form();
     Form mFormLogin = new Form();
 
+    /**
+     * 选择图片
+     */
+    private PopupWindow mPopWindow;
+
+    //图片保存的文件夹
+    private static String PHOTOSAVEPATH = SKApplication.mSavePath + "/crop_photo/";
+
+    //以当前时间的毫秒数当做文件名，设置好的图片的路径
+    private String photoname = System.currentTimeMillis() + ".png";
+    private String mPath;  //要找的图片路径
+
+    private final static int PHOTOBYGALLERY = 0;//从相册获取照片
+
+    private final static int PHOTOTACK = 1;//拍照获取
+
+    private final static int PHOTOCOMPLETEBYTAKE = 2;//完成
+    private final static int PHOTOCOMPLETEBYGALLERY = 3;//完成
+
+    private static int PHOTOCROP = 3;//图片裁剪
+
+
+    /**
+     * popupwindow里的控件
+     */
+    private TextView mTxtGallery;
+
+    private TextView mTxtTack;
+
+    private TextView mCancel;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +118,6 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
         initView();
         initEvent();
     }
-
     private void initEvent() {
         mBtnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,6 +135,12 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
                 {
                     mPresenterLogin.login();
                 }
+            }
+        });
+        mIvHead.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showPopupWindow(mIvHead);
             }
         });
     }
@@ -151,6 +204,158 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
         return new PresenterImplRegister();
     }
 
+
+
+
+
+    private void showPopupWindow(ImageView img) {
+        if (mPopWindow == null) {
+            View view = LayoutInflater.from(mContext).inflate(R.layout.pop_select_photo, null);
+            mPopWindow = new PopupWindow(view, RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.MATCH_PARENT, true);
+            initPopupWindow(view);
+        }
+        //设置位置
+        mPopWindow.showAtLocation(img, Gravity.CENTER, 0, 0);
+    }
+
+
+    private void initPopupWindow(View v) {
+        //获取控件
+        mTxtGallery = (TextView) v.findViewById(R.id.id_pop_select_photo_tv_from_gallery);
+        mTxtTack = (TextView) v.findViewById(R.id.id_pop_select_photo_tv_take_photo);
+        mCancel = (TextView) v.findViewById(R.id.id_pop_select_photo_tv_cancel);
+        mTxtGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPopWindow.dismiss();
+                startToGetPhotoByGallery();
+            }
+        });
+        mTxtTack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mPopWindow.dismiss();
+                startToGetPhotoByTack();
+            }
+        });
+
+        mCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mPopWindow.isShowing())
+                    mPopWindow.dismiss();
+            }
+        });
+        //设置动画
+        mPopWindow.setAnimationStyle(android.R.style.Animation_InputMethod);
+        //设置可以点击外面
+        mPopWindow.setOutsideTouchable(true);
+        //设置popupwindow为透明的，这样背景就是主界面的内容
+        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
+        mPopWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+    }
+
+    private void startToGetPhotoByGallery() {
+        Intent openGalleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        openGalleryIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(openGalleryIntent, PHOTOBYGALLERY);
+    }
+
+    private void startToGetPhotoByTack() {
+        photoname = String.valueOf(System.currentTimeMillis()) + ".png";
+        Uri imageUri = null;
+        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        imageUri = Uri.fromFile(new File(PHOTOSAVEPATH, photoname));
+        openCameraIntent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
+        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(openCameraIntent, PHOTOTACK);
+    }
+
+    @TargetApi(Build.VERSION_CODES.KITKAT)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode != RESULT_OK) {
+            return;
+        }
+        Uri uri = null;
+        switch (requestCode) {
+            case PHOTOBYGALLERY:
+                uri = data.getData();
+                if (uri != null) {
+                    if (Build.VERSION.SDK_INT > 18) {
+                        if (DocumentsContract.isDocumentUri(mContext, uri)) {
+                            String wholeID = DocumentsContract.getDocumentId(uri);
+                            String id = wholeID.split(":")[1];
+                            String[] column = {MediaStore.Images.Media.DATA};
+                            String sel = MediaStore.Images.Media._ID + "=?";
+                            Cursor cursor = mContext.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, column,
+                                    sel, new String[]{id}, null);
+                            int columnIndex = cursor.getColumnIndex(column[0]);
+                            if (cursor.moveToFirst()) {
+                                mPath = cursor.getString(columnIndex);
+                            }
+                            cursor.close();
+                        } else {
+                            String[] projection = {MediaStore.Images.Media.DATA};
+                            Cursor cursor = mContext.getContentResolver().query(uri, projection, null, null, null);
+                            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                            cursor.moveToFirst();
+                            mPath = cursor.getString(column_index);
+                        }
+                    } else {
+                        String[] projection = {MediaStore.Images.Media.DATA};
+                        Cursor cursor = mContext.getContentResolver().query(uri, projection, null, null, null);
+                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                        cursor.moveToFirst();
+                        mPath = cursor.getString(column_index);
+                    }
+                }
+                /**
+                 * 获取到照片之后调用裁剪acticity
+                 */
+                Intent intentGalley = new Intent(mContext, ClipActivity.class);
+                intentGalley.putExtra("path", mPath);
+                startActivityForResult(intentGalley, PHOTOCOMPLETEBYGALLERY);
+                break;
+            case PHOTOTACK:
+                mPath = PHOTOSAVEPATH + photoname;
+                /**
+                 * 拿到uri后进行裁剪处理
+                 */
+                Intent intentTake = new Intent(mContext, ClipActivity.class);
+                intentTake.putExtra("path", mPath);
+                startActivityForResult(intentTake, PHOTOCOMPLETEBYTAKE);
+                break;
+            case PHOTOCOMPLETEBYTAKE:
+                final String temppath = data.getStringExtra("path");
+                mIvHead.setImageBitmap(FileUtil.getBitmapFormPath(mContext, temppath));
+                /**
+                 * 删除旧文件
+                 */
+                File file = new File(mPath);
+                file.delete();
+                mPath = temppath;
+                break;
+            case PHOTOCOMPLETEBYGALLERY:
+                final String temppathgallery = data.getStringExtra("path");
+                mIvHead.setImageBitmap(FileUtil.getBitmapFormPath(mContext, temppathgallery));
+                mPath = temppathgallery;
+                break;
+        }
+    }
+
+
+
+    /**
+     *
+     *以下是接口的实现
+     */
+
+
+
     @Override
     public String getSchool() {
         if(metRegisterSchool!=null)
@@ -187,10 +392,11 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
         return "";
     }
 
-    /*************************************************************/
+
+
     @Override
     public String getImgPath() {
-        return "jjjjj";
+        return mPath;
     }
 
     @Override

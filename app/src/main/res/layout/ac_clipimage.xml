@@ -1,0 +1,35 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    android:orientation="vertical">
+
+    <com.tyb.xd.utils.clip_image.ClipImageLayout
+        android:id="@+id/id_ac_clipimage_clipimagelayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#f6f6f6"
+        android:layout_above="@+id/rl_botom"
+        android:layout_below="@+id/title_bar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF" >
+        <Button
+            android:id="@+id/id_ac_clip_btn_confirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_margin="10dp"
+            android:background="@drawable/circle_weight_20"
+            android:padding="5dp"
+            android:text="确 定"
+            android:textColor="#067e67"
+            android:textSize="15sp" />
+    </RelativeLayout>
+
+</LinearLayout>
