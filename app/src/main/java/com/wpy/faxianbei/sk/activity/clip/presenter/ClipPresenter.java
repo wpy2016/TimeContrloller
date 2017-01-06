@@ -29,9 +29,11 @@ import java.io.File;
 import static android.app.Activity.RESULT_OK;
 
 /**
+ * 用于设置头像的
+ * 完全封装了弹出选择是照相还是从相册选择，
+ * 选择之后，跳转到裁剪界面，裁剪完成将裁剪后的bitmap和path传递给activity
  * Created by peiyuwang on 17-1-6.
  */
-
 public class ClipPresenter extends BasePresenter<IviewClip>{
 
     //图片保存的文件夹

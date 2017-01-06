@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
@@ -30,6 +31,8 @@ import com.throrinstudio.android.common.libs.validator.validator.NotEmptyValidat
 import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.base.ClipActivity;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
+import com.wpy.faxianbei.sk.activity.clip.presenter.ClipPresenter;
+import com.wpy.faxianbei.sk.activity.clip.view.IviewClip;
 import com.wpy.faxianbei.sk.activity.login.presenter.PresenterImplLogin;
 import com.wpy.faxianbei.sk.activity.login.view.IViewLogin;
 import com.wpy.faxianbei.sk.activity.register.presenter.PresenterImplRegister;
@@ -48,7 +51,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @ContentView(R.layout.ac_register)
-public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegister> implements IViewRegister ,IViewLogin{
+public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegister> implements IViewRegister ,IViewLogin,IviewClip{
     @ViewInject(R.id.id_ac_register_iv_head)
     ImageView mIvHead;
     @ViewInject(R.id.id_ac_register_vp_registerlogin)
@@ -71,6 +74,7 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
     private Button mBtnLogin;
     private RegisterLoginPagerAdaper mRegisterLoginPagerAdaper;
     private PresenterImplLogin mPresenterLogin;
+    private ClipPresenter mClipPresenter;
 
     Form mFormRegister =new Form();
     Form mFormLogin = new Form();
@@ -113,6 +117,8 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
         //login Presenter
         mPresenterLogin = new PresenterImplLogin();
         mPresenterLogin.attachView(this);
+        mClipPresenter=new ClipPresenter();
+        mClipPresenter.attachView(this);
         x.view().inject(this);
         mContext=AcRegister.this;
         initView();
@@ -140,7 +146,8 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
         mIvHead.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                showPopupWindow(mIvHead);
+                //展示popwindow
+                mClipPresenter.showPopWindow(mContext,mIvHead);
             }
         });
     }
@@ -197,6 +204,7 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
     protected void onDestroy() {
         super.onDestroy();
         mPresenterLogin.detachView();
+        mClipPresenter.detachView();
     }
 
     @Override
@@ -204,156 +212,17 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
         return new PresenterImplRegister();
     }
 
-
-
-
-
-    private void showPopupWindow(ImageView img) {
-        if (mPopWindow == null) {
-            View view = LayoutInflater.from(mContext).inflate(R.layout.pop_select_photo, null);
-            mPopWindow = new PopupWindow(view, RelativeLayout.LayoutParams.MATCH_PARENT,
-                    RelativeLayout.LayoutParams.MATCH_PARENT, true);
-            initPopupWindow(view);
-        }
-        //设置位置
-        mPopWindow.showAtLocation(img, Gravity.CENTER, 0, 0);
-    }
-
-
-    private void initPopupWindow(View v) {
-        //获取控件
-        mTxtGallery = (TextView) v.findViewById(R.id.id_pop_select_photo_tv_from_gallery);
-        mTxtTack = (TextView) v.findViewById(R.id.id_pop_select_photo_tv_take_photo);
-        mCancel = (TextView) v.findViewById(R.id.id_pop_select_photo_tv_cancel);
-        mTxtGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPopWindow.dismiss();
-                startToGetPhotoByGallery();
-            }
-        });
-        mTxtTack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPopWindow.dismiss();
-                startToGetPhotoByTack();
-            }
-        });
-
-        mCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mPopWindow.isShowing())
-                    mPopWindow.dismiss();
-            }
-        });
-        //设置动画
-        mPopWindow.setAnimationStyle(android.R.style.Animation_InputMethod);
-        //设置可以点击外面
-        mPopWindow.setOutsideTouchable(true);
-        //设置popupwindow为透明的，这样背景就是主界面的内容
-        mPopWindow.setBackgroundDrawable(new BitmapDrawable());
-        mPopWindow.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-    }
-
-    private void startToGetPhotoByGallery() {
-        Intent openGalleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        openGalleryIntent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        startActivityForResult(openGalleryIntent, PHOTOBYGALLERY);
-    }
-
-    private void startToGetPhotoByTack() {
-        photoname = String.valueOf(System.currentTimeMillis()) + ".png";
-        Uri imageUri = null;
-        Intent openCameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        imageUri = Uri.fromFile(new File(PHOTOSAVEPATH, photoname));
-        openCameraIntent.putExtra(MediaStore.Images.Media.ORIENTATION, 0);
-        openCameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-        startActivityForResult(openCameraIntent, PHOTOTACK);
-    }
-
     @TargetApi(Build.VERSION_CODES.KITKAT)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode != RESULT_OK) {
-            return;
-        }
-        Uri uri = null;
-        switch (requestCode) {
-            case PHOTOBYGALLERY:
-                uri = data.getData();
-                if (uri != null) {
-                    if (Build.VERSION.SDK_INT > 18) {
-                        if (DocumentsContract.isDocumentUri(mContext, uri)) {
-                            String wholeID = DocumentsContract.getDocumentId(uri);
-                            String id = wholeID.split(":")[1];
-                            String[] column = {MediaStore.Images.Media.DATA};
-                            String sel = MediaStore.Images.Media._ID + "=?";
-                            Cursor cursor = mContext.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, column,
-                                    sel, new String[]{id}, null);
-                            int columnIndex = cursor.getColumnIndex(column[0]);
-                            if (cursor.moveToFirst()) {
-                                mPath = cursor.getString(columnIndex);
-                            }
-                            cursor.close();
-                        } else {
-                            String[] projection = {MediaStore.Images.Media.DATA};
-                            Cursor cursor = mContext.getContentResolver().query(uri, projection, null, null, null);
-                            int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                            cursor.moveToFirst();
-                            mPath = cursor.getString(column_index);
-                        }
-                    } else {
-                        String[] projection = {MediaStore.Images.Media.DATA};
-                        Cursor cursor = mContext.getContentResolver().query(uri, projection, null, null, null);
-                        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-                        cursor.moveToFirst();
-                        mPath = cursor.getString(column_index);
-                    }
-                }
-                /**
-                 * 获取到照片之后调用裁剪acticity
-                 */
-                Intent intentGalley = new Intent(mContext, ClipActivity.class);
-                intentGalley.putExtra("path", mPath);
-                startActivityForResult(intentGalley, PHOTOCOMPLETEBYGALLERY);
-                break;
-            case PHOTOTACK:
-                mPath = PHOTOSAVEPATH + photoname;
-                /**
-                 * 拿到uri后进行裁剪处理
-                 */
-                Intent intentTake = new Intent(mContext, ClipActivity.class);
-                intentTake.putExtra("path", mPath);
-                startActivityForResult(intentTake, PHOTOCOMPLETEBYTAKE);
-                break;
-            case PHOTOCOMPLETEBYTAKE:
-                final String temppath = data.getStringExtra("path");
-                mIvHead.setImageBitmap(FileUtil.getBitmapFormPath(mContext, temppath));
-                /**
-                 * 删除旧文件
-                 */
-                File file = new File(mPath);
-                file.delete();
-                mPath = temppath;
-                break;
-            case PHOTOCOMPLETEBYGALLERY:
-                final String temppathgallery = data.getStringExtra("path");
-                mIvHead.setImageBitmap(FileUtil.getBitmapFormPath(mContext, temppathgallery));
-                mPath = temppathgallery;
-                break;
-        }
+        mClipPresenter.onActivityResult(mContext,requestCode,resultCode,data);
     }
-
-
 
     /**
      *
      *以下是接口的实现
      */
-
 
 
     @Override
@@ -446,5 +315,11 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
     @Override
     public void onFail(String message) {
         Toast.makeText(mContext,message,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void clipComplete(Bitmap bitmap, String path) {
+        mIvHead.setImageBitmap(bitmap);
+        mPath=path;
     }
 }
