@@ -1,25 +1,31 @@
 package com.wpy.faxianbei.sk.activity.home.presenter;
-
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
+
 
 import com.wpy.faxianbei.sk.activity.base.BasePresenter;
+import com.wpy.faxianbei.sk.activity.home.model.IModelHome;
+import com.wpy.faxianbei.sk.activity.home.model.ModelImplHome;
 import com.wpy.faxianbei.sk.activity.home.view.IViewHome;
-import com.wpy.faxianbei.sk.service.LockInBackGroundService1;
+
 
 /**
  * Created by peiyuwang on 17-1-5.
  */
 
 public class PresenterHome extends BasePresenter<IViewHome> {
+
+    private IModelHome home;
+
+    public PresenterHome() {
+        this.home = new ModelImplHome();
+    }
+
     /**
      * 开启服务
      * @param context 当前的额上下文
      */
     public void startService(Context context){
-        Intent intentService=new Intent(context, LockInBackGroundService1.class);
-        context.startService(intentService);
+        home.StartService(context);
     }
 
     /**
@@ -28,8 +34,7 @@ public class PresenterHome extends BasePresenter<IViewHome> {
      */
     public void stopService(Context context)
     {
-        Intent intentService=new Intent(context,LockInBackGroundService1.class);
-        context.stopService(intentService);
+        home.StopService(context);
     }
 
     /**
@@ -39,11 +44,13 @@ public class PresenterHome extends BasePresenter<IViewHome> {
      * @param isKill 决定是否结束当前的activity
      */
     public void toNext(Context context, Class<?> next,boolean isKill){
-        Intent intentNext= new Intent(context,next);
-        context.startActivity(intentNext);
-        if(isKill)
+        home.toNext(context,next,isKill);
+    }
+
+    public void setDateTime(){
+        if(getViewInterface()!=null)
         {
-            ((Activity)context).finish();
+            getViewInterface().updateDate(home.getDate(),home.getDay());
         }
     }
 }

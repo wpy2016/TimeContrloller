@@ -3,24 +3,16 @@ package com.wpy.faxianbei.sk.activity.register.view;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
 import android.support.v4.view.ViewPager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +21,6 @@ import com.throrinstudio.android.common.libs.validator.Validate;
 import com.throrinstudio.android.common.libs.validator.validator.EmailValidator;
 import com.throrinstudio.android.common.libs.validator.validator.NotEmptyValidator;
 import com.wpy.faxianbei.sk.R;
-import com.wpy.faxianbei.sk.activity.base.ClipActivity;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
 import com.wpy.faxianbei.sk.activity.clip.presenter.ClipPresenter;
 import com.wpy.faxianbei.sk.activity.clip.view.IviewClip;
@@ -40,13 +31,11 @@ import com.wpy.faxianbei.sk.adapter.RegisterLoginPagerAdaper;
 import com.wpy.faxianbei.sk.application.SKApplication;
 import com.wpy.faxianbei.sk.ui.CircleIndicator;
 import com.wpy.faxianbei.sk.ui.anim.DepthPageTransformer;
-import com.wpy.faxianbei.sk.utils.general.FileUtil;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -89,7 +78,7 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
 
     //以当前时间的毫秒数当做文件名，设置好的图片的路径
     private String photoname = System.currentTimeMillis() + ".png";
-    private String mPath;  //要找的图片路径
+    private String mPath="";  //要找的图片路径
 
     private final static int PHOTOBYGALLERY = 0;//从相册获取照片
 
@@ -101,14 +90,7 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
     private static int PHOTOCROP = 3;//图片裁剪
 
 
-    /**
-     * popupwindow里的控件
-     */
-    private TextView mTxtGallery;
 
-    private TextView mTxtTack;
-
-    private TextView mCancel;
 
 
     @Override

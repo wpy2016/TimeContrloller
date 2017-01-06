@@ -1,9 +1,18 @@
 package com.wpy.faxianbei.sk.entity;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Parcel;
 
 import com.avos.avoscloud.AVClassName;
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVFile;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.GetDataCallback;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 
 /**
  * Created by peiyuwang on 17-1-2.
@@ -64,5 +73,12 @@ public class SkUser extends AVUser {
     }
     public String getMajor(){
         return getString("major");
+    }
+    public void setHead(String fileName,String path) throws FileNotFoundException {
+        put("headimg",AVFile.withAbsoluteLocalPath(fileName,path));
+    }
+    public AVFile getHeadImg(){
+        AVFile headimg = (AVFile) get("headimg");
+        return headimg;
     }
 }

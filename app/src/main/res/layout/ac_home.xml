@@ -4,6 +4,7 @@
     android:id="@+id/ac_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:baselineAligned="false"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -11,128 +12,155 @@
         android:layout_height="0dp"
         android:layout_weight="3">
 
+
         <ImageView
             android:id="@+id/id_ac_home_iv_startorclose"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
+            android:layout_width="233dp"
+            android:layout_height="233dp"
             android:layout_centerInParent="true"
             android:scaleType="fitXY"
             android:src="@drawable/center" />
+
+        <ImageView
+            android:layout_width="184dp"
+            android:layout_height="40dp"
+            android:layout_above="@id/id_ac_home_iv_startorclose"
+            android:layout_marginBottom="10dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/study"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:layout_width="194dp"
+            android:layout_height="12dp"
+            android:layout_above="@id/id_ac_home_iv_startorclose"
+            android:layout_marginBottom="65dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/timecontrol"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/id_ac_home_tv_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:textColor="#067e47"
+            android:textSize="25sp"
+            android:text="2017.01.01"
+            android:layout_below="@id/id_ac_home_iv_startorclose"/>
+
+        <TextView
+            android:id="@+id/id_ac_home_tv_day"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:textSize="25sp"
+            android:textColor="#70d76f"
+            android:text="星期一"
+            android:layout_below="@id/id_ac_home_tv_time"/>
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1.3"
+        android:layout_weight="1.1"
+        android:paddingLeft="25dp"
+        android:paddingRight="25dp"
         android:gravity="center_horizontal">
 
         <LinearLayout
             android:id="@+id/id_ac_home_ll_my"
-            android:layout_width="40dp"
-            android:layout_marginRight="50dp"
+            android:layout_width="wrap_content"
+            android:layout_marginRight="35dp"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/id_ac_home_iv_my"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="45dp"
+                android:layout_height="49dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
                 android:src="@drawable/my" />
 
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="#000000" />
+                android:src="@drawable/my_word" />
 
 
         </LinearLayout>
-
         <LinearLayout
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/id_ac_home_ll_lock"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="35dp"
             android:gravity="center_vertical"
             android:orientation="vertical">
-
             <ImageView
                 android:id="@+id/id_ac_home_iv_lock"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="52dp"
+                android:layout_height="51dp"
                 android:layout_gravity="center_vertical"
                 android:scaleType="fitXY"
                 android:src="@drawable/clock" />
-
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="37dp"
+                android:layout_height="14dp"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="#000000" />
-
-
+                android:src="@drawable/time_word" />
         </LinearLayout>
-
         <LinearLayout
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:id="@+id/id_ac_home_ll_statistics"
-            android:layout_marginRight="50dp"
+            android:layout_marginRight="35dp"
             android:orientation="vertical">
-
-
             <ImageView
                 android:id="@+id/id_ac_home_iv_statistics"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="53dp"
+                android:layout_height="53dp"
                 android:layout_gravity="center_vertical"
                 android:scaleType="fitXY"
                 android:src="@drawable/statistics" />
-
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="33dp"
+                android:layout_height="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="#000000" />
-
-
+                android:src="@drawable/statistics_word" />
         </LinearLayout>
-
         <LinearLayout
-            android:layout_width="40dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:id="@+id/id_ac_home_ll_setting"
             android:orientation="vertical">
-
             <ImageView
                 android:id="@+id/id_ac_home_iv_setting"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:layout_gravity="center_vertical"
                 android:scaleType="fitXY"
                 android:src="@drawable/setting" />
-
             <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="33dp"
+                android:layout_height="15dp"
                 android:layout_marginTop="10dp"
                 android:layout_gravity="center_horizontal"
                 android:scaleType="fitXY"
-                android:src="#000000" />
-
-
+                android:src="@drawable/setting_word" />
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

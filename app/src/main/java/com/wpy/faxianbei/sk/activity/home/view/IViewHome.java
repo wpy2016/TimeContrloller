@@ -8,7 +8,5 @@ import com.wpy.faxianbei.sk.activity.base.OnSuccessOrFail;
  */
 
 public interface IViewHome  extends OnSuccessOrFail{
-
-
-    
+    public void updateDate(String date,String day);
 }

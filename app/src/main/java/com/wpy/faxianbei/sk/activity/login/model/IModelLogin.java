@@ -5,4 +5,6 @@ package com.wpy.faxianbei.sk.activity.login.model;
  */
 
 public interface IModelLogin {
+
+    public void Login(String id,String pass);
 }

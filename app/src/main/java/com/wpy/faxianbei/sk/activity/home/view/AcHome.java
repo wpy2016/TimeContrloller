@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVUser;
@@ -24,7 +25,6 @@ import butterknife.BindView;
 
 @ContentView(R.layout.ac_home)
 public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements IViewHome {
-
     @ViewInject(R.id.id_ac_home_iv_my)
     ImageView mIvMy;
     @ViewInject(R.id.id_ac_home_iv_lock)
@@ -44,9 +44,14 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
     LinearLayout mLlSetting;
     @ViewInject(R.id.id_ac_home_iv_startorclose)
     ImageView mIvStartorclose;
+    @ViewInject(R.id.id_ac_home_tv_time)
+    TextView mtvTime;
+    @ViewInject(R.id.id_ac_home_tv_day)
+    TextView mtvDay;
 
 
     private Context mContext;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +65,28 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
     @Override
     public PresenterHome createPresenter() {
         return new PresenterHome();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.setDateTime();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
     }
 
     @Override
@@ -83,7 +110,7 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
     }
 
     @Event(value = {R.id.id_ac_home_ll_my, R.id.id_ac_home_ll_lock,
-            R.id.id_ac_home_ll_statistics, R.id.id_ac_home_ll_setting,R.id.id_ac_home_iv_startorclose})
+            R.id.id_ac_home_ll_statistics, R.id.id_ac_home_ll_setting, R.id.id_ac_home_iv_startorclose})
     private void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_ac_home_ll_my:
@@ -103,5 +130,12 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
 
                 break;
         }
+    }
+
+
+    @Override
+    public void updateDate(String date, String day) {
+        mtvDay.setText(day);
+        mtvTime.setText(date);
     }
 }
