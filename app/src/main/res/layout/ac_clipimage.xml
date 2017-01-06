@@ -5,7 +5,7 @@
     android:background="#000000"
     android:orientation="vertical">
 
-    <com.tyb.xd.utils.clip_image.ClipImageLayout
+    <com.wpy.faxianbei.sk.ui.clip.ClipImageLayout
         android:id="@+id/id_ac_clipimage_clipimagelayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"

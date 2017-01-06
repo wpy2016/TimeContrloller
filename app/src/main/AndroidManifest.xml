@@ -56,10 +56,6 @@
 
         <service android:name=".service.LockInBackGroundService1" />
         <service android:name=".service.LockInBackGroundService2" />
-
-        <activity
-            android:name=".activity.login.view.AcLogin"
-            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.register.view.AcRegister"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -68,7 +64,9 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.my.view.AcMy"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".activity.base.ClipActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
