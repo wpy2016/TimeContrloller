@@ -1,11 +1,22 @@
 package com.wpy.faxianbei.sk.activity.home.presenter;
 import android.content.Context;
+import android.os.Handler;
+import android.widget.Toast;
 
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVUser;
+import com.wpy.faxianbei.sk.activity.base.BaseAsycTask;
 import com.wpy.faxianbei.sk.activity.base.BasePresenter;
+import com.wpy.faxianbei.sk.activity.base.OnSuccessOrFail;
 import com.wpy.faxianbei.sk.activity.home.model.IModelHome;
 import com.wpy.faxianbei.sk.activity.home.model.ModelImplHome;
 import com.wpy.faxianbei.sk.activity.home.view.IViewHome;
+import com.wpy.faxianbei.sk.activity.my.view.AcMy;
+import com.wpy.faxianbei.sk.activity.register.view.AcRegister;
+import com.wpy.faxianbei.sk.application.SKApplication;
+import com.wpy.faxianbei.sk.entity.SkUser;
+import com.wpy.faxianbei.sk.utils.lock.ErrorUtilTencent;
 
 
 /**
@@ -52,5 +63,47 @@ public class PresenterHome extends BasePresenter<IViewHome> {
         {
             getViewInterface().updateDate(home.getDate(),home.getDay());
         }
+    }
+
+    public void toMyOrRegister(final Context context){
+        if (AVUser.getCurrentUser() != null) {
+            if(SKApplication.isLogin)
+            {
+                toNext(context, AcMy.class, false);
+            }else{
+                new BaseAsycTask<String,String,String,OnSuccessOrFail>(getViewInterface(),new ErrorUtilTencent()){
+
+                    @Override
+                    protected void onPreExecute() {
+
+                    }
+
+                    @Override
+                    protected void onPostExecute(String s) {
+                        if(s!=null)
+                        {
+                            getViewInterface().onFail(s);
+                        }
+                    }
+
+                    @Override
+                    protected String doInBackground(String... strings) {
+                        String error=null;
+                        try {
+                            AVUser.getCurrentUser().fetch();
+                            SKApplication.isLogin=true;
+                            toNext(context, AcMy.class, false);
+                        } catch (final AVException e) {
+                            error = errorUtil.getErrorString(e.getCode(),e.getMessage());
+                        }
+                        return error;
+                    }
+                }.execute();
+            }
+
+        } else {
+            toNext(context, AcRegister.class, false);
+        }
+
     }
 }

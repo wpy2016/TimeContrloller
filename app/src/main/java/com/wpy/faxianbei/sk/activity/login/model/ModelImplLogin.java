@@ -9,6 +9,7 @@ import com.avos.avoscloud.AVUser;
 import com.wpy.faxianbei.sk.activity.base.BaseAsycTask;
 import com.wpy.faxianbei.sk.activity.base.OnSuccessOrFail;
 import com.wpy.faxianbei.sk.activity.login.view.IViewLogin;
+import com.wpy.faxianbei.sk.application.SKApplication;
 import com.wpy.faxianbei.sk.entity.Lessions;
 import com.wpy.faxianbei.sk.entity.Lesson;
 import com.wpy.faxianbei.sk.entity.LessonTable;

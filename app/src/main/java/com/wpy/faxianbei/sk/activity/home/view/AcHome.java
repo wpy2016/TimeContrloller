@@ -2,11 +2,14 @@ package com.wpy.faxianbei.sk.activity.home.view;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVUser;
 import com.wpy.faxianbei.sk.R;
@@ -14,6 +17,8 @@ import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
 import com.wpy.faxianbei.sk.activity.home.presenter.PresenterHome;
 import com.wpy.faxianbei.sk.activity.my.view.AcMy;
 import com.wpy.faxianbei.sk.activity.register.view.AcRegister;
+import com.wpy.faxianbei.sk.application.SKApplication;
+import com.wpy.faxianbei.sk.utils.lock.ErrorUtilTencent;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -106,6 +111,7 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
 
     @Override
     public void onFail(String message) {
+        Toast.makeText(mContext,message,Toast.LENGTH_SHORT).show();
 
     }
 
@@ -114,11 +120,7 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
     private void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_ac_home_ll_my:
-                if (AVUser.getCurrentUser() != null) {
-                    mPresenter.toNext(mContext, AcMy.class, false);
-                } else {
-                    mPresenter.toNext(mContext, AcRegister.class, false);
-                }
+                mPresenter.toMyOrRegister(mContext);
                 break;
             case R.id.id_ac_home_ll_lock:
                 break;

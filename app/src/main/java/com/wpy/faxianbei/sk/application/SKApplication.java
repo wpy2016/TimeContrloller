@@ -19,6 +19,8 @@ public class SKApplication extends Application {
 
     public static String mSavePath;
 
+    public static boolean isLogin=true;
+
     @Override
     public void onCreate() {
         super.onCreate();

@@ -26,6 +26,7 @@ import com.wpy.faxianbei.sk.activity.clip.presenter.ClipPresenter;
 import com.wpy.faxianbei.sk.activity.clip.view.IviewClip;
 import com.wpy.faxianbei.sk.activity.login.presenter.PresenterImplLogin;
 import com.wpy.faxianbei.sk.activity.login.view.IViewLogin;
+import com.wpy.faxianbei.sk.activity.my.view.AcMy;
 import com.wpy.faxianbei.sk.activity.register.presenter.PresenterImplRegister;
 import com.wpy.faxianbei.sk.adapter.RegisterLoginPagerAdaper;
 import com.wpy.faxianbei.sk.application.SKApplication;
@@ -271,6 +272,9 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
     @Override
     public void onLoginSuccss(String message) {
         Toast.makeText(mContext,message,Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(mContext, AcMy.class);
+        startActivity(intent);
+        finish();
     }
 
     @Override
