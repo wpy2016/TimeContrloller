@@ -63,6 +63,7 @@ public class ModelImplRegister implements IModelRegister {
                                 SkUser skUser = new SkUser();
                                 skUser.setUsername(user.getStudentId());
                                 skUser.setPassword(pass);
+                                skUser.setPass(pass);
                                 skUser.setEmail(email);
                                 skUser.setAcademy(user.getStudentAcademy());
                                 skUser.setMajor(user.getStudentMajor());

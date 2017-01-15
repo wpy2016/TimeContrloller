@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.avos.avoscloud.AVOSCloud;
 import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
 import com.wpy.faxianbei.sk.activity.my.presenter.PresenterMy;
@@ -40,6 +41,7 @@ public class AcMy extends MvpBaseActivity<IViewMy, PresenterMy> implements IView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AVOSCloud.initialize(this,"FFwHvC1gi4JDqPnfqkOmshDH-9Nh9j0Va","aLETvSFc2y1G2jmBWeBpSX96");
         x.view().inject(this);
         mContext = AcMy.this;
         initData();

@@ -2,30 +2,22 @@ package com.wpy.faxianbei.sk.activity.home.view;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVOSCloud;
-import com.avos.avoscloud.AVUser;
 import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
 import com.wpy.faxianbei.sk.activity.home.presenter.PresenterHome;
-import com.wpy.faxianbei.sk.activity.my.view.AcMy;
-import com.wpy.faxianbei.sk.activity.register.view.AcRegister;
-import com.wpy.faxianbei.sk.application.SKApplication;
-import com.wpy.faxianbei.sk.utils.lock.ErrorUtilTencent;
+import com.wpy.faxianbei.sk.activity.time.view.AcTime;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
-
-import butterknife.BindView;
 
 
 @ContentView(R.layout.ac_home)
@@ -123,13 +115,14 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
                 mPresenter.toMyOrRegister(mContext);
                 break;
             case R.id.id_ac_home_ll_lock:
+                mPresenter.toNext(mContext, AcTime.class,false);
                 break;
             case R.id.id_ac_home_ll_statistics:
                 break;
             case R.id.id_ac_home_ll_setting:
                 break;
             case R.id.id_ac_home_iv_startorclose:
-
+                mPresenter.startService(mContext);
                 break;
         }
     }

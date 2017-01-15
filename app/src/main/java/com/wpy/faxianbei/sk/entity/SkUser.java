@@ -53,6 +53,13 @@ public class SkUser extends AVUser {
     public void setMajor(String major){
         put("major",major);
     }
+    public void setPass(String pass){
+        put("pass",pass);
+    }
+
+    public String getPass(){
+        return getString("pass");
+    }
     public String getSchoolId(){
         return getUsername();
     }

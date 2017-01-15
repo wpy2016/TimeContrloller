@@ -1,5 +1,4 @@
 package com.wpy.faxianbei.sk.activity.register.view;
-
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +14,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.avos.avoscloud.AVOSCloud;
 import com.throrinstudio.android.common.libs.validator.Form;
 import com.throrinstudio.android.common.libs.validator.Validate;
 import com.throrinstudio.android.common.libs.validator.validator.EmailValidator;
@@ -32,11 +31,9 @@ import com.wpy.faxianbei.sk.adapter.RegisterLoginPagerAdaper;
 import com.wpy.faxianbei.sk.application.SKApplication;
 import com.wpy.faxianbei.sk.ui.CircleIndicator;
 import com.wpy.faxianbei.sk.ui.anim.DepthPageTransformer;
-
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,6 +94,7 @@ public class AcRegister extends MvpBaseActivity<IViewRegister, PresenterImplRegi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AVOSCloud.initialize(this,"FFwHvC1gi4JDqPnfqkOmshDH-9Nh9j0Va","aLETvSFc2y1G2jmBWeBpSX96");
         //login Presenter
         mPresenterLogin = new PresenterImplLogin();
         mPresenterLogin.attachView(this);
