@@ -6,4 +6,7 @@
     <string name="setting">设置</string>
     <string name="iknow">我知道了</string>
     <string name="leftswipe">右划关闭哦</string>
+    <string name="title_activity_ac_setting">AcSetting</string>
+    <string name="title_activity_ac_black_and_white">AcBlackAndWhite</string>
+    <string name="title_activity_ac_situation">AcSituation</string>
 </resources>

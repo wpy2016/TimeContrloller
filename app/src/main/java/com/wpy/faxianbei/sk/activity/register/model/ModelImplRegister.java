@@ -6,7 +6,6 @@ import com.avos.avoscloud.SignUpCallback;
 import com.wpy.faxianbei.sk.activity.base.BaseAsycTask;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
 import com.wpy.faxianbei.sk.activity.base.OnSuccessOrFail;
-import com.wpy.faxianbei.sk.activity.register.view.IViewRegister;
 import com.wpy.faxianbei.sk.entity.SkUser;
 import com.wpy.faxianbei.sk.entity.StuUser;
 import com.wpy.faxianbei.sk.utils.cqu.Crawler;

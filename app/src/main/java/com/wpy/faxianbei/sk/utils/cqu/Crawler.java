@@ -1,11 +1,4 @@
 package com.wpy.faxianbei.sk.utils.cqu;
-
-import com.google.gson.Gson;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
-
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -19,8 +12,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+import com.google.gson.Gson;
 public class Crawler {
 
 	/*
@@ -33,8 +28,8 @@ public class Crawler {
 	 * 2BW4kOWPtydcPuaVmeW4iFw8L29wdGlvblw%
 	 * 2BClw8b3B0aW9uIHZhbHVlPSdTWVMnIHVzcklEPSfluJDlj7cnXD7nrqHnkIbkurrlkZhcPC9vcHRpb25cPgpcPG9wdGlvbiB2YWx1ZT0nQURNJyB1c3JJRD0n5biQ5Y
 	 * %2B3J1w%2B6Zeo5oi357u05oqk5ZGYXDwvb3B0aW9uXD4KOz4%2BOzs%2BOz4%2BOz4%2BOz4
-	 * %2BOz7p2B9lkx%2BYq%2Fjf62i%2BiqicmZx%2Fxg%3D%3D 
-	 * 2.__VIEWSTATEGENERATOR=CAA0A5A7 
+	 * %2BOz7p2B9lkx%2BYq%2Fjf62i%2BiqicmZx%2Fxg%3D%3D
+	 * 2.__VIEWSTATEGENERATOR=CAA0A5A7
 	 * 3. Sel_Type=STU (用户类别) 4.
 	 * txt_dsdsdsdjkjkjc=******** (学号) 5. txt_dsdfdfgfouyy=****** (密码) 6.
 	 * txt_ysdsdsdskgf= 7. pcInfo= 8. typeName= 9. aerererdsdxcxdfgfg=
@@ -49,7 +44,7 @@ public class Crawler {
 	String pcInfo;
 	String typeName;
 	String aerererdsdxcxdfgfg;
-	
+
 	// String md5Encrypted = "";
 
 	static String sURL = "http://202.202.1.176:8080/_data/index_login.aspx";
@@ -59,6 +54,7 @@ public class Crawler {
 	static String inforURL = "http://202.202.1.176:8080/xsxj/Stu_MyInfo_RPT.aspx";
 
 	static String responseCookie;
+	static String responseASP_NET_SessionId;
 
 	Map<String, Object> mapFinal = new HashMap<String, Object>();
 	String md5Path = "./js/md5.js";
@@ -112,12 +108,20 @@ public class Crawler {
 			// 取到所用的Cookie
 			responseCookie = connection.getHeaderField("Set-Cookie");
 
+			responseASP_NET_SessionId = connection.getHeaderFields().toString().
+					substring(connection.getHeaderFields().
+							toString().indexOf("SessionId")+10).
+					substring(0,connection.getHeaderFields().toString()
+							.substring(connection.getHeaderFields().
+									toString().indexOf("SessionId")+10).indexOf(";"));
+
 			// 取返回的页面
 			String line = bufferedReader.readLine();
 			while (line != null) {
 				stringBuilder.append(line);
 				line = bufferedReader.readLine();
 			}
+			String lines=stringBuffer.toString();
 
 		} catch (IOException e) {
 			System.out.println("连接失败");
@@ -155,7 +159,7 @@ public class Crawler {
 
 			if (responseCookie != null) {
 				// 发送cookie信息上去，以表明自己的身份，否则会被认为没有权限
-				resumeConnection.setRequestProperty("Cookie", responseCookie);
+				resumeConnection.setRequestProperty("Cookie", "ASP.NET_SessionId=" + responseASP_NET_SessionId+ ";" + responseCookie.split(";"));
 			}
 
 			resumeConnection.connect();
@@ -182,63 +186,6 @@ public class Crawler {
 		return result;
 	}
 
-	/*
-	 * 参数1 academicYear 学年 2016代表2016学年 参数2 学期 0代表第一学期 1代表第二学期
-	 */
-/*	public String getlessonScoresHtml(String academicYear, String term) throws Exception {
-
-		StringBuilder stringBuilder = new StringBuilder();
-		StringBuffer stringBuffer = new StringBuffer();
-		URL lessonScoresUrl;
-		try {
-			lessonScoresUrl = new URL(vURL);
-			HttpURLConnection resumeConnection = (HttpURLConnection) lessonScoresUrl.openConnection();
-
-			resumeConnection.setDoInput(true);
-			resumeConnection.setDoOutput(true);
-			resumeConnection.setRequestMethod("POST");
-
-			String parameter = academicYear + term;
-
-			// 学年 学期 原始成绩 检索 按学期 主修/辅修
-			stringBuffer.append("sel_xn=" + academicYear);
-			stringBuffer.append("&sel_xq=" + term);
-			stringBuffer.append("&SJ=" + "0");
-			stringBuffer.append("&btn_search=" + "检索");
-			stringBuffer.append("&SelXNXQ=" + "2");
-			stringBuffer.append("&zfx_flag=" + "0");
-			stringBuffer.append("&zxf=" + "0");
-			resumeConnection.setRequestProperty("Content-Length", String.valueOf(stringBuffer.toString().length()));
-
-			if (responseCookie != null) {
-				// 发送cookie信息上去，以表明自己的身份，否则会被认为没有权限
-				resumeConnection.setRequestProperty("Cookie", responseCookie);
-			}
-
-			resumeConnection.connect();
-			OutputStream outputStream = resumeConnection.getOutputStream();
-
-			outputStream.write(stringBuffer.toString().getBytes());
-			outputStream.close();
-
-			BufferedReader bufferedReader = new BufferedReader(
-					new InputStreamReader(resumeConnection.getInputStream(), "gb2312"));
-
-			// 取返回的页面
-			String line = bufferedReader.readLine();
-			while (line != null) {
-				stringBuilder.append(line);
-				line = bufferedReader.readLine();
-			}
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (ProtocolException e) {
-			e.printStackTrace();
-		}
-
-		return stringBuilder.toString();
-	}
-*/
 	public String getStuInforHtml() throws Exception {
 
 		StringBuilder stringBuilder = new StringBuilder();
@@ -254,7 +201,10 @@ public class Crawler {
 
 			if (responseCookie != null) {
 				// 发送cookie信息上去，以表明自己的身份，否则会被认为没有权限
-				resumeConnection.setRequestProperty("Cookie", responseCookie);
+				// resumeConnection.setRequestProperty("Cookie", responseCookie);
+				resumeConnection.setRequestProperty("Cookie", "ASP.NET_SessionId=" + responseASP_NET_SessionId+ ";" + responseCookie.split(";"));
+
+
 			}
 
 			resumeConnection.connect();
@@ -273,7 +223,9 @@ public class Crawler {
 				line = bufferedReader.readLine();
 			}
 		} catch (MalformedURLException e) {
+			e.printStackTrace();
 		} catch (ProtocolException e) {
+			e.printStackTrace();
 		}
 
 		String result = parserStuIforHtml(stringBuilder.toString());
@@ -414,7 +366,7 @@ public class Crawler {
 
 		Gson gson = new Gson();
 		String result = gson.toJson(mapInfor);
-		
+
 		return result.toString();
 	}
 
@@ -427,7 +379,7 @@ public class Crawler {
 		List listClassExperiments = new ArrayList<>();
 		ArrayList listItem = new ArrayList();
 		mapLesson.putAll(mapFinal);
-		
+
 		listClassLessons = (List) mapLesson.get("lessons");
 		listClassExperiments = (List) mapLesson.get("experiments");
 
@@ -440,7 +392,7 @@ public class Crawler {
 			int containCheckIndex = 0;
 			mapTest = (Map<String, Object>) listClassLessons.get(i);
 			String weekNum = mapTest.get("week").toString();
-			
+
 			// mapTest.remove("week");
 			if (weekNum.contains(",") || weekNum.contains("-")) {
 				String[] weekNumSpilt = weekNum.split("\\,");
@@ -505,36 +457,36 @@ public class Crawler {
 		mapLesson.putAll(mapFinal);
 		listClassLessons = (List) mapLesson.get("lessons");
 		listClassExperiments = (List) mapLesson.get("experiments");
-		
+
 		String dayNumCheck = "";
 		switch (day) {
-		case 1:
-			dayNumCheck = "一";
-			break;
-		case 2:
-			dayNumCheck = "二";
-			break;
-		case 3:
-			dayNumCheck = "三";
-			break;
-		case 4:
-			dayNumCheck = "四";
-			break;
-		case 5:
-			dayNumCheck = "五";
-			break;
-		case 6:
-			dayNumCheck = "六";
-			break;
-		case 7:
-			dayNumCheck = "日";
-			break;
-		default:
-			dayNumCheck = "一";
-			break;
+			case 1:
+				dayNumCheck = "一";
+				break;
+			case 2:
+				dayNumCheck = "二";
+				break;
+			case 3:
+				dayNumCheck = "三";
+				break;
+			case 4:
+				dayNumCheck = "四";
+				break;
+			case 5:
+				dayNumCheck = "五";
+				break;
+			case 6:
+				dayNumCheck = "六";
+				break;
+			case 7:
+				dayNumCheck = "日";
+				break;
+			default:
+				dayNumCheck = "一";
+				break;
 
 		}
-		
+
 
 		for (int i = 0; i < listClassLessons.size(); i++) {
 			int[] containCheck = new int[20];
@@ -546,7 +498,7 @@ public class Crawler {
 			mapTest = (Map<String, Object>) listClassLessons.get(i);
 			String weekNum = mapTest.get("week").toString();
 			String dayNum = mapTest.get("day").toString();
-			
+
 			// mapTest.remove("week");
 			if (dayNum.equals(dayNumCheck)) {
 				if (weekNum.contains(",") || weekNum.contains("-")) {
@@ -584,7 +536,7 @@ public class Crawler {
 		}
 		if (listClassExperiments != null) {
 			for (int i = 0; i < listClassExperiments.size(); i++) {
-				
+
 				int[] containCheck = new int[20];
 				for (int in = 0; in < containCheck.length; in++) {
 					containCheck[in] = 0;
@@ -605,21 +557,6 @@ public class Crawler {
 		String result = gson.toJson(listItem);
 		return result;
 	}
-
-
-/*	public String parserHtml(String htmlString) {
-		Document docHtml = Jsoup.parse(htmlString);
-		Element lessons = docHtml.select("TABLE").get(1);
-
-		Document doc = Jsoup.parse(lessons.html());
-
-		Elements lesson = doc.select("tbody>tr");
-
-		System.out.println("ddd " + lesson.size());
-
-		return null;
-	}
-*/
 	public Crawler() {
 	}
 }

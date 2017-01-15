@@ -12,6 +12,7 @@ import com.avos.avoscloud.AVOSCloud;
 import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
 import com.wpy.faxianbei.sk.activity.home.presenter.PresenterHome;
+import com.wpy.faxianbei.sk.activity.setting.view.AcSetting;
 import com.wpy.faxianbei.sk.activity.time.view.AcTime;
 
 import org.xutils.view.annotation.ContentView;
@@ -118,8 +119,10 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
                 mPresenter.toNext(mContext, AcTime.class,false);
                 break;
             case R.id.id_ac_home_ll_statistics:
+//                mPresenter.toNext(mContext,);
                 break;
             case R.id.id_ac_home_ll_setting:
+                mPresenter.toNext(mContext, AcSetting.class,false);
                 break;
             case R.id.id_ac_home_iv_startorclose:
                 mPresenter.startService(mContext);
