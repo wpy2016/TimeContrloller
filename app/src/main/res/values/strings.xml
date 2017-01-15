@@ -9,4 +9,6 @@
     <string name="title_activity_ac_setting">AcSetting</string>
     <string name="title_activity_ac_black_and_white">AcBlackAndWhite</string>
     <string name="title_activity_ac_situation">AcSituation</string>
+    <string name="title_activity_ac_statistics">AcStatistics</string>
+    <string name="title_activity_ac_share">AcShare</string>
 </resources>

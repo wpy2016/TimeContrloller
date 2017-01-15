@@ -94,12 +94,20 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.blackandwhite.view.AcBlackAndWhite"
-         android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.situation.view.AcSituation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.statistics.view.AcStatistics"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.share.view.AcShare"
             android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>

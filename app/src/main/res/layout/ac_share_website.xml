@@ -5,38 +5,52 @@
     android:orientation="vertical"
     android:background="@drawable/bg_share_web">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="300dp"
         android:layout_height="400dp"
         android:background="@drawable/share_plane"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"/>
+        android:layout_marginTop="50dp">
+
+        <ImageView
+            android:id="@+id/id_ac_share_iv_screenshot"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:layout_marginRight="13dp"
+            android:layout_marginBottom="16dp"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="30dp">
 
         <ImageView
+            android:id="@+id/id_ac_share_iv_weibo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/sinablog"
             android:layout_weight="1"/>
 
         <ImageView
+            android:id="@+id/id_ac_share_iv_qq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/qq"
             android:layout_weight="1"/>
 
         <ImageView
+            android:id="@+id/id_ac_share_iv_weixin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/wechat"
             android:layout_weight="1"/>
 
         <ImageView
+            android:id="@+id/id_ac_share_iv_download"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/download"

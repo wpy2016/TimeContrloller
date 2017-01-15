@@ -40,14 +40,12 @@ public class ImageTools {
     }
 
     public static void saveBitmapToSDCard(Bitmap bitmap, String path) {
-
         if (checkSDCardIsAvailable()) {
             File file = new File(path);
             if (!file.exists())
                 try {
                     file.createNewFile();
                 } catch (IOException e) {
-                    e.printStackTrace();
                 }
             FileOutputStream fileOutputStream = null;
             try {
@@ -60,9 +58,7 @@ public class ImageTools {
                 if (fileOutputStream != null)
                     fileOutputStream.close();
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();
             } finally {
             }
         }

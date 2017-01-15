@@ -41,7 +41,7 @@ public class LockInBackGroundService1 extends Service {
         remoteViews.setTextViewText(R.id.notification_tv_classroom,"D1314");
         remoteViews.setTextViewText(R.id.notification_tv_time,"3-4节");
         remoteViews.setTextViewText(R.id.notification_tv_grade,""+95);
-        remoteViews.setImageViewResource(R.id.notification_iv_img,R.mipmap.ic_launcher);
+        remoteViews.setImageViewResource(R.id.notification_iv_img,R.drawable.logo);
         Notification notification = builder.setContent(remoteViews)
                 .setSmallIcon(R.mipmap.ic_launcher)
         .setContentIntent(pendingIntent).build();
@@ -57,7 +57,7 @@ public class LockInBackGroundService1 extends Service {
                 remoteViews.setTextViewText(R.id.notification_tv_classroom,"Ds1501");
                 remoteViews.setTextViewText(R.id.notification_tv_time,"8-9节");
                 remoteViews.setTextViewText(R.id.notification_tv_grade,""+95);
-                remoteViews.setImageViewResource(R.id.notification_iv_img,R.mipmap.ic_launcher);
+                remoteViews.setImageViewResource(R.id.notification_iv_img,R.drawable.logo);
                 Notification notification = builder.setContent(remoteViews)
                         .setSmallIcon(R.mipmap.ic_launcher)
                         .setContentIntent(pendingIntent).build();
