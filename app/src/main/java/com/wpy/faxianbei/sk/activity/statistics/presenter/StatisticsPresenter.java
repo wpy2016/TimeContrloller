@@ -58,5 +58,8 @@ public class StatisticsPresenter extends BasePresenter<IViewStatistics> implemen
         }
     }
 
+    public void setTime(){
+        getViewInterface().setTime(mModelStatistics.getDate());
+    }
 
 }

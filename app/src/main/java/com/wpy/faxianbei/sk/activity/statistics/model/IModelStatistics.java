@@ -8,5 +8,6 @@ import android.content.Context;
 
 public interface IModelStatistics {
     public void loadDate();
+    public String getDate();
     public String screenShot(Context context);
 }

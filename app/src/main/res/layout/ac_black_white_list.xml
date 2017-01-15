@@ -1,55 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <RelativeLayout
+    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+   >
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/black_list"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp">
+        android:layout_height="250dp">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:text="黑名单"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="#fffdfd"/>
+            android:layout_height="250dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/black_list">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/test_black"
-            android:layout_marginTop="30dp"/>
+            <TextView
+                android:id="@+id/tv_getNonSysb"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:drawableRight="@drawable/add_bww"
+                android:text="黑名单 "
+                android:textColor="#fffdfd"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
-    </RelativeLayout>
 
-    <RelativeLayout
+            <!--numColumns设置每行显示多少个-->
+            <GridView
+                android:id="@+id/grid_black"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:layout_marginTop="25dp"
+                android:paddingTop="8dp"
+                android:paddingBottom="10dp"
+                android:numColumns="5"
+                android:stretchMode="columnWidth" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/white_list"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="20dp">
+        android:layout_height="250dp"
+        android:layout_marginTop="10dp">
 
-        <TextView
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:text="白名单"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:textColor="#fffdfd"/>
+            android:layout_height="250dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/white_list">
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/test_white"
-            android:layout_marginTop="30dp"/>
+            <TextView
+                android:id="@+id/tv_getNonSysw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:drawableRight="@drawable/add_bww"
+                android:text="白名单 "
+                android:textColor="#fffdfd"
+                android:textSize="14sp"
+                android:textStyle="bold" />
 
-    </RelativeLayout>
+            <!--numColumns设置每行显示多少个-->
+            <GridView
+                android:id="@+id/grid_white"
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:numColumns="5"
+                android:paddingTop="8dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="20dp"
+                android:stretchMode="columnWidth" />
 
+        </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

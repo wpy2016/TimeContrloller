@@ -84,6 +84,15 @@ public class ViewHolder {
         return this;
     }
 
+    /**
+     * 为ImageView设置图片
+     */
+    public ViewHolder setImageDrawer(int viewId, Drawable drawable) {
+        ImageView view = getView(viewId);
+        view.setImageDrawable(drawable);
+        return this;
+    }
+
     public int getPosition() {
         return mPosition;
     }

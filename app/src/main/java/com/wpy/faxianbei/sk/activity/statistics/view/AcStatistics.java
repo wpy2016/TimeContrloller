@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.jn.chart.charts.LineChart;
@@ -32,6 +33,8 @@ public class AcStatistics extends MvpBaseActivity<IViewStatistics, StatisticsPre
 
     @ViewInject(R.id.lineChart)
     private LineChart mLineChart;
+    @ViewInject(R.id.id_ac_statistics_tv_time)
+    private TextView mtvTime;
 
     @ViewInject(R.id.id_ac_statistics_iv_screenshot)
     private ImageView mivScreenShot;
@@ -42,6 +45,7 @@ public class AcStatistics extends MvpBaseActivity<IViewStatistics, StatisticsPre
         super.onCreate(savedInstanceState);
         x.view().inject(this);
         mContext = AcStatistics.this;
+        mPresenter.setTime();
         initMychart();
         initEvent();
         mPresenter.loadDate();
@@ -120,5 +124,10 @@ public class AcStatistics extends MvpBaseActivity<IViewStatistics, StatisticsPre
         }else{
             Toast.makeText(mContext,"截屏出错",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public void setTime(String time) {
+        mtvTime.setText(time);
     }
 }

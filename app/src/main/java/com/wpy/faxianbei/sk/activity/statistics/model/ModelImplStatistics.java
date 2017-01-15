@@ -12,7 +12,9 @@ import com.wpy.faxianbei.sk.utils.general.FileUtil;
 import com.wpy.faxianbei.sk.utils.general.ImageTools;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by peiyuwang on 17-1-15.
@@ -74,6 +76,15 @@ public class ModelImplStatistics implements IModelStatistics {
             ImageTools.saveBitmapToSDCard(bmp,path);
         }
         return path;
+    }
+
+    @Override
+    public String getDate()
+    {
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy.MM.dd");
+        Date date=new Date(System.currentTimeMillis());
+        String time = simpleDateFormat.format(date);
+        return time;
     }
 
     public interface loadResult{

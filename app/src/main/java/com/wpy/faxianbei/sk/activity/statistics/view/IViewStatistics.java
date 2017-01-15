@@ -12,4 +12,5 @@ import java.util.ArrayList;
 public interface IViewStatistics extends OnSuccessOrFail{
     public void loadSuccess(ArrayList<String> x, ArrayList<Entry> y1, ArrayList<Entry> y2);
     public void screenShot(String path);
+    public void setTime(String time);
 }
