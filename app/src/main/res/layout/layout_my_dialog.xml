@@ -10,11 +10,14 @@
         android:id="@+id/lv"
         android:layout_width="match_parent"
         android:layout_height="450dp"
+        android:layout_marginTop="15dp"
         android:divider="@null" />
 
     <ImageView
         android:id="@+id/iv_bwok"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
         android:src="@drawable/add_time_ok" />
 </LinearLayout>

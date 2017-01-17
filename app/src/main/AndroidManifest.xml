@@ -106,6 +106,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.share.view.AcShare"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".activity.coursetable.view.AcCourseTable"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"></activity>
     </application>
