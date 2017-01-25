@@ -30,15 +30,6 @@
     </item>
     <item
         is-multidex="true"
-        jar="/home/peiyuwang/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/avoscloud-sdk/v3.15.6/2eed0a2e9e379494186bf98fed3770de5d39a7b5/avoscloud-sdk-v3.15.6.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="25.0.1"
-        sha1="2eed0a2e9e379494186bf98fed3770de5d39a7b5">
-        <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/avoscloud-sdk-v3.15.6_888ce8cefff72602a3642f0d510d5881da1fbf08/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
         jar="/home/peiyuwang/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.1/support-annotations-25.0.1.jar"
         jumboMode="true"
         optimize="true"
@@ -106,7 +97,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="9b8304d3b4dc86243de8a7712c7dc8d8d67b72be">
+        sha1="cd09799eb76020276780261aa81a7f97e5892489">
         <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run_33e2258f56a21f494afddbb784f95ea668c2339f/classes.dex" />
     </item>
     <item
@@ -133,7 +124,7 @@
         jumboMode="true"
         optimize="true"
         revision="25.0.1"
-        sha1="7bb5710a29f5f130a4c3a7bc433ce0e50a18900b">
+        sha1="1e00a1a8c5d81f1d6354a5f8b964dec1bb77ea18">
         <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/instant-run-bootstrap_14d9ba024ae26a837dbd5ac15e758e8b3d119e11/classes.dex" />
     </item>
     <item
@@ -153,6 +144,15 @@
         revision="25.0.1"
         sha1="94d4ebd4acdaf01d7445435382eea2d2d38e7534">
         <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/fastjson-1.1.39-leancloud_3630153bc13f0b1968bf03f2d8c088c17a13f635/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/peiyuwang/Coding/SK/app/libs/realm-android-0.86.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="36a845e6311c7cac5308562cf61e9ffcebbf532b">
+        <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/2/realm-android-0.86.1_3e92c9f60ab63f7e7cb641e7a8405072016b3741/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -216,6 +216,15 @@
         revision="25.0.1"
         sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
         <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/com.android.support-animated-vector-drawable-25.0.1_a009304076dfa7900aae09dfcf406a5940c2010a/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/home/peiyuwang/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/avoscloud-sdk/v3.15.9/5b5dcbe06f4c84ce3cc47d4da5acc96b89ee4b5e/avoscloud-sdk-v3.15.9.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="25.0.1"
+        sha1="5b5dcbe06f4c84ce3cc47d4da5acc96b89ee4b5e">
+        <dex dex="/home/peiyuwang/Coding/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/avoscloud-sdk-v3.15.9_f629a1ea36ff4e6815dc53f7921582406298b935/classes.dex" />
     </item>
     <item
         is-multidex="true"
