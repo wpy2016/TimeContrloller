@@ -44,7 +44,7 @@ public class AcTime extends Activity {
             case R.id.id_ac_time_iv_add_course:
                 /*****************************2**********************************/
                 if (AVUser.getCurrentUser() == null) {
-                    toNext(AcCourseTable.class);
+                    toNext(AcRegister.class);
                 } else {
                     toNext(AcCourseTable.class);
                 }

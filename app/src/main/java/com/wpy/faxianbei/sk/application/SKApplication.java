@@ -11,6 +11,9 @@ import com.wpy.faxianbei.sk.entity.LessonTable;
 import com.wpy.faxianbei.sk.entity.SkUser;
 import com.wpy.faxianbei.sk.entity.Teacher;
 
+import org.xutils.DbManager;
+import org.xutils.x;
+
 /**
  * Created by peiyuwang on 17-1-2.
  */
@@ -20,6 +23,12 @@ public class SKApplication extends Application {
     public static String mSavePath;
 
     public static boolean isLogin=true;
+
+
+    public static DbManager mDbManager;
+
+    public static DbManager.DaoConfig mDbConfig;
+
 
     @Override
     public void onCreate() {
@@ -31,6 +40,41 @@ public class SKApplication extends Application {
         AVOSCloud.initialize(this,"FFwHvC1gi4JDqPnfqkOmshDH-9Nh9j0Va","aLETvSFc2y1G2jmBWeBpSX96");
         //图片保存路径
         mSavePath = getExternalFilesDir(null).getAbsolutePath();
+        initDb();
+    }
+
+    private void initDb() {
+        //初始化xutils
+        x.Ext.init(this);
+        //设置可以debug
+        x.Ext.setDebug(true);
+        mDbConfig = new DbManager.DaoConfig()
+                .setDbName("test")
+                .setAllowTransaction(true)
+                .setDbVersion(1)
+                .setDbUpgradeListener(new DbManager.DbUpgradeListener() {
+                    @Override
+                    public void onUpgrade(DbManager dbManager, int i, int i1) {
+                        //执行更新的操作
+                    }
+                });
+
+        mDbManager = x.getDb(mDbConfig);
+    }
+
+    /**
+     * 返回本地数据库管理者
+     * @return xutil本地数据库管理
+     */
+    public static DbManager getDbManager(){
+        if(mDbManager==null)
+        {
+            if(mDbConfig!=null)
+            {
+                mDbManager=x.getDb(mDbConfig);
+            }
+        }
+        return mDbManager;
     }
 
 

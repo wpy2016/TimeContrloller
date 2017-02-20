@@ -16,8 +16,8 @@ public class SemesterPicker extends LinearLayout {
     private Context mContext;
     private ArrayList<String> mListYear;
     private ArrayList<String> mListSemester;
-    private String mYears;
-    private String mSemester;
+    private String mYears="2016-2017";
+    private String mSemester="第一学期";
     private WheelView.OnSelectListener mSemesterListener = new WheelView.OnSelectListener() {
         @Override
         public void endSelect(int semester, String text) {
@@ -62,7 +62,9 @@ public class SemesterPicker extends LinearLayout {
     protected void onFinishInflate() {
         super.onFinishInflate();
         mContext = getContext();
+        //第二个参数就是父布局，所以返回的view就直接在该LinearLayout中了，所以layout_id中的布局就在LinearLayout中了
         LayoutInflater.from(mContext).inflate(layout_id, this);
+        //findViewById就是在该布局中查找的
         mWheelSemester = (WheelView) findViewById(R.id.wheel_semester);
         mWheelYears = (WheelView) findViewById(R.id.wheel_years);
         mWheelSemester.setOnSelectListener(mSemesterListener);
@@ -81,9 +83,6 @@ public class SemesterPicker extends LinearLayout {
         ArrayList<String> list=new ArrayList<String>();
         list.add("2015-2016");
         list.add("2016-2017");
-        list.add("2017-2018");
-        list.add("2018-2019");
-        list.add("2019-2020");
         return list;
     }
 

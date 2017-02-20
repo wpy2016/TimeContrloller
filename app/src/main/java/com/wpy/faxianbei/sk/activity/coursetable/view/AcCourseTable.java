@@ -1,23 +1,26 @@
 package com.wpy.faxianbei.sk.activity.coursetable.view;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.wpy.faxianbei.sk.R;
-
+import com.wpy.faxianbei.sk.activity.addcourse.view.AcAddCourse;
+import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
+import com.wpy.faxianbei.sk.activity.coursetable.presenter.PresenterCourseTable;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-import butterknife.OnClick;
 
 @ContentView(R.layout.ac_course_table)
-public class AcCourseTable extends Activity {
+public class AcCourseTable extends MvpBaseActivity<IViewCourseTable,PresenterCourseTable> implements IViewCourseTable {
     @ViewInject(R.id.id_ac_coursetable_tv_semester)
     TextView mtvSemester;
     @ViewInject(R.id.id_ac_coursetable_iv_add_semester)
@@ -150,22 +153,100 @@ public class AcCourseTable extends Activity {
     TextView mtvCourseTable76;
     @ViewInject(R.id.id_ac_coursetable_ll_73)
     LinearLayout mllCourseTable73;
+    private Object dataFromInternet;
+    private Context mContext;
+    private int year=2016;
+    private int semester=0;
 
+    int[] color={Color.parseColor("#B2DFEE"),Color.parseColor("#54FF9F"),Color.parseColor("#DDA0DD"),
+            Color.parseColor("#EEA9B8"),Color.parseColor("#C2C2C2"),Color.parseColor("#9F79EE"),
+            Color.parseColor("#1E90FF")};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
+        mContext=AcCourseTable.this;
+        mPresenter.getDateFormInternet(year,semester);
+        setData(1);
+    }
+
+    private void setData(int week) {
+        mtvWeek.setText("第 "+week+" 周");
+       for(int i=1;i<8;i++)
+        {
+         for(int j=1;j<7;j++)
+         {
+             String lesson = mPresenter.getLesson(i,j,week,year,semester);
+             TextView textView = mPresenter.getTextView(i,j,this);
+             textView.setBackgroundColor(Color.WHITE);
+             if(!lesson.equals(""))
+             {
+                 textView.setBackgroundColor(color[i-1]);
+                 textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
+             }
+             textView.setText(lesson);
+         }
+        }
     }
 
     @Event(value = {R.id.id_ac_coursetable_tv_semester, R.id.id_ac_coursetable_iv_add_semester, R.id.id_ac_coursetable_tv_week})
     private void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_ac_coursetable_tv_semester:
+                mPresenter.showSemester(this,mtvWeek);
                 break;
             case R.id.id_ac_coursetable_iv_add_semester:
+                toNext(AcAddCourse.class);
                 break;
             case R.id.id_ac_coursetable_tv_week:
+                mPresenter.showPup(this,mtvWeek);
                 break;
         }
+    }
+
+    public void toNext(Class<?> next) {
+        Intent intent = new Intent(mContext, next);
+        startActivity(intent);
+    }
+
+
+    @Override
+    public PresenterCourseTable createPresenter() {
+        return new PresenterCourseTable();
+    }
+
+
+    @Override
+    public void setWeek(int week) {
+        setData(week);
+    }
+
+    @Override
+    public void setYeayAndSemester(int year, int semester,String message) {
+        mtvSemester.setText(message);
+        this.year=year;
+        this.semester = semester;
+        mPresenter.getDateFormInternet(year,semester);
+        setData(1);
+    }
+
+    @Override
+    public void showProgress() {
+        showProgress();
+    }
+
+    @Override
+    public void dimissProgress() {
+        dimissProgress();
+    }
+
+    @Override
+    public void onSuccess(String message) {
+
+    }
+
+    @Override
+    public void onFail(String message) {
+
     }
 }

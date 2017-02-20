@@ -33,7 +33,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:text="大三 第二学期"
+                    android:text="2016-2017 第一学期"
                     android:textColor="#898989"
                     android:textSize="15sp" />
 
