@@ -1,6 +1,7 @@
 package com.wpy.faxianbei.sk.activity.coursetable.model;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.TextView;
 
 /**
@@ -13,4 +14,5 @@ public interface IModelCourseTable {
     String getTime(int raw);
     void getDataFromInternet(int year,int semester);
     TextView getTextView(int column, int raw, Object ac);
+    String getCurrentSemester(Context context);
 }

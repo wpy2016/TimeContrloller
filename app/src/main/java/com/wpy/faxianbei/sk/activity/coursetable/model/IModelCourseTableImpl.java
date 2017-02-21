@@ -1,6 +1,7 @@
 package com.wpy.faxianbei.sk.activity.coursetable.model;
 
 import android.app.Activity;
+import android.content.Context;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
@@ -14,6 +15,7 @@ import com.wpy.faxianbei.sk.entity.LessonTable;
 import com.wpy.faxianbei.sk.entity.SkUser;
 import com.wpy.faxianbei.sk.entity.Teacher;
 import com.wpy.faxianbei.sk.entity.db.CourseTable;
+import com.wpy.faxianbei.sk.utils.save.sharepreference.SharePreferenceUtil;
 
 import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
@@ -175,5 +177,10 @@ public class IModelCourseTableImpl implements IModelCourseTable {
         } catch (IllegalAccessException e) {
         }
         return textView;
+    }
+
+    @Override
+    public String getCurrentSemester(Context context) {
+        return SharePreferenceUtil.instantiation.getSemester(context);
     }
 }

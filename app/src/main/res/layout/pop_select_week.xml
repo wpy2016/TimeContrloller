@@ -17,7 +17,28 @@
         android:layout_height="150dp"
         android:layout_width="match_parent"
         style="@style/wheelViewStyle" />
+<LinearLayout
+    android:layout_width="match_parent"
+    android:gravity="center_horizontal"
+    android:layout_height="35dp"
+    android:orientation="horizontal">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:text="当前周是:"
+        android:textSize="15sp"/>
 
+    <EditText
+        android:id="@+id/id_pop_select_week_et_week"
+        android:layout_width="80dp"
+        android:layout_height="35dp"
+        android:inputType="number"
+        android:gravity="center"
+        android:background="@null"
+        android:textSize="15sp"/>
+</LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"

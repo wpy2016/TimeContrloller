@@ -9,10 +9,14 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.addcourse.view.AcAddCourse;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
 import com.wpy.faxianbei.sk.activity.coursetable.presenter.PresenterCourseTable;
+import com.wpy.faxianbei.sk.utils.save.sharepreference.SharePreferenceUtil;
+
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
@@ -157,7 +161,7 @@ public class AcCourseTable extends MvpBaseActivity<IViewCourseTable,PresenterCou
     private Context mContext;
     private int year=2016;
     private int semester=0;
-
+    int currentweek=1;
     int[] color={Color.parseColor("#B2DFEE"),Color.parseColor("#54FF9F"),Color.parseColor("#DDA0DD"),
             Color.parseColor("#EEA9B8"),Color.parseColor("#C2C2C2"),Color.parseColor("#9F79EE"),
             Color.parseColor("#1E90FF")};
@@ -167,7 +171,7 @@ public class AcCourseTable extends MvpBaseActivity<IViewCourseTable,PresenterCou
         x.view().inject(this);
         mContext=AcCourseTable.this;
         mPresenter.getDateFormInternet(year,semester);
-        setData(1);
+        mPresenter.initDate(mContext);
     }
 
     private void setData(int week) {
@@ -193,13 +197,13 @@ public class AcCourseTable extends MvpBaseActivity<IViewCourseTable,PresenterCou
     private void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_ac_coursetable_tv_semester:
-                mPresenter.showSemester(this,mtvWeek);
+                mPresenter.showSemester(mContext,mtvWeek);
                 break;
             case R.id.id_ac_coursetable_iv_add_semester:
                 toNext(AcAddCourse.class);
                 break;
             case R.id.id_ac_coursetable_tv_week:
-                mPresenter.showPup(this,mtvWeek);
+                mPresenter.showPup(mContext,mtvWeek);
                 break;
         }
     }
@@ -224,10 +228,12 @@ public class AcCourseTable extends MvpBaseActivity<IViewCourseTable,PresenterCou
     @Override
     public void setYeayAndSemester(int year, int semester,String message) {
         mtvSemester.setText(message);
+        SharePreferenceUtil.instantiation.saveCurrentSemester(mContext,message);
         this.year=year;
         this.semester = semester;
         mPresenter.getDateFormInternet(year,semester);
-        setData(1);
+        currentweek = (int) Math.ceil((double)((System.currentTimeMillis()-Long.parseLong(SharePreferenceUtil.instantiation.getWeek(mContext)))/(1000*60*60*24*7.0)));
+        setData(currentweek);
     }
 
     @Override

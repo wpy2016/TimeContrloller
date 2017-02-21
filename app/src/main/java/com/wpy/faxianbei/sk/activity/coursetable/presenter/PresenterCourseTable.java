@@ -65,5 +65,9 @@ public class PresenterCourseTable extends BasePresenter<IViewCourseTable> implem
         getViewInterface().setYeayAndSemester(ModelImplPupCourse.getYear(message),ModelImplPupCourse.getSemester(message),message);
     }
 
+    public void initDate(Context context){
+       selectSuccess(modelCourseTable.getCurrentSemester(context));
+    }
+
 
 }
