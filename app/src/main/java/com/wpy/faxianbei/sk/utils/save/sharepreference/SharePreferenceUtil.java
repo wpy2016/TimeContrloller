@@ -37,7 +37,7 @@ public enum  SharePreferenceUtil {
 
     public String getSemester(Context context){
         SharedPreferences semester = context.getSharedPreferences("semester", Context.MODE_APPEND);
-     return semester.getString("semester","2016-2017 第一学期");
+     return semester.getString("semester","2016-2017 第二学期");
     }
 
 }

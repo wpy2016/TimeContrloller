@@ -52,12 +52,16 @@ public class AcShare extends Activity {
             case R.id.id_ac_share_iv_screenshot:
                 break;
             case R.id.id_ac_share_iv_weibo:
+                Toast.makeText(mContext,"暂时不支持分享哦",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.id_ac_share_iv_qq:
+                Toast.makeText(mContext,"暂时不支持分享哦",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.id_ac_share_iv_weixin:
+                Toast.makeText(mContext,"暂时不支持分享哦",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.id_ac_share_iv_download:
+                Toast.makeText(mContext,"已经下载成功",Toast.LENGTH_SHORT).show();
                 break;
         }
     }

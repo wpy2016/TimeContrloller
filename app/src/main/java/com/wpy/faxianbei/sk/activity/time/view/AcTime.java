@@ -13,6 +13,7 @@ import com.wpy.faxianbei.sk.activity.addcourse.view.AcAddCourse;
 import com.wpy.faxianbei.sk.activity.addtime.view.AcAddTime;
 import com.wpy.faxianbei.sk.activity.coursetable.view.AcCourseTable;
 import com.wpy.faxianbei.sk.activity.register.view.AcRegister;
+import com.wpy.faxianbei.sk.activity.timelist.view.AcTimeList;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -50,7 +51,7 @@ public class AcTime extends Activity {
                 }
                 break;
             case R.id.id_ac_time_iv_add_time:
-                toNext(AcAddTime.class);
+                toNext(AcTimeList.class);
                 break;
         }
     }

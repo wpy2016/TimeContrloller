@@ -110,8 +110,12 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.coursetable.view.AcCourseTable"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".activity.timelist.view.AcTimeList"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
+
     </application>
 
 </manifest>

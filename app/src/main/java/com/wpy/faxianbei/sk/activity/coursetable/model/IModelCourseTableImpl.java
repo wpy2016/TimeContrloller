@@ -37,22 +37,26 @@ public class IModelCourseTableImpl implements IModelCourseTable {
             List<CourseTable> list = SKApplication.getDbManager().selector(CourseTable.class).where(
                     WhereBuilder.b().and("stuid","=", SkUser.getCurrentUser(SkUser.class).getSchoolId()).and("semester","=",""+semester)
                             .and("year","=",""+year).and("time","=",getTime(raw)).and("day","=",getDay(column))).findAll();
-            for(CourseTable courseTable:list)
+            if(list!=null&&!list.isEmpty())
             {
-                String[] split = courseTable.getWeeks()
-                        .replace("[", "")
-                        .replace("]", "")
-                        .replace(" ","")
-                        .split(",");
-                for(String s:split)
+                for(CourseTable courseTable:list)
                 {
-                    if(s.equals(week+""))
+                    String[] split = courseTable.getWeeks()
+                            .replace("[", "")
+                            .replace("]", "")
+                            .replace(" ","")
+                            .split(",");
+                    for(String s:split)
                     {
-                        lesson = courseTable.getCourse();
+                        if(s.equals(week+""))
+                        {
+                            lesson = courseTable.getCourse();
+                        }
                     }
-                }
 
+                }
             }
+
         } catch (DbException e) {
 
         }

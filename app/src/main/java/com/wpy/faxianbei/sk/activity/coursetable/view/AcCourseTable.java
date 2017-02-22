@@ -160,7 +160,7 @@ public class AcCourseTable extends MvpBaseActivity<IViewCourseTable,PresenterCou
     private Object dataFromInternet;
     private Context mContext;
     private int year=2016;
-    private int semester=0;
+    private int semester=1;
     int currentweek=1;
     int[] color={Color.parseColor("#B2DFEE"),Color.parseColor("#54FF9F"),Color.parseColor("#DDA0DD"),
             Color.parseColor("#EEA9B8"),Color.parseColor("#C2C2C2"),Color.parseColor("#9F79EE"),

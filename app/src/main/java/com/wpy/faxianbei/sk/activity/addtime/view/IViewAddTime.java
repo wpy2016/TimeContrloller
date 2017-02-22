@@ -5,4 +5,5 @@ package com.wpy.faxianbei.sk.activity.addtime.view;
  */
 
 public interface IViewAddTime {
+    public void selectTimeSuccess(String time,int type);
 }
