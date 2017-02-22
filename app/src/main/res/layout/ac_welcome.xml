@@ -1,11 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/ac_welcome"
+    android:id="@+id/ac_home"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <ImageView
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="#00ffff"/>
+        android:layout_height="wrap_content">
+
+
+        <ImageView
+            android:id="@+id/id_ac_welcome_iv1"
+            android:layout_width="233dp"
+            android:layout_height="233dp"
+            android:layout_centerInParent="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/center" />
+        <ImageView
+            android:id="@+id/id_ac_welcome_iv2"
+            android:layout_width="194dp"
+            android:layout_height="12dp"
+            android:layout_below="@id/id_ac_welcome_iv1"
+            android:layout_marginTop="80dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/timecontrol"
+            android:layout_centerHorizontal="true" />
+        <ImageView
+            android:layout_width="184dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/id_ac_welcome_iv2"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/study"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
 </RelativeLayout>
