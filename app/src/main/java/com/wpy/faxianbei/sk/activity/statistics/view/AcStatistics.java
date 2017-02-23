@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -18,7 +17,6 @@ import com.jn.chart.data.Entry;
 import com.jn.chart.manager.LineChartManager;
 import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
-import com.wpy.faxianbei.sk.activity.setting.view.AcSetting;
 import com.wpy.faxianbei.sk.activity.share.view.AcShare;
 import com.wpy.faxianbei.sk.activity.statistics.presenter.StatisticsPresenter;
 
@@ -28,14 +26,21 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+
 @ContentView(R.layout.ac_statistics)
 public class AcStatistics extends MvpBaseActivity<IViewStatistics, StatisticsPresenter> implements IViewStatistics {
 
+    @ViewInject(R.id.id_ac_statistics_tv_needtolock)
+    TextView mtvNeedtolock;
+    @ViewInject(R.id.id_ac_statistics_tv_lock)
+    TextView mtvLock;
+    @ViewInject(R.id.id_ac_statistics_tv_effciency)
+    TextView mtvEffciency;
     @ViewInject(R.id.lineChart)
     private LineChart mLineChart;
     @ViewInject(R.id.id_ac_statistics_tv_time)
     private TextView mtvTime;
-
     @ViewInject(R.id.id_ac_statistics_iv_screenshot)
     private ImageView mivScreenShot;
     Context mContext;
@@ -49,6 +54,15 @@ public class AcStatistics extends MvpBaseActivity<IViewStatistics, StatisticsPre
         initMychart();
         initEvent();
         mPresenter.loadDate();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mPresenter.setNeedtoLock(mContext);
+        mPresenter.setLock(mContext);
+        mPresenter.setEffiency(mContext);
     }
 
     private void initEvent() {
@@ -83,7 +97,6 @@ public class AcStatistics extends MvpBaseActivity<IViewStatistics, StatisticsPre
         ya.setTextColor(Color.rgb(150, 150, 150));
         //设置折线的名称
         LineChartManager.setLineName("应锁屏");
-
         LineChartManager.setLineName1("实际锁屏");
 
     }
@@ -116,18 +129,51 @@ public class AcStatistics extends MvpBaseActivity<IViewStatistics, StatisticsPre
 
     @Override
     public void screenShot(String path) {
-        if(path!=null&&!path.isEmpty())
-        {
-            Intent intent=new Intent(mContext, AcShare.class);
-            intent.putExtra("imgpath",path);
+        if (path != null && !path.isEmpty()) {
+            Intent intent = new Intent(mContext, AcShare.class);
+            intent.putExtra("imgpath", path);
             startActivity(intent);
-        }else{
-            Toast.makeText(mContext,"截屏出错",Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(mContext, "截屏出错", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void setTime(String time) {
         mtvTime.setText(time);
+    }
+
+    @Override
+    public void setNeedToLock(float needtolock) {
+        if((needtolock+"").length()>3)
+        {
+            mtvNeedtolock.setText((""+needtolock).substring(0,4)+"h");
+        }else{
+            mtvNeedtolock.setText((""+needtolock)+"h");
+        }
+
+    }
+
+    @Override
+    public void setLock(float lock) {
+        if((lock+"").length()>3)
+        {
+            mtvLock.setText((""+lock).substring(0,4)+"h");
+        }else {
+            mtvLock.setText((""+lock)+"h");
+        }
+
+    }
+
+    @Override
+    public void setEffiency(float effiency) {
+        String streffiency=""+effiency;
+        if(streffiency.length()>3)
+        {
+            mtvEffciency.setText((effiency+"").substring(0,4)+"%");
+        }else {
+            mtvEffciency.setText((effiency+"")+"%");
+        }
+
     }
 }

@@ -3,7 +3,6 @@ package com.wpy.faxianbei.sk.activity.statistics.presenter;
 import android.content.Context;
 
 import com.jn.chart.data.Entry;
-import com.jn.chart.manager.LineChartManager;
 import com.wpy.faxianbei.sk.activity.base.BasePresenter;
 import com.wpy.faxianbei.sk.activity.statistics.model.IModelStatistics;
 import com.wpy.faxianbei.sk.activity.statistics.model.ModelImplStatistics;
@@ -59,7 +58,32 @@ public class StatisticsPresenter extends BasePresenter<IViewStatistics> implemen
     }
 
     public void setTime(){
-        getViewInterface().setTime(mModelStatistics.getDate());
+        if(getViewInterface()!=null)
+        {
+            getViewInterface().setTime(mModelStatistics.getDate());
+        }
+
+    }
+
+    public void setNeedtoLock(Context context){
+        if(getViewInterface()!=null)
+        {
+            getViewInterface().setNeedToLock(mModelStatistics.calcuNeedToLock(context));
+        }
+    }
+
+    public void setLock(Context context){
+        if(getViewInterface()!=null)
+        {
+            getViewInterface().setLock(mModelStatistics.calcuNeedToLock(context)-mModelStatistics.getOpenTime());
+        }
+    }
+
+    public void setEffiency(Context context){
+        if(getViewInterface()!=null)
+        {
+            getViewInterface().setEffiency(mModelStatistics.getEffiency(context));
+        }
     }
 
 }

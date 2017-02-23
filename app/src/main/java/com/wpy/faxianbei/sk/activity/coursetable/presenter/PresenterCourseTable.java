@@ -69,5 +69,9 @@ public class PresenterCourseTable extends BasePresenter<IViewCourseTable> implem
        selectSuccess(modelCourseTable.getCurrentSemester(context));
     }
 
+    public int getCurrentWeek(Context context){
+        return modelCourseTable.getCurrentWeek(context);
+    }
+
 
 }

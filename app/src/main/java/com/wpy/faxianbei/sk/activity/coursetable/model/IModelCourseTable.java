@@ -15,4 +15,5 @@ public interface IModelCourseTable {
     void getDataFromInternet(int year,int semester);
     TextView getTextView(int column, int raw, Object ac);
     String getCurrentSemester(Context context);
+    int getCurrentWeek(Context context);
 }

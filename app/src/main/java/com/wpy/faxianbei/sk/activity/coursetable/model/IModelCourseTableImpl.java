@@ -187,4 +187,9 @@ public class IModelCourseTableImpl implements IModelCourseTable {
     public String getCurrentSemester(Context context) {
         return SharePreferenceUtil.instantiation.getSemester(context);
     }
+
+    @Override
+    public int getCurrentWeek(Context context) {
+        return (int) Math.ceil((double)((System.currentTimeMillis()-Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context)))/(1000*60*60*24*7.0)));
+    }
 }

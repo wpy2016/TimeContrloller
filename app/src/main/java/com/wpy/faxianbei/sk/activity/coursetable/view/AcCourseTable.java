@@ -232,7 +232,7 @@ public class AcCourseTable extends MvpBaseActivity<IViewCourseTable,PresenterCou
         this.year=year;
         this.semester = semester;
         mPresenter.getDateFormInternet(year,semester);
-        currentweek = (int) Math.ceil((double)((System.currentTimeMillis()-Long.parseLong(SharePreferenceUtil.instantiation.getWeek(mContext)))/(1000*60*60*24*7.0)));
+        currentweek = mPresenter.getCurrentWeek(mContext);
         setData(currentweek);
     }
 
