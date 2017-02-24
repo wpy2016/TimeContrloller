@@ -149,15 +149,16 @@ public class ModelImplStatistics implements IModelStatistics {
             if(list==null||list.isEmpty())
             {}else{
                 int week=getCurrentWeek(context);
-                for(CourseTable courseTable:list)
+                for(int i=0;i<list.size()/2;i++)
                 {
-                    String[] split = courseTable.getWeeks()
+                    String[] split = list.get(i).getWeeks()
                             .replace("[", "")
                             .replace("]", "")
                             .replace(" ","")
                             .split(",");
                     for(String s:split)
                     {
+                       String sss = list.get(i).getCourse();
                         if(s.equals(week+""))
                         {
                             sum+=90*60*1000;
@@ -166,9 +167,7 @@ public class ModelImplStatistics implements IModelStatistics {
 
                 }
             }
-
         } catch (Exception e) {
-
         }
         return sum;
     }

@@ -7,11 +7,19 @@ import android.content.Context;
  */
 
 public interface IModelStatistics {
-     void loadDate();
-     String getDate();
-     String screenShot(Context context);
-     float calcuNeedToLock(Context context);
-     float calcuMinutes(Context context);
+
+    void loadDate();
+
+    String getDate();
+
+    String screenShot(Context context);
+
+    float calcuNeedToLock(Context context);
+
+    float calcuMinutes(Context context);
+
     float getEffiency(Context context);
-     float getOpenTime();
+
+    float getOpenTime();
+
 }
