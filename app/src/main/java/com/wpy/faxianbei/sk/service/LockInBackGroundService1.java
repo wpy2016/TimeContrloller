@@ -5,18 +5,13 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.util.Log;
 import android.widget.RemoteViews;
-import android.widget.Toast;
 
 import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.addcourse.model.ModelImplPupCourse;
@@ -25,6 +20,7 @@ import com.wpy.faxianbei.sk.application.SKApplication;
 import com.wpy.faxianbei.sk.entity.SkUser;
 import com.wpy.faxianbei.sk.entity.db.CourseTable;
 import com.wpy.faxianbei.sk.entity.db.TimeItem;
+import com.wpy.faxianbei.sk.entity.db.openRecord;
 import com.wpy.faxianbei.sk.utils.save.sharepreference.SharePreferenceUtil;
 
 import org.xutils.db.sqlite.WhereBuilder;
@@ -51,7 +47,6 @@ public class LockInBackGroundService1 extends Service {
     @Override
     public void onCreate() {
         calcuThread=new CalcuThread();
-        calcuThread.start();
         new Thread(){
             boolean lock=false;
             @RequiresApi(api = Build.VERSION_CODES.N)
@@ -138,6 +133,7 @@ public class LockInBackGroundService1 extends Service {
                                     LockInBackGroundService1.this.startActivity(intentTOMain);
                                 }
                             });
+                        calcuThread.start();
                     }
                 } catch (Exception e) {
                 }
@@ -148,13 +144,13 @@ public class LockInBackGroundService1 extends Service {
 
     private class CalcuThread extends Thread{
         //当屏幕已经关闭的时候，就可以关闭线程了
-        boolean go=true;
-        long openTime=0l;
+       private boolean go=true;
+      private   long openTime=0l;
         @Override
         public void run() {
             PowerManager manager = (PowerManager) LockInBackGroundService1.this.getSystemService(Context.POWER_SERVICE);
             while (go) {
-                openTime+=1;
+                openTime+=1000;
                 try {
                     sleep(1000);
                 } catch (InterruptedException e) {
@@ -163,9 +159,26 @@ public class LockInBackGroundService1 extends Service {
                 } else {
                     go=false;
                     //将记录的数据保存起来
-                    
+                    Date date=new Date(System.currentTimeMillis());
+                    openRecord openRecord=new openRecord();
+                    openRecord.setDay(date.getDay()+"");
+                    openRecord.setYear(date.getYear()+"");
+                    openRecord.setMonth(date.getMonth()+"");
+                    openRecord.setMinute(date.getMinutes()+"");
+                    openRecord.setHour(date.getHours()+"");
+                    openRecord.setOpentime(openTime);
+                    openRecord.setType(0+"");
+                    try {
+                        //将记录给保存起来
+                        SKApplication.getDbManager().save(openRecord);
+                    } catch (DbException e) {
+                    }
                 }
             }
+        }
+
+        public long getOpenTime(){
+            return openTime;
         }
 
         public boolean getStatu(){

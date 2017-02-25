@@ -6,16 +6,14 @@ import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.view.View;
-import android.widget.Toast;
 
 import com.jn.chart.data.Entry;
-import com.jn.chart.manager.LineChartManager;
 import com.wpy.faxianbei.sk.activity.addcourse.model.ModelImplPupCourse;
 import com.wpy.faxianbei.sk.application.SKApplication;
 import com.wpy.faxianbei.sk.entity.SkUser;
 import com.wpy.faxianbei.sk.entity.db.CourseTable;
 import com.wpy.faxianbei.sk.entity.db.TimeItem;
-import com.wpy.faxianbei.sk.utils.general.FileUtil;
+import com.wpy.faxianbei.sk.entity.db.openRecord;
 import com.wpy.faxianbei.sk.utils.general.ImageTools;
 import com.wpy.faxianbei.sk.utils.save.sharepreference.SharePreferenceUtil;
 
@@ -26,7 +24,6 @@ import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -38,7 +35,7 @@ public class ModelImplStatistics implements IModelStatistics {
 
     private loadResult mReslutListener;
 
-    private long timeSum=-1l;
+    private long timeSum = -1l;
 
     public ModelImplStatistics(loadResult mReslutListener) {
         this.mReslutListener = mReslutListener;
@@ -109,7 +106,7 @@ public class ModelImplStatistics implements IModelStatistics {
 
     /**
      * 获取当天需要锁频的时间
-     * */
+     */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public long getNeedLockTime(Context context) {
         long sum = 0l;
@@ -138,30 +135,27 @@ public class ModelImplStatistics implements IModelStatistics {
         }
 
         try {
-            int semester =ModelImplPupCourse.getSemester(SharePreferenceUtil.instantiation.getSemester(context));
+            int semester = ModelImplPupCourse.getSemester(SharePreferenceUtil.instantiation.getSemester(context));
             int year = ModelImplPupCourse.getYear(SharePreferenceUtil.instantiation.getSemester(context));
-            Date date=new Date(System.currentTimeMillis());
-            SimpleDateFormat simpleDateFormatDay=new SimpleDateFormat("EEEE");
-            String day=simpleDateFormatDay.format(date);
+            Date date = new Date(System.currentTimeMillis());
+            SimpleDateFormat simpleDateFormatDay = new SimpleDateFormat("EEEE");
+            String day = simpleDateFormatDay.format(date);
             List<CourseTable> list = SKApplication.getDbManager().selector(CourseTable.class).where(
-                    WhereBuilder.b().and("stuid","=", SkUser.getCurrentUser(SkUser.class).getSchoolId()).and("semester","=",""+semester)
-                            .and("year","=",""+year).and("day","=",day.substring(2))).findAll();
-            if(list==null||list.isEmpty())
-            {}else{
-                int week=getCurrentWeek(context);
-                for(int i=0;i<list.size()/2;i++)
-                {
+                    WhereBuilder.b().and("stuid", "=", SkUser.getCurrentUser(SkUser.class).getSchoolId()).and("semester", "=", "" + semester)
+                            .and("year", "=", "" + year).and("day", "=", day.substring(2))).findAll();
+            if (list == null || list.isEmpty()) {
+            } else {
+                int week = getCurrentWeek(context);
+                for (int i = 0; i < list.size() / 2; i++) {
                     String[] split = list.get(i).getWeeks()
                             .replace("[", "")
                             .replace("]", "")
-                            .replace(" ","")
+                            .replace(" ", "")
                             .split(",");
-                    for(String s:split)
-                    {
-                       String sss = list.get(i).getCourse();
-                        if(s.equals(week+""))
-                        {
-                            sum+=90*60*1000;
+                    for (String s : split) {
+                        String sss = list.get(i).getCourse();
+                        if (s.equals(week + "")) {
+                            sum += 90 * 60 * 1000;
                         }
                     }
 
@@ -174,46 +168,54 @@ public class ModelImplStatistics implements IModelStatistics {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public float calcuNeedToLock(Context context){
-        if(timeSum==-1)
-        {
-            timeSum=getNeedLockTime(context);
+    public float calcuNeedToLock(Context context) {
+        if (timeSum == -1) {
+            timeSum = getNeedLockTime(context);
         }
-        return timeSum/(1000.0f*60*60);
+        return timeSum / (1000.0f * 60 * 60);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public float calcuMinutes(Context context){
-        if(timeSum==-1)
-        {
-            timeSum=getNeedLockTime(context);
+    public float calcuMinutes(Context context) {
+        if (timeSum == -1) {
+            timeSum = getNeedLockTime(context);
         }
-        return timeSum/(1000.0f*60);
+        return timeSum / (1000.0f * 60);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public float getEffiency(Context context) {
-        if(timeSum==-1)
-        {
-            timeSum=getNeedLockTime(context);
-        }
-        float needToLock=calcuNeedToLock(context);
-        if((needToLock-getOpenTime())!=0)
-        {
-            return needToLock/(needToLock-getOpenTime())*100;
-        }else {
+        float needToLock = calcuNeedToLock(context);
+        if ((needToLock - getOpenTime()) != 0) {
+            return ((needToLock - getOpenTime()) /needToLock)* 100;
+        } else {
             return 100;
         }
     }
 
     @Override
-    public float getOpenTime(){
+    public float getOpenTime() {
+        long open = 0l;
+        Date date = new Date(System.currentTimeMillis());
+        try {
+            List<openRecord> list = SKApplication.getDbManager().selector(openRecord.class)
+                    .and("year", "=", (date.getYear() + ""))
+                    .and("month", "=", (date.getMonth() + ""))
+                    .and("day", "=", (date.getDay() + "")).findAll();
+            if (list != null && list.isEmpty()) {
+                for (openRecord record : list) {
+                    open += record.getOpentime();
+                }
+            }
+        } catch (DbException e) {
+        }catch(NullPointerException e){
 
-        return 0f;
+        }
+        return open / (1000.0f * 60 * 60);
     }
 
     public int getCurrentWeek(Context context) {
-        return (int) Math.ceil((double)((System.currentTimeMillis()-Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context)))/(1000*60*60*24*7.0)));
+        return (int) Math.ceil((double) ((System.currentTimeMillis() - Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context))) / (1000 * 60 * 60 * 24 * 7.0)));
     }
 }
