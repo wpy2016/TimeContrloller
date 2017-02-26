@@ -21,8 +21,8 @@ public class StatisticsPresenter extends BasePresenter<IViewStatistics> implemen
         this.mModelStatistics = new ModelImplStatistics(this);
     }
 
-    public void loadDate(){
-        mModelStatistics.loadDate();
+    public void loadDate(Context context){
+        mModelStatistics.loadDate(context);
     }
 
 

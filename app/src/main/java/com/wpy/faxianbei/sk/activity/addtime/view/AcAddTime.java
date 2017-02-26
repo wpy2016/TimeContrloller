@@ -15,6 +15,7 @@ import com.wpy.faxianbei.sk.activity.addtime.presenter.PresenterAddTime;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
 import com.wpy.faxianbei.sk.application.SKApplication;
 import com.wpy.faxianbei.sk.entity.db.TimeItem;
+import com.wpy.faxianbei.sk.service.SituationService;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -47,9 +48,6 @@ public class AcAddTime extends MvpBaseActivity<IViewAddTime,PresenterAddTime> im
     private Context mContext;
 
     private int model=2;
-
-    public static final int SHAKE=0;
-    public static final int SLIENT=1;
 
 
     @Override
@@ -92,11 +90,11 @@ public class AcAddTime extends MvpBaseActivity<IViewAddTime,PresenterAddTime> im
                 }
                 break;
             case R.id.id_ac_addtime_iv_slient:
-                model=SLIENT;
+                model= SituationService.SLIENT;
                 Toast.makeText(mContext,"你选择的情景模式为静音",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.id_ac_addtime_iv_shake:
-                model=SHAKE;
+                model=SituationService.SHAKE;
                 Toast.makeText(mContext,"你选择的情景模式为震动",Toast.LENGTH_SHORT).show();
                 break;
         }

@@ -1,6 +1,7 @@
 package com.wpy.faxianbei.sk.activity.home.view;
 
 import android.content.Context;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -20,6 +21,10 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
+import static android.media.AudioManager.RINGER_MODE_NORMAL;
+import static android.media.AudioManager.RINGER_MODE_SILENT;
+import static android.media.AudioManager.RINGER_MODE_VIBRATE;
+
 
 
 @ContentView(R.layout.ac_home)
@@ -126,7 +131,7 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
                 mPresenter.toNext(mContext, AcSetting.class,false);
                 break;
             case R.id.id_ac_home_iv_startorclose:
-                mPresenter.startService(mContext);
+               // mPresenter.startService(mContext);
                 break;
         }
     }

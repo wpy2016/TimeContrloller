@@ -112,10 +112,15 @@
             android:name=".activity.coursetable.view.AcCourseTable"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".activity.timelist.view.AcTimeList"
+        <activity
+            android:name=".activity.timelist.view.AcTimeList"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
 
+        <service
+            android:name=".service.SituationService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

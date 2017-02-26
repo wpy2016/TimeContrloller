@@ -8,7 +8,7 @@ import android.content.Context;
 
 public interface IModelStatistics {
 
-    void loadDate();
+    void loadDate(Context context);
 
     String getDate();
 

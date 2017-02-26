@@ -53,7 +53,7 @@ public class AcStatistics extends MvpBaseActivity<IViewStatistics, StatisticsPre
         mPresenter.setTime();
         initMychart();
         initEvent();
-        mPresenter.loadDate();
+        mPresenter.loadDate(mContext);
     }
 
 
