@@ -131,7 +131,7 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
                 mPresenter.toNext(mContext, AcSetting.class,false);
                 break;
             case R.id.id_ac_home_iv_startorclose:
-               // mPresenter.startService(mContext);
+                mPresenter.startService(mContext);
                 break;
         }
     }

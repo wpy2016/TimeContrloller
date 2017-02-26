@@ -47,7 +47,7 @@ public class AcAddTime extends MvpBaseActivity<IViewAddTime,PresenterAddTime> im
 
     private Context mContext;
 
-    private int model=2;
+    private int model=3;
 
 
     @Override
@@ -73,7 +73,7 @@ public class AcAddTime extends MvpBaseActivity<IViewAddTime,PresenterAddTime> im
                 mPresenter.showPopTime(mContext,mtvEndtime,END);
                 break;
             case R.id.id_ac_addtime_iv_save:
-                if(model==2){
+                if(model==3){
                     Toast.makeText(mContext,"请选择当前时间段的情景模式",Toast.LENGTH_SHORT).show();
                 }else{
                     /**
