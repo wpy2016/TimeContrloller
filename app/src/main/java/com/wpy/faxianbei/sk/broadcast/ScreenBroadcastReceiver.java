@@ -16,16 +16,18 @@ public class ScreenBroadcastReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         String action = intent.getAction();
-        Log.i("receive",action);
         if (Intent.ACTION_SCREEN_ON.equals(action)) {
             // 开屏已经无法开启广播
         } else if (Intent.ACTION_SCREEN_OFF.equals(action)) {
             //关闭屏幕已经无法开启广播
         } else if (Intent.ACTION_USER_PRESENT.equals(action)) {
             //解锁后进行的操作
-
+//            Intent intentTOMain=new Intent(context, com.wpy.faxianbei.sk.activity.lock.LockMain.class);
+//            intentTOMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            context.startActivity(intentTOMain);
             Intent intent1 =new Intent(context, LockInBackGroundService1.class);
             context.startService(intent1);
+            Log.i("ScreenBroadcastReceiver","ScreenBroadcastReceiver");
         }
     }
 }

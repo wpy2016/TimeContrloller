@@ -41,6 +41,10 @@ public class AcMy extends MvpBaseActivity<IViewMy, PresenterMy> implements IView
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.ac_my);
+
+
         AVOSCloud.initialize(this,"FFwHvC1gi4JDqPnfqkOmshDH-9Nh9j0Va","aLETvSFc2y1G2jmBWeBpSX96");
         x.view().inject(this);
         mContext = AcMy.this;

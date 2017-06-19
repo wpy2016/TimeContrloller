@@ -1,5 +1,6 @@
 package com.wpy.faxianbei.sk.ui.clip;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -20,6 +21,7 @@ import android.widget.ImageView;
 /**
  * Created by peiyuWang on 2016/6/23.
  */
+@SuppressLint("AppCompatCustomView")
 public class clipZoomImageView extends ImageView implements
         ScaleGestureDetector.OnScaleGestureListener,
         View.OnTouchListener,
@@ -94,7 +96,6 @@ public class clipZoomImageView extends ImageView implements
                 new GestureDetector.SimpleOnGestureListener() {
                     @Override
                     public boolean onDoubleTap(MotionEvent e) {
-
                         if (mIsScale)
                             return true;
 

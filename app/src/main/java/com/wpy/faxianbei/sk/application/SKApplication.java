@@ -33,14 +33,25 @@ public class SKApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        AVObject.registerSubclass(Lesson.class);
-        AVObject.registerSubclass(Teacher.class);
-        AVObject.registerSubclass(LessonTable.class);
-        AVUser.alwaysUseSubUserClass(SkUser.class);
-        AVOSCloud.initialize(this,"FFwHvC1gi4JDqPnfqkOmshDH-9Nh9j0Va","aLETvSFc2y1G2jmBWeBpSX96");
-        //图片保存路径
-        mSavePath = getExternalFilesDir(null).getAbsolutePath();
-        initDb();
+        AVOSCloud.initialize(SKApplication.this,"FFwHvC1gi4JDqPnfqkOmshDH-9Nh9j0Va","aLETvSFc2y1G2jmBWeBpSX96");
+        doInit();
+    }
+
+
+    //do init in other thread
+    private  void doInit(){
+        new Thread(){
+            @Override
+            public void run() {
+                AVObject.registerSubclass(Lesson.class);
+                AVObject.registerSubclass(Teacher.class);
+                AVObject.registerSubclass(LessonTable.class);
+                AVUser.alwaysUseSubUserClass(SkUser.class);
+                //图片保存路径
+                mSavePath = getExternalFilesDir(null).getAbsolutePath();
+                initDb();
+            }
+        }.start();
     }
 
     private void initDb() {
