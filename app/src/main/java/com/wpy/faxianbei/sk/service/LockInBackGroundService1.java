@@ -41,7 +41,7 @@ import java.util.List;
 
 public class LockInBackGroundService1 extends Service {
 
-    private Handler mhandler=new Handler(){
+    private Handler mhandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -59,7 +59,6 @@ public class LockInBackGroundService1 extends Service {
     @Override
     public void onCreate() {
         calcuThread = new CalcuThread();
-        Log.i("ScreenBroadcastReceiver","service");
     }
 
 
@@ -67,6 +66,10 @@ public class LockInBackGroundService1 extends Service {
         //当屏幕已经关闭的时候，就可以关闭线程了
         private boolean go = true;
         private long openTime = 0l;
+
+        public void reset(){
+            go=true;
+        }
 
         @Override
         public void run() {
@@ -78,22 +81,33 @@ public class LockInBackGroundService1 extends Service {
                 } catch (InterruptedException e) {
                 }
                 if (manager.isScreenOn()) {
+                    //屏幕依然在启动着，不进行任何的操作
+                    Log.i("screen","on");
                 } else {
+                    Log.i("screen","off");
                     go = false;
                     //将记录的数据保存起来
                     Date date = new Date(System.currentTimeMillis());
                     openRecord openRecord = new openRecord();
+                    Log.i("screen day",""+date.getDay());
                     openRecord.setDay(date.getDay() + "");
+                    Log.i("screen year",""+date.getYear());
                     openRecord.setYear(date.getYear() + "");
+                    Log.i("screen month",""+date.getMonth());
                     openRecord.setMonth(date.getMonth() + "");
+                    Log.i("screen min",""+date.getMinutes());
                     openRecord.setMinute(date.getMinutes() + "");
+                    Log.i("screen hour",""+date.getHours());
                     openRecord.setHour(date.getHours() + "");
+                    Log.i("screen opentime",""+openTime);
                     openRecord.setOpentime(openTime);
                     openRecord.setType(0 + "");
                     try {
                         //将记录给保存起来
                         SKApplication.getDbManager().save(openRecord);
+                        Log.i("screen","save success");
                     } catch (DbException e) {
+                        Log.i("screen","save fail");
                     }
                 }
             }
@@ -135,100 +149,117 @@ public class LockInBackGroundService1 extends Service {
         }
     }
 
-    private  void caculate(){
+    private void caculate() {
         new Thread() {
             boolean lock = false;
+
+            boolean isTip = false;
+
+            /**
+             * 判断手动添加的时间段中是否包含现在
+             */
+            private void judgeCurrentTimeIsInMyAddTimeQuantum() throws Exception {
+                List<TimeItem> listtime = SKApplication
+                        .getDbManager()
+                        .selector(TimeItem.class).findAll();
+                if (listtime == null || listtime.isEmpty()) {
+
+                } else {
+                    for (TimeItem timeitem : listtime) {
+                        if (timeitem.getEnd() > System.currentTimeMillis()) {
+                            if (!lock) {
+                                mhandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intentTOMain = new Intent(LockInBackGroundService1.this, com.wpy.faxianbei.sk.activity.lock.LockMain.class);
+                                        intentTOMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        LockInBackGroundService1.this.startActivity(intentTOMain);
+                                    }
+                                });
+                                Log.i("mytime","mytime calcuthread before");
+                                calcuThread.start();
+                            }
+                            lock = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            /**
+             * 获取当前年份、当前学期、当前星期几的所有课程
+             * @return
+             */
+            private List<CourseTable> getCurrentDayLessons() throws Exception {
+                //获取当前的学期
+                int semester = ModelImplPupCourse.getSemester(SharePreferenceUtil.instantiation.getSemester(LockInBackGroundService1.this));
+                // 获取当前的年份
+                int year = ModelImplPupCourse.getYear(SharePreferenceUtil.instantiation.getSemester(LockInBackGroundService1.this));
+                //获取当前的系统时间
+                Date date = new Date(System.currentTimeMillis());
+                SimpleDateFormat simpleDateFormatDay = new SimpleDateFormat("EEEE");
+                //获取当前是星期几
+                String day = simpleDateFormatDay.format(date);
+                //从数据库中获取是当前学期、当前年份、当前星期几的所有课程
+                final List<CourseTable> list = SKApplication.getDbManager().selector(CourseTable.class).where(
+                        WhereBuilder.b().and("stuid", "=", SkUser.getCurrentUser(SkUser.class).getSchoolId()).and("semester", "=", "" + semester)
+                                .and("year", "=", "" + year).and("day", "=", day.substring(2))).findAll();
+                return list;
+            }
+
+            /**
+             * 计算当前所有课程是否是本周的，并开始判断当前时间是否处于上课时间，进而转到锁屏界面，并进行提示
+             * @param list
+             */
+            @TargetApi(Build.VERSION_CODES.N)
+            private void caculateCurrentDayLessonIsInTimeQuantum(List<CourseTable> list) {
+                if (list == null || list.isEmpty()) {
+                } else {
+                    //获取当前是第几周
+                    int week = getCurrentWeek(LockInBackGroundService1.this);
+                    //判断上面从数据库中获取的所有数据项中的课程的周次是否包含当前周
+                    for (int i = 0; i < list.size() / 2; i++) {
+                        //解析list中每一项的周次
+                        String[] split = list.get(i).getWeeks()
+                                .replace("[", "")
+                                .replace("]", "")
+                                .replace(" ", "")
+                                .split(",");
+                        for (String s : split) {
+                            //判断所有的周次中是否包含当前周
+                            if (s.equals(week + "")) { //如果匹配当前周
+                                if (System.currentTimeMillis() > getStartTime(list.get(i).getTime()) && System.currentTimeMillis() < getEndime(list.get(i).getTime())) {
+                                    mhandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intentTOMain = new Intent(LockInBackGroundService1.this, com.wpy.faxianbei.sk.activity.lock.LockMain.class);
+                                            intentTOMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            LockInBackGroundService1.this.startActivity(intentTOMain);
+                                        }
+                                    });
+                                    calcuThread.start();
+                                    lock = true;
+                                }
+                                if (!isTip) {
+                                    if (System.currentTimeMillis() < getStartTime(list.get(i).getTime()))
+                                        mhandler.post(new myRunnable(list.get(i)));
+                                    isTip = true;
+                                }
+                            }
+                        }
+
+                    }
+
+                }
+            }
+
             @TargetApi(Build.VERSION_CODES.N)
             @Override
             public void run() {
                 try {
-                    try {
-                        List<TimeItem> listtime = SKApplication
-                                .getDbManager()
-                                .selector(TimeItem.class).findAll();
-                        Log.i("caculate",listtime.size()+"   ");
-                        if (listtime == null || listtime.isEmpty()) {
-
-                        } else {
-                            for (TimeItem timeitem : listtime) {
-                                Log.i("caculate",timeitem.getEnd()+"   system "+System.currentTimeMillis());
-                                if (timeitem.getEnd() > System.currentTimeMillis()) {
-                                    Log.i("islock",lock+"");
-                                    if (!lock) {
-                                        mhandler.post(new Runnable() {
-                                            @Override
-                                            public void run() {
-                                                Intent intentTOMain = new Intent(LockInBackGroundService1.this, com.wpy.faxianbei.sk.activity.lock.LockMain.class);
-                                                intentTOMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                LockInBackGroundService1.this.startActivity(intentTOMain);
-                                            }
-                                        });
-                                        calcuThread.start();
-                                    }
-                                    lock = true;
-                                    break;
-                                }
-                            }
-                        }
-                    } catch (DbException e) {
-                    }
-
-                    int semester = ModelImplPupCourse.getSemester(SharePreferenceUtil.instantiation.getSemester(LockInBackGroundService1.this));
-                    int year = ModelImplPupCourse.getYear(SharePreferenceUtil.instantiation.getSemester(LockInBackGroundService1.this));
-                    Date date = new Date(System.currentTimeMillis());
-                    SimpleDateFormat simpleDateFormatDay = new SimpleDateFormat("EEEE");
-                    String day = simpleDateFormatDay.format(date);
-                    final List<CourseTable> list = SKApplication.getDbManager().selector(CourseTable.class).where(
-                            WhereBuilder.b().and("stuid", "=", SkUser.getCurrentUser(SkUser.class).getSchoolId()).and("semester", "=", "" + semester)
-                                    .and("year", "=", "" + year).and("day", "=", day.substring(2))).findAll();
-                    if (list == null || list.isEmpty()) {
-                    } else {
-                        int week = getCurrentWeek(LockInBackGroundService1.this);
-                        for (int i = 0; i < list.size() / 2; i++) {
-                            String[] split = list.get(i).getWeeks()
-                                    .replace("[", "")
-                                    .replace("]", "")
-                                    .replace(" ", "")
-                                    .split(",");
-                            for (String s : split) {
-                                if (s.equals(week + "")) {
-                                    if (!lock) {
-                                        try {
-                                            List<TimeItem> listtime = SKApplication
-                                                    .getDbManager()
-                                                    .selector(TimeItem.class).findAll();
-                                            if (listtime == null || listtime.isEmpty()) {
-
-                                            } else {
-                                                for (TimeItem timeitem : listtime) {
-                                                    if (timeitem.getEnd() > System.currentTimeMillis()) {
-                                                        if (!lock) {
-                                                            mhandler.post(new Runnable() {
-                                                                @Override
-                                                                public void run() {
-                                                                    Intent intentTOMain = new Intent(LockInBackGroundService1.this, com.wpy.faxianbei.sk.activity.lock.LockMain.class);
-                                                                    intentTOMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                                                    LockInBackGroundService1.this.startActivity(intentTOMain);
-                                                                }
-                                                            });
-                                                            calcuThread.start();
-                                                        }
-                                                        break;
-                                                    }
-                                                }
-                                            }
-                                        } catch (DbException e) {
-                                        }
-                                        lock = true;
-                                    }
-                                    if (System.currentTimeMillis() > getStartTime(list.get(i).getTime()) && System.currentTimeMillis() < getEndime(list.get(i).getTime())) {
-                                        new Handler().post(new myRunnable(list.get(i)));
-                                    }
-                                }
-                            }
-
-                        }
-
+                    judgeCurrentTimeIsInMyAddTimeQuantum();
+                    if (!lock) {
+                        caculateCurrentDayLessonIsInTimeQuantum(getCurrentDayLessons());
                     }
                 } catch (Exception e) {
                 }
@@ -239,7 +270,8 @@ public class LockInBackGroundService1 extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i("ScreenBroadcastReceiver","onStartCommand");
+        calcuThread = new CalcuThread();
+        calcuThread.reset();
         caculate();
         return super.onStartCommand(intent, flags, startId);
     }

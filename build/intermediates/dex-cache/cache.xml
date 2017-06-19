@@ -21,6 +21,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/wangpeiyu/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/fastjson/1.1.39-leancloud/94d4ebd4acdaf01d7445435382eea2d2d38e7534/fastjson-1.1.39-leancloud.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="94d4ebd4acdaf01d7445435382eea2d2d38e7534">
+        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/fastjson-1.1.39-leancloud_590439206d846e84d77923aadcd431fe2c7e3194/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/wangpeiyu/.android/build-cache/b2b23feb4348fc38205bdbc80a523b4d3a699fd6/output/jars/classes.jar"
         jumboMode="true"
         optimize="true"
@@ -72,15 +81,6 @@
         revision="26.0.0"
         sha1="7d1a8dbbc128e91cf41ab6eafaa741ab2a6ff930">
         <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-2.6.0-leancloud_53226240c1bd912dc1e71290ceaa0e822506211d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/app/libs/fastjson的副本.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="94d4ebd4acdaf01d7445435382eea2d2d38e7534">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/2/fastjson的副本_978c86584f1504ce3cc706349a9105061adfeca7/classes.dex" />
     </item>
     <item
         is-multidex="true"

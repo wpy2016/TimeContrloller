@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.util.Log;
 import android.view.View;
 
 import com.jn.chart.data.Entry;
@@ -21,6 +22,7 @@ import com.wpy.faxianbei.sk.service.SituationService;
 import com.wpy.faxianbei.sk.utils.general.ImageTools;
 import com.wpy.faxianbei.sk.utils.save.sharepreference.SharePreferenceUtil;
 
+import org.xutils.db.Selector;
 import org.xutils.db.sqlite.WhereBuilder;
 import org.xutils.ex.DbException;
 
@@ -55,8 +57,8 @@ public class ModelImplStatistics implements IModelStatistics {
         String[] y2 = {"0", "0", "0", "0", "0", "0", "40.78"};
 
         float minute = calcuMinutes(context);
-        y1[6] = minute+"";
-        y2[6] = (minute-getOpenTime()*60)+"";
+        y1[6] = minute + "";
+        y2[6] = (minute - getOpenTime() * 60) + "";
         //设置x轴的数据
         ArrayList<String> xValues = new ArrayList<>();
         for (int i = 0; i < x.length; i++) {
@@ -121,9 +123,13 @@ public class ModelImplStatistics implements IModelStatistics {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public long getNeedLockTime(Context context) {
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        int request=0;
+        int request = 0;
         long sum = 0l;
         try {
+
+            /**
+             *   计算当前手动添加的时间的总时间
+             */
             List<TimeItem> list = SKApplication
                     .getDbManager()
                     .selector(TimeItem.class).findAll();
@@ -138,15 +144,15 @@ public class ModelImplStatistics implements IModelStatistics {
                 for (TimeItem timeitem : list) {
                     if (timeitem.getEnd() > today) {
                         sum += timeitem.getEnd() - timeitem.getStart();
-                        Intent intent=new Intent(context, SituationService.class);
-                        intent.putExtra("situation",timeitem.getModel());
-                        PendingIntent Pendingintent=PendingIntent.getService(context,request,intent,PendingIntent.FLAG_ONE_SHOT);
-                        manager.set(AlarmManager.RTC_WAKEUP,timeitem.getStart(),Pendingintent);
+                        Intent intent = new Intent(context, SituationService.class);
+                        intent.putExtra("situation", timeitem.getModel());
+                        PendingIntent Pendingintent = PendingIntent.getService(context, request, intent, PendingIntent.FLAG_ONE_SHOT);
+                        manager.set(AlarmManager.RTC_WAKEUP, timeitem.getStart(), Pendingintent);
                         request++;
-                        Intent intentEnd=new Intent(context,SituationService.class);
-                        intentEnd.putExtra("situation",timeitem.getModel());
-                        PendingIntent pendingintentEnd=PendingIntent.getService(context,request,intentEnd,PendingIntent.FLAG_ONE_SHOT);
-                        manager.set(AlarmManager.RTC_WAKEUP,timeitem.getEnd(),pendingintentEnd);
+                        Intent intentEnd = new Intent(context, SituationService.class);
+                        intentEnd.putExtra("situation", timeitem.getModel());
+                        PendingIntent pendingintentEnd = PendingIntent.getService(context, request, intentEnd, PendingIntent.FLAG_ONE_SHOT);
+                        manager.set(AlarmManager.RTC_WAKEUP, timeitem.getEnd(), pendingintentEnd);
                         request++;
                     }
                 }
@@ -157,6 +163,9 @@ public class ModelImplStatistics implements IModelStatistics {
 
         }
 
+        /**
+         * 计算当前课程的总时间
+         */
         try {
             int semester = ModelImplPupCourse.getSemester(SharePreferenceUtil.instantiation.getSemester(context));
             int year = ModelImplPupCourse.getYear(SharePreferenceUtil.instantiation.getSemester(context));
@@ -176,18 +185,17 @@ public class ModelImplStatistics implements IModelStatistics {
                             .replace(" ", "")
                             .split(",");
                     for (String s : split) {
-                        String sss = list.get(i).getCourse();
                         if (s.equals(week + "")) {
                             sum += 90 * 60 * 1000;
-                            Intent intent3=new Intent(context, SituationService.class);
-                            intent3.putExtra("situation",SituationService.SHAKE);
-                            PendingIntent Pendingintent=PendingIntent.getService(context,request,intent3,PendingIntent.FLAG_ONE_SHOT);
-                            manager.set(AlarmManager.RTC_WAKEUP,getStartTime(list.get(i).getTime()),Pendingintent);
+                            Intent intent3 = new Intent(context, SituationService.class);
+                            intent3.putExtra("situation", SituationService.SHAKE);
+                            PendingIntent Pendingintent = PendingIntent.getService(context, request, intent3, PendingIntent.FLAG_ONE_SHOT);
+                            manager.set(AlarmManager.RTC_WAKEUP, getStartTime(list.get(i).getTime()), Pendingintent);
                             request++;
-                            Intent intent4=new Intent(context,SituationService.class);
-                            intent4.putExtra("situation",SituationService.NORMAL);
-                            PendingIntent pendingintentEnd=PendingIntent.getService(context,request,intent4,PendingIntent.FLAG_ONE_SHOT);
-                            manager.set(AlarmManager.RTC_WAKEUP,getEndime(list.get(i).getTime()),pendingintentEnd);
+                            Intent intent4 = new Intent(context, SituationService.class);
+                            intent4.putExtra("situation", SituationService.NORMAL);
+                            PendingIntent pendingintentEnd = PendingIntent.getService(context, request, intent4, PendingIntent.FLAG_ONE_SHOT);
+                            manager.set(AlarmManager.RTC_WAKEUP, getEndime(list.get(i).getTime()), pendingintentEnd);
                             request++;
                         }
                     }
@@ -221,7 +229,7 @@ public class ModelImplStatistics implements IModelStatistics {
     public float getEffiency(Context context) {
         float needToLock = calcuNeedToLock(context);
         if ((needToLock - getOpenTime()) != 0) {
-            return ((needToLock - getOpenTime()) /needToLock)* 100;
+            return ((needToLock - getOpenTime()) / needToLock) * 100;
         } else {
             return 100;
         }
@@ -232,18 +240,20 @@ public class ModelImplStatistics implements IModelStatistics {
         long open = 0l;
         Date date = new Date(System.currentTimeMillis());
         try {
-            List<openRecord> list = SKApplication.getDbManager().selector(openRecord.class)
-                    .and("year", "=", (date.getYear() + ""))
-                    .and("month", "=", (date.getMonth() + ""))
-                    .and("day", "=", (date.getDay() + "")).findAll();
-            if (list != null && list.isEmpty()) {
+            int year = date.getYear();
+            int month = date.getMonth();
+            int day = date.getDay();
+            Selector<openRecord> selector = SKApplication.getDbManager().selector(openRecord.class).where(WhereBuilder.b()
+                    .and("year", "=", (year + ""))
+                    .and("month", "=", (month + ""))
+                    .and("day", "=", (day + "")));
+            List<openRecord> list = selector.findAll();
+            if (list != null && !list.isEmpty()) {
                 for (openRecord record : list) {
                     open += record.getOpentime();
                 }
             }
-        } catch (DbException e) {
-        }catch(NullPointerException e){
-
+        } catch (Exception e) {
         }
         return open / (1000.0f * 60 * 60);
     }
@@ -254,27 +264,22 @@ public class ModelImplStatistics implements IModelStatistics {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public long getStartTime(String strTime){
+    public long getStartTime(String strTime) {
         Date date = new Date(System.currentTimeMillis());
         android.icu.text.SimpleDateFormat simpleDateFormat = new android.icu.text.SimpleDateFormat("yyyy.MM.dd");
-        String time="";
-        if(strTime.equals("1-2节")){
+        String time = "";
+        if (strTime.equals("1-2节")) {
             time = simpleDateFormat.format(date) + " 08:30";
-        }else if(strTime.equals("3-4节"))
-        {
-            time=simpleDateFormat.format(date) + " 10:30";
-        }else if(strTime.equals("5-6节"))
-        {
-            time=simpleDateFormat.format(date) + " 14:00";
-        }else if(strTime.equals("7-8节"))
-        {
-            time=simpleDateFormat.format(date) + " 16:00";
-        }else if(strTime.equals("9-10节"))
-        {
-            time=simpleDateFormat.format(date) + " 19:00";
-        }else if(strTime.equals("10-11节"))
-        {
-            time=simpleDateFormat.format(date) + " 21:00";
+        } else if (strTime.equals("3-4节")) {
+            time = simpleDateFormat.format(date) + " 10:30";
+        } else if (strTime.equals("5-6节")) {
+            time = simpleDateFormat.format(date) + " 14:00";
+        } else if (strTime.equals("7-8节")) {
+            time = simpleDateFormat.format(date) + " 16:00";
+        } else if (strTime.equals("9-10节")) {
+            time = simpleDateFormat.format(date) + " 19:00";
+        } else if (strTime.equals("10-11节")) {
+            time = simpleDateFormat.format(date) + " 21:00";
         }
         android.icu.text.SimpleDateFormat simpleDateFormat2 = new android.icu.text.SimpleDateFormat("yyyy.MM.dd HH:mm");
         try {
@@ -286,27 +291,22 @@ public class ModelImplStatistics implements IModelStatistics {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public long getEndime(String strTime){
+    public long getEndime(String strTime) {
         Date date = new Date(System.currentTimeMillis());
         android.icu.text.SimpleDateFormat simpleDateFormat = new android.icu.text.SimpleDateFormat("yyyy.MM.dd");
-        String time="";
-        if(strTime.equals("1-2节")){
+        String time = "";
+        if (strTime.equals("1-2节")) {
             time = simpleDateFormat.format(date) + " 10:10";
-        }else if(strTime.equals("3-4节"))
-        {
-            time=simpleDateFormat.format(date) + " 12:10";
-        }else if(strTime.equals("5-6节"))
-        {
-            time=simpleDateFormat.format(date) + " 15:40";
-        }else if(strTime.equals("7-8节"))
-        {
-            time=simpleDateFormat.format(date) + " 17:40";
-        }else if(strTime.equals("9-10节"))
-        {
-            time=simpleDateFormat.format(date) + " 20:40";
-        }else if(strTime.equals("10-11节"))
-        {
-            time=simpleDateFormat.format(date) + " 22:40";
+        } else if (strTime.equals("3-4节")) {
+            time = simpleDateFormat.format(date) + " 12:10";
+        } else if (strTime.equals("5-6节")) {
+            time = simpleDateFormat.format(date) + " 15:40";
+        } else if (strTime.equals("7-8节")) {
+            time = simpleDateFormat.format(date) + " 17:40";
+        } else if (strTime.equals("9-10节")) {
+            time = simpleDateFormat.format(date) + " 20:40";
+        } else if (strTime.equals("10-11节")) {
+            time = simpleDateFormat.format(date) + " 22:40";
         }
         android.icu.text.SimpleDateFormat simpleDateFormat2 = new android.icu.text.SimpleDateFormat("yyyy.MM.dd HH:mm");
         try {
