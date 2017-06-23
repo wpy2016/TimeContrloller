@@ -68,21 +68,21 @@ public class StatisticsPresenter extends BasePresenter<IViewStatistics> implemen
     public void setNeedtoLock(Context context){
         if(getViewInterface()!=null)
         {
-            getViewInterface().setNeedToLock(mModelStatistics.calcuNeedToLock(context));
+            getViewInterface().setNeedToLock(mModelStatistics.calcuNeedToLock(context,System.currentTimeMillis()));
         }
     }
 
     public void setLock(Context context){
         if(getViewInterface()!=null)
         {
-            getViewInterface().setLock(mModelStatistics.calcuNeedToLock(context)-mModelStatistics.getOpenTime());
+            getViewInterface().setLock(mModelStatistics.calcuNeedToLock(context,System.currentTimeMillis())-mModelStatistics.getOpenTime(System.currentTimeMillis()));
         }
     }
 
     public void setEffiency(Context context){
         if(getViewInterface()!=null)
         {
-            getViewInterface().setEffiency(mModelStatistics.getEffiency(context));
+            getViewInterface().setEffiency(mModelStatistics.getEffiency(context,System.currentTimeMillis()));
         }
     }
 

@@ -19,6 +19,7 @@ import com.wpy.faxianbei.sk.entity.db.CourseTable;
 import com.wpy.faxianbei.sk.entity.db.TimeItem;
 import com.wpy.faxianbei.sk.entity.db.openRecord;
 import com.wpy.faxianbei.sk.service.SituationService;
+import com.wpy.faxianbei.sk.utils.dateUtil.DateUtil;
 import com.wpy.faxianbei.sk.utils.general.ImageTools;
 import com.wpy.faxianbei.sk.utils.save.sharepreference.SharePreferenceUtil;
 
@@ -55,14 +56,16 @@ public class ModelImplStatistics implements IModelStatistics {
         String[] y1 = {"0", "0", "0", "0", "0", "0", "0"};
         //实际锁屏
         String[] y2 = {"0", "0", "0", "0", "0", "0", "40.78"};
-
-        float minute = calcuMinutes(context);
-        y1[6] = minute + "";
-        y2[6] = (minute - getOpenTime() * 60) + "";
+        for(int i=0;i<7;i++){
+            long time=System.currentTimeMillis()-((6-i)*24*60*60*1000l);
+            float minute = calcuMinutes(context,time);
+            y1[i] = minute + "";
+            y2[i] = (minute- getOpenTime(time) * 60) + "";
+        }
         //设置x轴的数据
         ArrayList<String> xValues = new ArrayList<>();
         for (int i = 0; i < x.length; i++) {
-            xValues.add(x[i]);
+            xValues.add((DateUtil.getCurrentDay()-(x.length-1-i))+"");
         }
 
         //设置y轴的数据
@@ -121,7 +124,7 @@ public class ModelImplStatistics implements IModelStatistics {
      * 获取当天需要锁频的时间
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public long getNeedLockTime(Context context) {
+    public long getNeedLockTime(Context context,long currentTimeMillis) {
         AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         int request = 0;
         long sum = 0l;
@@ -136,24 +139,24 @@ public class ModelImplStatistics implements IModelStatistics {
             if (list == null || list.isEmpty()) {
 
             } else {
-                Date date = new Date(System.currentTimeMillis());
+                Date date = new Date(currentTimeMillis);
                 android.icu.text.SimpleDateFormat simpleDateFormat = new android.icu.text.SimpleDateFormat("yyyy.MM.dd");
                 String time = simpleDateFormat.format(date) + " 00:00";
                 android.icu.text.SimpleDateFormat simpleDateFormat2 = new android.icu.text.SimpleDateFormat("yyyy.MM.dd HH:mm");
                 long today = simpleDateFormat2.parse(time).getTime();
                 for (TimeItem timeitem : list) {
-                    if (timeitem.getEnd() > today) {
+                    if (timeitem.getEnd() > today&&timeitem.getEnd()<today+24*60*60*1000l) {
                         sum += timeitem.getEnd() - timeitem.getStart();
-                        Intent intent = new Intent(context, SituationService.class);
-                        intent.putExtra("situation", timeitem.getModel());
-                        PendingIntent Pendingintent = PendingIntent.getService(context, request, intent, PendingIntent.FLAG_ONE_SHOT);
-                        manager.set(AlarmManager.RTC_WAKEUP, timeitem.getStart(), Pendingintent);
-                        request++;
-                        Intent intentEnd = new Intent(context, SituationService.class);
-                        intentEnd.putExtra("situation", timeitem.getModel());
-                        PendingIntent pendingintentEnd = PendingIntent.getService(context, request, intentEnd, PendingIntent.FLAG_ONE_SHOT);
-                        manager.set(AlarmManager.RTC_WAKEUP, timeitem.getEnd(), pendingintentEnd);
-                        request++;
+//                        Intent intent = new Intent(context, SituationService.class);
+//                        intent.putExtra("situation", timeitem.getModel());
+//                        PendingIntent Pendingintent = PendingIntent.getService(context, request, intent, PendingIntent.FLAG_ONE_SHOT);
+//                        manager.set(AlarmManager.RTC_WAKEUP, timeitem.getStart(), Pendingintent);
+//                        request++;
+//                        Intent intentEnd = new Intent(context, SituationService.class);
+//                        intentEnd.putExtra("situation", timeitem.getModel());
+//                        PendingIntent pendingintentEnd = PendingIntent.getService(context, request, intentEnd, PendingIntent.FLAG_ONE_SHOT);
+//                        manager.set(AlarmManager.RTC_WAKEUP, timeitem.getEnd(), pendingintentEnd);
+//                        request++;
                     }
                 }
             }
@@ -169,7 +172,7 @@ public class ModelImplStatistics implements IModelStatistics {
         try {
             int semester = ModelImplPupCourse.getSemester(SharePreferenceUtil.instantiation.getSemester(context));
             int year = ModelImplPupCourse.getYear(SharePreferenceUtil.instantiation.getSemester(context));
-            Date date = new Date(System.currentTimeMillis());
+            Date date = new Date(currentTimeMillis);
             SimpleDateFormat simpleDateFormatDay = new SimpleDateFormat("EEEE");
             String day = simpleDateFormatDay.format(date);
             List<CourseTable> list = SKApplication.getDbManager().selector(CourseTable.class).where(
@@ -177,7 +180,7 @@ public class ModelImplStatistics implements IModelStatistics {
                             .and("year", "=", "" + year).and("day", "=", day.substring(2))).findAll();
             if (list == null || list.isEmpty()) {
             } else {
-                int week = getCurrentWeek(context);
+                int week = getCurrentWeek(context,currentTimeMillis);
                 for (int i = 0; i < list.size() / 2; i++) {
                     String[] split = list.get(i).getWeeks()
                             .replace("[", "")
@@ -187,16 +190,16 @@ public class ModelImplStatistics implements IModelStatistics {
                     for (String s : split) {
                         if (s.equals(week + "")) {
                             sum += 90 * 60 * 1000;
-                            Intent intent3 = new Intent(context, SituationService.class);
-                            intent3.putExtra("situation", SituationService.SHAKE);
-                            PendingIntent Pendingintent = PendingIntent.getService(context, request, intent3, PendingIntent.FLAG_ONE_SHOT);
-                            manager.set(AlarmManager.RTC_WAKEUP, getStartTime(list.get(i).getTime()), Pendingintent);
-                            request++;
-                            Intent intent4 = new Intent(context, SituationService.class);
-                            intent4.putExtra("situation", SituationService.NORMAL);
-                            PendingIntent pendingintentEnd = PendingIntent.getService(context, request, intent4, PendingIntent.FLAG_ONE_SHOT);
-                            manager.set(AlarmManager.RTC_WAKEUP, getEndime(list.get(i).getTime()), pendingintentEnd);
-                            request++;
+//                            Intent intent3 = new Intent(context, SituationService.class);
+//                            intent3.putExtra("situation", SituationService.SHAKE);
+//                            PendingIntent Pendingintent = PendingIntent.getService(context, request, intent3, PendingIntent.FLAG_ONE_SHOT);
+//                            manager.set(AlarmManager.RTC_WAKEUP, getStartTime(list.get(i).getTime()), Pendingintent);
+//                            request++;
+//                            Intent intent4 = new Intent(context, SituationService.class);
+//                            intent4.putExtra("situation", SituationService.NORMAL);
+//                            PendingIntent pendingintentEnd = PendingIntent.getService(context, request, intent4, PendingIntent.FLAG_ONE_SHOT);
+//                            manager.set(AlarmManager.RTC_WAKEUP, getEndime(list.get(i).getTime()), pendingintentEnd);
+//                            request++;
                         }
                     }
 
@@ -209,40 +212,36 @@ public class ModelImplStatistics implements IModelStatistics {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public float calcuNeedToLock(Context context) {
-        if (timeSum == -1) {
-            timeSum = getNeedLockTime(context);
-        }
+    public float calcuNeedToLock(Context context,long currentTimeMillis) {
+            timeSum = getNeedLockTime(context,currentTimeMillis);
         return timeSum / (1000.0f * 60 * 60);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public float calcuMinutes(Context context) {
-        if (timeSum == -1) {
-            timeSum = getNeedLockTime(context);
-        }
+    public float calcuMinutes(Context context,long currentTimeMillis) {
+            timeSum = getNeedLockTime(context,currentTimeMillis);
         return timeSum / (1000.0f * 60);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
-    public float getEffiency(Context context) {
-        float needToLock = calcuNeedToLock(context);
-        if ((needToLock - getOpenTime()) != 0) {
-            return ((needToLock - getOpenTime()) / needToLock) * 100;
+    public float getEffiency(Context context,long currentTimeMillis) {
+        float needToLock = calcuNeedToLock(context,currentTimeMillis);
+        if ((needToLock - getOpenTime(currentTimeMillis)) != 0) {
+            return ((needToLock - getOpenTime(currentTimeMillis)) / needToLock) * 100;
         } else {
             return 100;
         }
     }
 
     @Override
-    public float getOpenTime() {
+    public float getOpenTime(long currentTimeMillis) {
         long open = 0l;
-        Date date = new Date(System.currentTimeMillis());
         try {
-            int year = date.getYear();
-            int month = date.getMonth();
-            int day = date.getDay();
+            DateUtil.setTimeInMillis(currentTimeMillis);
+            int year = DateUtil.getCurrentYear();
+            int month = DateUtil.getCurrentMonth();
+            int day =DateUtil.getCurrentDay();
             Selector<openRecord> selector = SKApplication.getDbManager().selector(openRecord.class).where(WhereBuilder.b()
                     .and("year", "=", (year + ""))
                     .and("month", "=", (month + ""))
@@ -258,11 +257,11 @@ public class ModelImplStatistics implements IModelStatistics {
         return open / (1000.0f * 60 * 60);
     }
 
-    public int getCurrentWeek(Context context) {
-        return (int) Math.ceil((double) ((System.currentTimeMillis() - Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context))) / (1000 * 60 * 60 * 24 * 7.0)));
+    public int getCurrentWeek(Context context,long currentTimeMillis) {
+        return (int) Math.ceil((double) ((currentTimeMillis - Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context))) / (1000 * 60 * 60 * 24 * 7.0)));
     }
 
-
+/*
     @RequiresApi(api = Build.VERSION_CODES.N)
     public long getStartTime(String strTime) {
         Date date = new Date(System.currentTimeMillis());
@@ -315,5 +314,5 @@ public class ModelImplStatistics implements IModelStatistics {
             return 0l;
         }
     }
-
+*/
 }

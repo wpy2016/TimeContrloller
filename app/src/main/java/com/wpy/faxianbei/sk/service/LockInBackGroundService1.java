@@ -24,6 +24,7 @@ import com.wpy.faxianbei.sk.entity.SkUser;
 import com.wpy.faxianbei.sk.entity.db.CourseTable;
 import com.wpy.faxianbei.sk.entity.db.TimeItem;
 import com.wpy.faxianbei.sk.entity.db.openRecord;
+import com.wpy.faxianbei.sk.utils.dateUtil.DateUtil;
 import com.wpy.faxianbei.sk.utils.save.sharepreference.SharePreferenceUtil;
 
 import org.xutils.db.sqlite.WhereBuilder;
@@ -87,18 +88,18 @@ public class LockInBackGroundService1 extends Service {
                     Log.i("screen","off");
                     go = false;
                     //将记录的数据保存起来
-                    Date date = new Date(System.currentTimeMillis());
                     openRecord openRecord = new openRecord();
-                    Log.i("screen day",""+date.getDay());
-                    openRecord.setDay(date.getDay() + "");
-                    Log.i("screen year",""+date.getYear());
-                    openRecord.setYear(date.getYear() + "");
-                    Log.i("screen month",""+date.getMonth());
-                    openRecord.setMonth(date.getMonth() + "");
-                    Log.i("screen min",""+date.getMinutes());
-                    openRecord.setMinute(date.getMinutes() + "");
-                    Log.i("screen hour",""+date.getHours());
-                    openRecord.setHour(date.getHours() + "");
+                    DateUtil.setTimeInMillis(System.currentTimeMillis());
+                    Log.i("screen day",""+ DateUtil.getCurrentDay());
+                    openRecord.setDay(DateUtil.getCurrentDay() + "");
+                    Log.i("screen year",""+DateUtil.getCurrentYear());
+                    openRecord.setYear(DateUtil.getCurrentYear()+ "");
+                    Log.i("screen month",""+DateUtil.getCurrentMonth());
+                    openRecord.setMonth(DateUtil.getCurrentMonth() + "");
+                    Log.i("screen min",""+DateUtil.getCurrentMinute());
+                    openRecord.setMinute(DateUtil.getCurrentMinute() + "");
+                    Log.i("screen hour",""+DateUtil.getCurrentHour());
+                    openRecord.setHour(DateUtil.getCurrentHour() + "");
                     Log.i("screen opentime",""+openTime);
                     openRecord.setOpentime(openTime);
                     openRecord.setType(0 + "");

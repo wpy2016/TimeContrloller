@@ -14,12 +14,12 @@ public interface IModelStatistics {
 
     String screenShot(Context context);
 
-    float calcuNeedToLock(Context context);
+    float calcuNeedToLock(Context context,long currentTimeMillis);
 
-    float calcuMinutes(Context context);
+    float calcuMinutes(Context context,long currentTimeMillis);
 
-    float getEffiency(Context context);
+    float getEffiency(Context context,long currentTimeMillis);
 
-    float getOpenTime();
+    float getOpenTime(long currentTimeMillis);
 
 }
