@@ -16,7 +16,7 @@
     <application
         android:name=".application.SKApplication"
         android:allowBackup="true"
-        android:icon="@drawable/logo"
+        android:icon="@drawable/logo_new"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
