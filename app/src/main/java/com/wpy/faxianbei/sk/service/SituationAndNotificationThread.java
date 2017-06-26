@@ -45,6 +45,8 @@ public class SituationAndNotificationThread extends Thread {
 
     AudioManager manager;
 
+    boolean isNowhaveToLock=false;
+
     public SituationAndNotificationThread(Handler handler, Context context) {
         this.mhandler = handler;
         this.mContext = context;
@@ -64,6 +66,7 @@ public class SituationAndNotificationThread extends Thread {
         } else {
             for (final TimeItem timeitem : listtime) {
                 if (timeitem.getStart() < System.currentTimeMillis() && timeitem.getEnd() > System.currentTimeMillis()) {
+                    isNowhaveToLock=true;
                     if (!isChange) {
                         mhandler.post(new Runnable() {
                             @Override
@@ -113,7 +116,8 @@ public class SituationAndNotificationThread extends Thread {
             //获取当前是第几周
             int week = DateUtil.getCurrentWeek(mContext);
             //判断上面从数据库中获取的所有数据项中的课程的周次是否包含当前周
-            for (int i = 0; i < list.size() / 2; i++) {
+            int size=list.size() / 2;
+            for (int i = 0; i < size; i++) {
                 //解析list中每一项的周次
                 String[] split = list.get(i).getWeeks()
                         .replace("[", "")
@@ -124,6 +128,7 @@ public class SituationAndNotificationThread extends Thread {
                     //判断所有的周次中是否包含当前周
                     if (s.equals(week + "")) { //如果匹配当前周
                         if (System.currentTimeMillis() > DateUtil.getStartTime(list.get(i).getTime()) && System.currentTimeMillis() < DateUtil.getEndime(list.get(i).getTime())) {
+                            isNowhaveToLock=true;
                             if (!isChange) {
                                 mhandler.post(new Runnable() {
                                     @Override
@@ -139,11 +144,18 @@ public class SituationAndNotificationThread extends Thread {
                                 mhandler.post(new myRunnable(list.get(i), (Service) mContext));
                             isTip = true;
                         }
+                        break;
                     }
                 }
-
             }
-
+            if(!isNowhaveToLock){
+                mhandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        setChange(NORMAL);
+                    }
+                });
+            }
         }
     }
 
@@ -154,6 +166,7 @@ public class SituationAndNotificationThread extends Thread {
             try {
                 isChange = false;
                 isTip = false;
+                isNowhaveToLock=false;
                 judgeCurrentTimeIsInMyAddTimeQuantum();
                 caculateCurrentDayLessonIsInTimeQuantum(getCurrentDayLessons());
                 sleep(30000);
