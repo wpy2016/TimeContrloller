@@ -5,30 +5,44 @@
     android:id="@+id/ac_register"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/register_background"
     android:orientation="vertical">
 
-    <LinearLayout
+    <View
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="4.1"
+        android:layout_height="80dp"
+        android:background="@drawable/my_bg_green"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="166dp"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <View
+            android:id="@+id/id_view"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="80dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/my_bg_green">
+        </View>
 
+        <RelativeLayout
+            android:layout_width="150dp"
+            android:layout_height="166dp"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/user_surround"
+            android:layout_marginTop="-160dp">
             <ImageView
                 android:id="@+id/id_ac_register_iv_head"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_marginBottom="20dp"
-                android:src="@drawable/default_head" />
-
+                android:layout_centerInParent="true"
+                android:src="@drawable/default_user" />
         </RelativeLayout>
-    </LinearLayout>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
