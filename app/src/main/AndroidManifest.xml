@@ -13,6 +13,9 @@
     <!-- 基础模块 END -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.CAPTURE_AUDIO_OUTPUT"/>
+
     <application
         android:name=".application.SKApplication"
         android:allowBackup="true"

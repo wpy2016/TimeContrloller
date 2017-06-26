@@ -92,6 +92,7 @@ public class AcAddTime extends MvpBaseActivity<IViewAddTime,PresenterAddTime> im
             case R.id.id_ac_addtime_iv_slient:
                 model= SituationService.SLIENT;
                 Toast.makeText(mContext,"你选择的情景模式为静音",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext,"部分手机不支持静音模式，当不支持静音模式时将自动切换为震动模式",Toast.LENGTH_SHORT).show();
                 break;
             case R.id.id_ac_addtime_iv_shake:
                 model=SituationService.SHAKE;

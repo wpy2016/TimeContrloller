@@ -49,7 +49,9 @@ public class CheckPermissionsActivity extends Activity
 			Manifest.permission.WRITE_EXTERNAL_STORAGE,
 			Manifest.permission.ACCESS_NETWORK_STATE,
 			Manifest.permission.READ_PHONE_STATE,
-			Manifest.permission.ACCESS_WIFI_STATE
+			Manifest.permission.ACCESS_WIFI_STATE,
+			Manifest.permission.MODIFY_AUDIO_SETTINGS,
+			Manifest.permission.CAPTURE_AUDIO_OUTPUT
 			};
 	/**
 	 * 子Activity传入的perimission
@@ -181,7 +183,7 @@ public class CheckPermissionsActivity extends Activity
 			String[] permissions, int[] paramArrayOfInt) {
 		if (requestCode == PERMISSON_REQUESTCODE) {
 			if (!verifyPermissions(paramArrayOfInt)) {
-				showMissingPermissionDialog();
+				//showMissingPermissionDialog();
 				isNeedCheck = false;
 			}
 		}

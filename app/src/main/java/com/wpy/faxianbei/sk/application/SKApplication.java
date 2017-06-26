@@ -1,6 +1,7 @@
 package com.wpy.faxianbei.sk.application;
 
 import android.app.Application;
+import android.content.Intent;
 
 import com.avos.avoscloud.AVCloud;
 import com.avos.avoscloud.AVOSCloud;
@@ -10,6 +11,7 @@ import com.wpy.faxianbei.sk.entity.Lesson;
 import com.wpy.faxianbei.sk.entity.LessonTable;
 import com.wpy.faxianbei.sk.entity.SkUser;
 import com.wpy.faxianbei.sk.entity.Teacher;
+import com.wpy.faxianbei.sk.service.SituationService;
 
 import org.xutils.DbManager;
 import org.xutils.x;
@@ -36,6 +38,7 @@ public class SKApplication extends Application {
         AVOSCloud.initialize(SKApplication.this,"FFwHvC1gi4JDqPnfqkOmshDH-9Nh9j0Va","aLETvSFc2y1G2jmBWeBpSX96");
         doInit();
     }
+
 
 
     //do init in other thread
@@ -87,6 +90,7 @@ public class SKApplication extends Application {
         }
         return mDbManager;
     }
+
 
 
 }

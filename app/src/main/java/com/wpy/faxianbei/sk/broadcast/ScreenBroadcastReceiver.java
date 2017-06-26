@@ -24,11 +24,8 @@ public class ScreenBroadcastReceiver extends BroadcastReceiver {
             Log.i("srceen","receive off");
         } else if (Intent.ACTION_USER_PRESENT.equals(action)) {
             //解锁后进行的操作
-//            Intent intentTOMain=new Intent(context, com.wpy.faxianbei.sk.activity.lock.LockMain.class);
-//            intentTOMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-//            context.startActivity(intentTOMain);
-            Intent intent1 =new Intent(context, LockInBackGroundService1.class);
-            context.startService(intent1);
+            Intent intentService =new Intent(context, LockInBackGroundService1.class);
+            context.startService(intentService);
         }
     }
 }

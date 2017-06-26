@@ -1,6 +1,7 @@
 package com.wpy.faxianbei.sk.activity.home.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,6 +16,7 @@ import com.wpy.faxianbei.sk.activity.home.presenter.PresenterHome;
 import com.wpy.faxianbei.sk.activity.setting.view.AcSetting;
 import com.wpy.faxianbei.sk.activity.statistics.view.AcStatistics;
 import com.wpy.faxianbei.sk.activity.time.view.AcTime;
+import com.wpy.faxianbei.sk.service.SituationService;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -59,6 +61,7 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
         mContext = AcHome.this;
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this, "FFwHvC1gi4JDqPnfqkOmshDH-9Nh9j0Va", "aLETvSFc2y1G2jmBWeBpSX96");
+        startSituationService();
     }
 
     @Override
@@ -137,5 +140,10 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
     public void updateDate(String date, String day) {
         mtvDay.setText(day);
         mtvTime.setText(date);
+    }
+
+    private void startSituationService() {
+        Intent intent=new Intent(getApplicationContext(), SituationService.class);
+        startService(intent);
     }
 }
