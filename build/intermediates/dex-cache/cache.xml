@@ -52,7 +52,7 @@
         jumboMode="true"
         optimize="true"
         revision="26.0.0"
-        sha1="535b5052710859bfa1a3d4b39c4d25001850d7d8">
+        sha1="ca33935bad21229950b8cf52fb2993399b5e4b87">
         <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_67e8db7a40ffb490dfc1ae1823d0e47e4597884c/classes.dex" />
     </item>
     <item
@@ -63,6 +63,15 @@
         revision="26.0.0"
         sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
         <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_c4a8f7a2040b9a3b07e40c47c4f0d981f6169121/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/situationchange/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="491d442214b6e2acb1b31a7dbb4bdcf8c212d2f3">
+        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/situationchange/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_106acdd32aee2e7c2c4fe1baea21e23be23ab1c4/classes.dex" />
     </item>
     <item
         is-multidex="true"
@@ -243,6 +252,15 @@
         revision="26.0.0"
         sha1="d6854f42bfb4098d3d2358d93201307b9f1cc95d">
         <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/butterknife-annotations-8.1.0_db0a886a7cf454cd7d6c695e919cf85a91b75ba5/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/situationchange/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/situationchange/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_fa0d8975ca78e36f2a1d9be8c0199a7c990b6ff3/classes.dex" />
     </item>
     <item
         is-multidex="true"

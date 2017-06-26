@@ -1,7 +1,6 @@
 package com.wpy.faxianbei.sk.activity.home.view;
 
 import android.content.Context;
-import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -21,10 +20,6 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
-import static android.media.AudioManager.RINGER_MODE_NORMAL;
-import static android.media.AudioManager.RINGER_MODE_SILENT;
-import static android.media.AudioManager.RINGER_MODE_VIBRATE;
-
 
 
 @ContentView(R.layout.ac_home)
@@ -35,7 +30,7 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
     ImageView mIvLock;
     @ViewInject(R.id.id_ac_home_iv_statistics)
     ImageView mIvStatistics;
-    @ViewInject(R.id.id_ac_home_iv_setting)
+    @ViewInject(R.id.id_ac_home_iv_dynamic)
     ImageView mIvSetting;
 
     @ViewInject(R.id.id_ac_home_ll_my)
@@ -44,8 +39,8 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
     LinearLayout mLlLock;
     @ViewInject(R.id.id_ac_home_ll_statistics)
     LinearLayout mLlStatistics;
-    @ViewInject(R.id.id_ac_home_ll_setting)
-    LinearLayout mLlSetting;
+    @ViewInject(R.id.id_ac_home_ll_dynamic)
+    LinearLayout mLlDynamic;
     @ViewInject(R.id.id_ac_home_iv_startorclose)
     ImageView mIvStartorclose;
     @ViewInject(R.id.id_ac_home_tv_time)
@@ -115,7 +110,7 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
     }
 
     @Event(value = {R.id.id_ac_home_ll_my, R.id.id_ac_home_ll_lock,
-            R.id.id_ac_home_ll_statistics, R.id.id_ac_home_ll_setting, R.id.id_ac_home_iv_startorclose})
+            R.id.id_ac_home_ll_statistics, R.id.id_ac_home_ll_dynamic, R.id.id_ac_home_iv_startorclose})
     private void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_ac_home_ll_my:
@@ -127,8 +122,9 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
             case R.id.id_ac_home_ll_statistics:
                 mPresenter.toNext(mContext, AcStatistics.class,false);
                 break;
-            case R.id.id_ac_home_ll_setting:
-                mPresenter.toNext(mContext, AcSetting.class,false);
+            case R.id.id_ac_home_ll_dynamic:
+                Toast.makeText(AcHome.this,"暂未开通动态",Toast.LENGTH_SHORT).show();
+                // mPresenter.toNext(mContext, AcSetting.class,false);//改为动态相应的Activity即可
                 break;
             case R.id.id_ac_home_iv_startorclose:
                // mPresenter.startService(mContext);
