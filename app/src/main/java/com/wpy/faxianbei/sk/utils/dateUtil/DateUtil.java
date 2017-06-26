@@ -13,6 +13,7 @@ import com.wpy.faxianbei.sk.utils.save.sharepreference.SharePreferenceUtil;
 import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -142,5 +143,36 @@ public class DateUtil {
 
     public static  int getCurrentWeek(Context context) {
         return (int) Math.ceil((double) ((System.currentTimeMillis() - Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context))) / (1000 * 60 * 60 * 24 * 7.0)));
+    }
+
+    public static String getDay(long timeInMillis) {
+        Date date=new Date(timeInMillis);
+        SimpleDateFormat simpleDateFormatDay=new SimpleDateFormat("EEEE");
+        String day=simpleDateFormatDay.format(date);
+        return day;
+    }
+
+    public static String getDate(long timeInMillis)
+    {
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy.MM.dd");
+        Date date=new Date(timeInMillis);
+        String time = simpleDateFormat.format(date);
+        return time;
+    }
+
+    public static String getDateOnlyDay(long timeInMillis)
+    {
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("dd");
+        Date date=new Date(timeInMillis);
+        String time = simpleDateFormat.format(date);
+        return time;
+    }
+
+    public static String getMonth(long timeInMillis)
+    {
+        SimpleDateFormat simpleDateFormat=new SimpleDateFormat("MM");
+        Date date=new Date(timeInMillis);
+        String time = simpleDateFormat.format(date);
+        return time;
     }
 }

@@ -7,6 +7,8 @@ import com.wpy.faxianbei.sk.activity.base.OnSuccessOrFail;
  */
 
 public interface IViewCourseTable extends OnSuccessOrFail {
-    public void setWeek(int week);
-    public void setYeayAndSemester(int year,int semester,String message);
+     void setWeek(int week);
+     void setYeayAndSemester(int year,int semester,String message);
+    void setDate(String[] date);
+    void setMonth(String month);
 }

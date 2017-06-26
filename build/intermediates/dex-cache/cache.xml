@@ -21,6 +21,15 @@
     </item>
     <item
         is-multidex="true"
+        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/coursetable/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="b9467a5f9709a16ef55533825a7a69ee9d36bbee">
+        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/coursetable/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_32841c03bf73488685e085f765ee31b5b4251515/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
         jar="/Users/wangpeiyu/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/fastjson/1.1.39-leancloud/94d4ebd4acdaf01d7445435382eea2d2d38e7534/fastjson-1.1.39-leancloud.jar"
         jumboMode="true"
         optimize="true"
@@ -162,6 +171,15 @@
         revision="26.0.0"
         sha1="0e420e7635e40fbef3e2cc257c702b1427962d1d">
         <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/2/gson-1.6_3c3106ecac48dcf7a2bdc8b75842f5eb0bf5e0c9/classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/coursetable/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/coursetable/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_75e3be6d992dcbfe2adad4d4cbbe527120fe1d00/classes.dex" />
     </item>
     <item
         is-multidex="true"

@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">CourseTable</string>
+    <string name="notifyTitle">提示</string>
+    <string name="notifyMsg">当前应用缺少必要权限。\n\n请点击\"设置\"-\"权限\"-打开所需权限。</string>
+    <string name="cancel">取消</string>
+    <string name="setting">设置</string>
+    <string name="iknow">我知道了</string>
+    <string name="leftswipe">右划关闭哦</string>
+    <string name="title_activity_ac_course_table">AcCourseTable</string>
+    <string name="exit">退出登录</string>
+    <string name="female">女</string>
+    <string name="chongqinguiversity">重庆大学</string>
+    <string name="software_academic">软件学院</string>
+    <string name="six">六</string>
+    <string name="five">五</string>
+    <string name="four">四</string>
+    <string name="three">三</string>
+    <string name="two">二</string>
+    <string name="seven">七</string>
+</resources>

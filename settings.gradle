@@ -1,1 +1,1 @@
-include ':app', ':situationchange'
+include ':app', ':situationchange', ':coursetable'

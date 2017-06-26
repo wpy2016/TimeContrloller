@@ -10,6 +10,7 @@ import com.wpy.faxianbei.sk.activity.coursetable.model.IModelCourseTable;
 import com.wpy.faxianbei.sk.activity.coursetable.model.IModelCourseTableImpl;
 import com.wpy.faxianbei.sk.activity.coursetable.model.ModelImplPupWeeks;
 import com.wpy.faxianbei.sk.activity.coursetable.view.IViewCourseTable;
+import com.wpy.faxianbei.sk.utils.dateUtil.DateUtil;
 
 /**
  * Created by peiyuwang on 17-2-20.
@@ -56,6 +57,10 @@ public class PresenterCourseTable extends BasePresenter<IViewCourseTable> implem
         return modelCourseTable.getTextView(column,raw,ac);
     }
 
+    public TextView getDayTextView(int dayIndex,Object ac){
+        return modelCourseTable.getDayTextView(dayIndex,ac);
+    }
+
     public void showSemester(Context context,View view){
         modelImplPupCourse.showPupWindow(context,view);
     }
@@ -67,6 +72,8 @@ public class PresenterCourseTable extends BasePresenter<IViewCourseTable> implem
 
     public void initDate(Context context){
        selectSuccess(modelCourseTable.getCurrentSemester(context));
+        getViewInterface().setDate(modelCourseTable.getDate());
+        getViewInterface().setMonth(DateUtil.getMonth(System.currentTimeMillis()));
     }
 
     public int getCurrentWeek(Context context){

@@ -20,14 +20,14 @@ public enum  SharePreferenceUtil {
         SharedPreferences semester = context.getSharedPreferences("semester", Context.MODE_APPEND);
         SharedPreferences.Editor edit = semester.edit();
         edit.putString("semester",message);
-        edit.commit();
+        edit.apply();
     }
 
     public void saveFirstWeek(Context context, String date){
         SharedPreferences semester = context.getSharedPreferences("firstweek", Context.MODE_APPEND);
         SharedPreferences.Editor edit = semester.edit();
         edit.putString("firstweek",date);
-        edit.commit();
+        edit.apply();
     }
 
     public String getWeek(Context context){

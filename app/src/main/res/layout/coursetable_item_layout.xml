@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="43dp"
+    android:layout_height="60dp">
+
+    <TextView
+        android:id="@+id/id_ac_coursetable_gv_item"
+        android:layout_width="43dp"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:textColor="#898989"
+        android:textSize="13sp" />
+</merge>

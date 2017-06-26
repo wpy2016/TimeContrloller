@@ -16,4 +16,6 @@ public interface IModelCourseTable {
     TextView getTextView(int column, int raw, Object ac);
     String getCurrentSemester(Context context);
     int getCurrentWeek(Context context);
+    String[] getDate();
+    TextView getDayTextView(int dayIndex,Object ac);
 }

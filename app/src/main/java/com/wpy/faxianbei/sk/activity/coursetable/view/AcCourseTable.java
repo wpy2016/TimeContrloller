@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.addcourse.view.AcAddCourse;
@@ -24,7 +23,7 @@ import org.xutils.x;
 
 
 @ContentView(R.layout.ac_course_table)
-public class AcCourseTable extends MvpBaseActivity<IViewCourseTable,PresenterCourseTable> implements IViewCourseTable {
+public class AcCourseTable extends MvpBaseActivity<IViewCourseTable, PresenterCourseTable> implements IViewCourseTable {
     @ViewInject(R.id.id_ac_coursetable_tv_semester)
     TextView mtvSemester;
     @ViewInject(R.id.id_ac_coursetable_iv_add_semester)
@@ -157,39 +156,56 @@ public class AcCourseTable extends MvpBaseActivity<IViewCourseTable,PresenterCou
     TextView mtvCourseTable76;
     @ViewInject(R.id.id_ac_coursetable_ll_73)
     LinearLayout mllCourseTable73;
-    private Object dataFromInternet;
+    @ViewInject(R.id.id_ac_coursetable_tv_1)
+    TextView mtvDay1;
+    @ViewInject(R.id.id_ac_coursetable_tv_2)
+    TextView mtvDay2;
+    @ViewInject(R.id.id_ac_coursetable_tv_3)
+    TextView mtvDay3;
+    @ViewInject(R.id.id_ac_coursetable_tv_4)
+    TextView mtvDay4;
+    @ViewInject(R.id.id_ac_coursetable_tv_5)
+    TextView mtvDay5;
+    @ViewInject(R.id.id_ac_coursetable_tv_6)
+    TextView mtvDay6;
+    @ViewInject(R.id.id_ac_coursetable_tv_7)
+    TextView mtvDay7;
+    @ViewInject(R.id.id_ac_coursetable_month)
+    TextView mtvMonth;
+
     private Context mContext;
-    private int year=2016;
-    private int semester=1;
-    int currentweek=1;
-    int[] color={Color.parseColor("#B2DFEE"),Color.parseColor("#54FF9F"),Color.parseColor("#DDA0DD"),
-            Color.parseColor("#EEA9B8"),Color.parseColor("#C2C2C2"),Color.parseColor("#9F79EE"),
-            Color.parseColor("#1E90FF")};
+    private int year = 2016;
+    private int semester = 1;
+    int currentweek = 1;
+    int[] bgid = {R.drawable.surround1, R.drawable.surround2, R.drawable.surround3,
+            R.drawable.surround4, R.drawable.surround5,
+            R.drawable.surround6, R.drawable.surround7};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         x.view().inject(this);
-        mContext=AcCourseTable.this;
-        mPresenter.getDateFormInternet(year,semester);
+        mContext = AcCourseTable.this;
+        mPresenter.getDateFormInternet(year, semester);
         mPresenter.initDate(mContext);
     }
 
     private void setData(int week) {
-        mtvWeek.setText("第 "+week+" 周");
-       for(int i=1;i<8;i++)
-        {
-         for(int j=1;j<7;j++)
-         {
-             String lesson = mPresenter.getLesson(i,j,week,year,semester);
-             TextView textView = mPresenter.getTextView(i,j,this);
-             textView.setBackgroundColor(Color.WHITE);
-             if(!lesson.equals(""))
-             {
-                 textView.setBackgroundColor(color[i-1]);
-                 textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
-             }
-             textView.setText(lesson);
-         }
+        mtvWeek.setText("第 " + week + " 周");
+        for (int i = 1; i < 8; i++) {
+            for (int j = 1; j < 7; j++) {
+                String lesson = mPresenter.getLesson(i, j, week, year, semester);
+                TextView textView = mPresenter.getTextView(i, j, this);
+                textView.setBackgroundResource(R.drawable.surround);
+                if (!lesson.equals("")) {
+                    textView.setBackgroundResource(bgid[i - 1]);
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+                    textView.setText(lesson);
+                } else {//当前没有课
+
+                    textView.setText("");
+                }
+            }
         }
     }
 
@@ -197,13 +213,13 @@ public class AcCourseTable extends MvpBaseActivity<IViewCourseTable,PresenterCou
     private void onClick(View view) {
         switch (view.getId()) {
             case R.id.id_ac_coursetable_tv_semester:
-                mPresenter.showSemester(mContext,mtvWeek);
+                mPresenter.showSemester(mContext, mtvWeek);
                 break;
             case R.id.id_ac_coursetable_iv_add_semester:
                 toNext(AcAddCourse.class);
                 break;
             case R.id.id_ac_coursetable_tv_week:
-                mPresenter.showPup(mContext,mtvWeek);
+                mPresenter.showPup(mContext, mtvWeek);
                 break;
         }
     }
@@ -226,24 +242,34 @@ public class AcCourseTable extends MvpBaseActivity<IViewCourseTable,PresenterCou
     }
 
     @Override
-    public void setYeayAndSemester(int year, int semester,String message) {
+    public void setYeayAndSemester(int year, int semester, String message) {
         mtvSemester.setText(message);
-        SharePreferenceUtil.instantiation.saveCurrentSemester(mContext,message);
-        this.year=year;
+        SharePreferenceUtil.instantiation.saveCurrentSemester(mContext, message);
+        this.year = year;
         this.semester = semester;
-        mPresenter.getDateFormInternet(year,semester);
+        mPresenter.getDateFormInternet(year, semester);
         currentweek = mPresenter.getCurrentWeek(mContext);
         setData(currentweek);
     }
 
     @Override
+    public void setDate(String[] date) {
+        for (int i = 1; i < 8; i++) {
+            TextView textView = mPresenter.getDayTextView(i, this);
+            textView.setText(date[i - 1]);
+        }
+    }
+
+    public void setMonth(String month) {
+        mtvMonth.setText(month);
+    }
+
+    @Override
     public void showProgress() {
-        showProgress();
     }
 
     @Override
     public void dimissProgress() {
-        dimissProgress();
     }
 
     @Override
