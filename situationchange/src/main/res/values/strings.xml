@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">SituationChange</string>
+    <string name="notifyTitle">权限申请</string>
 </resources>
