@@ -7,4 +7,8 @@
     <string name="iknow">我知道了</string>
     <string name="leftswipe">右划关闭哦</string>
     <string name="title_activity_ac_course_table">AcCourseTable</string>
+    <string name="exit">退出登录</string>
+    <string name="female">女</string>
+    <string name="chongqinguiversity">重庆大学</string>
+    <string name="software_academic">软件学院</string>
 </resources>

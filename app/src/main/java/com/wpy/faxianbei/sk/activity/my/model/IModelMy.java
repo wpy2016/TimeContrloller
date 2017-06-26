@@ -12,7 +12,7 @@ public interface IModelMy {
     public String getName();
     public String getSchool();
     public String getAcademic();
-    public String getGrade();
+    public String getSex();
     public void getHeadimg();
     public List<String> getList();
     public void logout();

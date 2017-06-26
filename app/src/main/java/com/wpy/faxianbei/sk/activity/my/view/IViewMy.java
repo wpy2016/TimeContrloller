@@ -14,5 +14,5 @@ public interface IViewMy {
     public void setAcademic(String academic);
     public void setHeadimg(Bitmap bitmap);
     public void setList(List<String> list);
-    public void setGrade(String grade);
+    public void setSex(String grade);
 }

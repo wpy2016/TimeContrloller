@@ -83,32 +83,22 @@ public class LockInBackGroundService1 extends Service {
                 }
                 if (manager.isScreenOn()) {
                     //屏幕依然在启动着，不进行任何的操作
-                    Log.i("screen","on");
                 } else {
-                    Log.i("screen","off");
                     go = false;
                     //将记录的数据保存起来
                     openRecord openRecord = new openRecord();
                     DateUtil.setTimeInMillis(System.currentTimeMillis());
-                    Log.i("screen day",""+ DateUtil.getCurrentDay());
                     openRecord.setDay(DateUtil.getCurrentDay() + "");
-                    Log.i("screen year",""+DateUtil.getCurrentYear());
                     openRecord.setYear(DateUtil.getCurrentYear()+ "");
-                    Log.i("screen month",""+DateUtil.getCurrentMonth());
                     openRecord.setMonth(DateUtil.getCurrentMonth() + "");
-                    Log.i("screen min",""+DateUtil.getCurrentMinute());
                     openRecord.setMinute(DateUtil.getCurrentMinute() + "");
-                    Log.i("screen hour",""+DateUtil.getCurrentHour());
                     openRecord.setHour(DateUtil.getCurrentHour() + "");
-                    Log.i("screen opentime",""+openTime);
                     openRecord.setOpentime(openTime);
                     openRecord.setType(0 + "");
                     try {
                         //将记录给保存起来
                         SKApplication.getDbManager().save(openRecord);
-                        Log.i("screen","save success");
                     } catch (DbException e) {
-                        Log.i("screen","save fail");
                     }
                 }
             }

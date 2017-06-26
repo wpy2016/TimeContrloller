@@ -40,10 +40,10 @@ public class PresenterMy extends BasePresenter<IViewMy> implements ModelImPlMy.L
     }
     }
 
-    public void setGrade(){
+    public void setSex(){
         if(getViewInterface()!=null)
         {
-            getViewInterface().setGrade(modelMy.getGrade());
+            getViewInterface().setSex(modelMy.getSex());
         }
     }
 

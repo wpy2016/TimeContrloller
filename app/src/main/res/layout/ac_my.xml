@@ -10,7 +10,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="4.1"
+        android:layout_weight="4.5"
+        android:layout_marginBottom="20dp"
         android:orientation="vertical">
 
         <RelativeLayout
@@ -27,114 +28,11 @@
                 android:src="@drawable/default_user" />
         </RelativeLayout>
     </LinearLayout>
-    <LinearLayout
+
+    <include
+        layout="@layout/my_layout"
         android:layout_width="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:layout_height="0dp"
-        android:layout_weight="6"
-        android:orientation="vertical"
-        android:paddingTop="10dp">
-
-        <TextView
-            android:id="@+id/id_ac_my_tv_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="韩梅梅"
-            android:textColor="#C3C5C5"
-            android:textSize="20sp" />
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp">
-
-            <TextView
-                android:id="@+id/id_ac_my_tv_school"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="重庆大学"
-                android:textColor="#C3C5C5"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/id_ac_my_tv_academic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="软件学院"
-                android:textColor="#C3C5C5"
-                android:textSize="20sp"
-                android:layout_marginLeft="30dp"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="5dp">
-
-            <TextView
-                android:id="@+id/id_ac_my_tv_grade"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="23分"
-                android:textColor="#C3C5C5"
-                android:textSize="20sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/question"
-                android:layout_marginLeft="70dp"/>
-
-            <TextView
-                android:id="@+id/id_ac_my_tv_logout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="退出当前账号"
-                android:textColor="#C3C5C5"
-                android:textSize="20sp"
-                android:layout_marginLeft="80dp"/>
-
-        </LinearLayout>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/splitline"
-            android:layout_marginTop="10dp"/>
-
-        <LinearLayout
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="  7"
-                android:textColor="#92E2BD"
-                android:textSize="20sp"
-                android:background="@drawable/index_circle"/>
-
-            <TextView
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="#C9F692"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/portrait1"
-                android:layout_marginLeft="30dp"/>
-
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-    </LinearLayout>
+        android:layout_gravity="center_horizontal"
+        android:layout_weight="6" />
+</LinearLayout>

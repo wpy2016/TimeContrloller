@@ -1,10 +1,10 @@
 package com.wpy.faxianbei.sk.activity.my.view;
 
-import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,16 +24,16 @@ public class AcMy extends MvpBaseActivity<IViewMy, PresenterMy> implements IView
 
     @ViewInject(R.id.id_ac_my_iv_headimg)
     ImageView mivHeadimg;
-    @ViewInject(R.id.id_ac_my_tv_name)
+    @ViewInject(R.id.id_ac_my_tv_username)
     TextView mtvName;
     @ViewInject(R.id.id_ac_my_tv_school)
     TextView mtvSchool;
     @ViewInject(R.id.id_ac_my_tv_academic)
     TextView mtvAcademic;
-    @ViewInject(R.id.id_ac_my_tv_grade)
-    TextView mtvGrade;
-    @ViewInject(R.id.id_ac_my_tv_logout)
-    TextView mtvLogout;
+    @ViewInject(R.id.id_ac_my_tv_sex)
+    TextView mtvSex;
+    @ViewInject(R.id.id_ac_my_btn_exit)
+    Button mtvLogout;
 
     private Context mContext;
 
@@ -43,8 +43,6 @@ public class AcMy extends MvpBaseActivity<IViewMy, PresenterMy> implements IView
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.ac_my);
-
-
         AVOSCloud.initialize(this,"FFwHvC1gi4JDqPnfqkOmshDH-9Nh9j0Va","aLETvSFc2y1G2jmBWeBpSX96");
         x.view().inject(this);
         mContext = AcMy.this;
@@ -71,7 +69,7 @@ public class AcMy extends MvpBaseActivity<IViewMy, PresenterMy> implements IView
         mPresenter.setName();
         mPresenter.setSchool();
         mPresenter.setAcademic();
-        mPresenter.setGrade();
+        mPresenter.setSex();
         mPresenter.setHeadimg();
     }
 
@@ -107,7 +105,7 @@ public class AcMy extends MvpBaseActivity<IViewMy, PresenterMy> implements IView
     }
 
     @Override
-    public void setGrade(String grade) {
-        mtvGrade.setText(grade);
+    public void setSex(String sex) {
+        mtvSex.setText(sex);
     }
 }

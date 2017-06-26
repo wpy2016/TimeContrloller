@@ -42,7 +42,7 @@ public class ModelImPlMy implements IModelMy {
     }
 
     @Override
-    public String getGrade() {
+    public String getSex() {
         return skUser.getGender();
     }
 
