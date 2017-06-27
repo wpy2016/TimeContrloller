@@ -107,9 +107,9 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
                     if(position==curPos){//说明两次点击这个,需要跳转到添加时间段界面，此时只能编辑事件，不能编辑时间了
                         curPos=200;
                         adapter.setSelectPos(200);
+                        adapter.notifyDataSetChanged();
                        /******************做其他操作***********************/
                        Toast.makeText(AcCourseTable2.this,"等待设置时间",Toast.LENGTH_SHORT).show();
-
                     }else{
                         TextView textView= (TextView) view.findViewById(R.id.id_ac_coursetable2_gv_item);
                         textView.setBackgroundResource(R.drawable.add_new);
@@ -176,6 +176,7 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
                 }
             }
         };
+        adapter.setSelectPos(curPos);
         mGvTable.setAdapter(adapter);
     }
 
