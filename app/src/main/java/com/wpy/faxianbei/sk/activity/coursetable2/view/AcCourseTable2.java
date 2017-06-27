@@ -55,6 +55,10 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
     TextView mtvMonth;
     @ViewInject(R.id.id_ac_coursetable2_gv_timeitem)
     GridView mGvTable;
+    @ViewInject(R.id.id_ac_coursetable2_iv_semester_down)
+    ImageView mivModifySemester;
+    @ViewInject(R.id.id_ac_coursetable2_iv_week_down)
+    ImageView mivModifyWeek;
 
     private Context mContext;
     private int year = 2016;
@@ -175,15 +179,18 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
         mGvTable.setAdapter(adapter);
     }
 
-    @Event(value = {R.id.id_ac_coursetable2_tv_semester, R.id.id_ac_coursetable2_iv_add_semester, R.id.id_ac_coursetable2_tv_week})
+    @Event(value = {R.id.id_ac_coursetable2_tv_semester, R.id.id_ac_coursetable2_iv_semester_down,
+            R.id.id_ac_coursetable2_iv_week_down,R.id.id_ac_coursetable2_iv_add_semester, R.id.id_ac_coursetable2_tv_week})
     private void onClick(View view) {
         switch (view.getId()) {
+            case R.id.id_ac_coursetable2_iv_semester_down:
             case R.id.id_ac_coursetable2_tv_semester:
                 mPresenterCourseTable.showSemester(mContext, mtvWeek);
                 break;
             case R.id.id_ac_coursetable2_iv_add_semester:
                 toNext(AcAddCourse.class);
                 break;
+            case R.id.id_ac_coursetable2_iv_week_down:
             case R.id.id_ac_coursetable2_tv_week:
                 mPresenterCourseTable.showPup(mContext, mtvWeek);
                 break;
