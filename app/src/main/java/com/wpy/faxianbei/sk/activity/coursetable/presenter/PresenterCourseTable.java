@@ -71,7 +71,7 @@ public class PresenterCourseTable extends BasePresenter<IViewCourseTable> implem
     }
 
     public void initDate(Context context){
-       selectSuccess(modelCourseTable.getCurrentSemester(context));
+        selectSuccess(modelCourseTable.getCurrentSemester(context));
         getViewInterface().setDate(modelCourseTable.getDate());
         getViewInterface().setMonth(DateUtil.getMonth(System.currentTimeMillis()));
     }

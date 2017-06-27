@@ -80,7 +80,6 @@ public class IModelCourseTableImpl implements IModelCourseTable {
     public String getDay(int column) {
         String day = "";
         switch (column) {
-
             case 1:
                 day = "一";
                 break;
@@ -102,7 +101,6 @@ public class IModelCourseTableImpl implements IModelCourseTable {
             case 7:
                 day = "七";
                 break;
-
         }
         return day;
     }
@@ -112,7 +110,6 @@ public class IModelCourseTableImpl implements IModelCourseTable {
 
         String time = "";
         switch (raw) {
-
             case 1:
                 time = "1-2节";
                 break;
@@ -131,7 +128,6 @@ public class IModelCourseTableImpl implements IModelCourseTable {
             case 6:
                 time = "11-12节";
                 break;
-
         }
         return time;
     }
@@ -207,6 +203,10 @@ public TextView getDayTextView(int dayIndex,Object ac){
         return (int) Math.ceil((double) ((System.currentTimeMillis() - Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context))) / (1000 * 60 * 60 * 24 * 7.0)));
     }
 
+    /**
+     * 返回当前这一周的日期
+     * @return
+     */
     public String[] getDate() {
         String[] date = new String[7];
         long now=System.currentTimeMillis();

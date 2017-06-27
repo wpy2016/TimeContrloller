@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.avos.avoscloud.AVOSCloud;
 import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
+import com.wpy.faxianbei.sk.activity.coursetable2.view.AcCourseTable2;
 import com.wpy.faxianbei.sk.activity.home.presenter.PresenterHome;
 import com.wpy.faxianbei.sk.activity.setting.view.AcSetting;
 import com.wpy.faxianbei.sk.activity.statistics.view.AcStatistics;
@@ -120,7 +121,7 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
                 mPresenter.toMyOrRegister(mContext);
                 break;
             case R.id.id_ac_home_ll_lock:
-                mPresenter.toNext(mContext, AcTime.class,false);
+                mPresenter.toNext(mContext, AcCourseTable2.class,false);
                 break;
             case R.id.id_ac_home_ll_statistics:
                 mPresenter.toNext(mContext, AcStatistics.class,false);
