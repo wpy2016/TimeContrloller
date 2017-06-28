@@ -105,8 +105,8 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
         mGvTable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (set[position].ishaveCourse) {
-                    Toast.makeText(AcCourseTable2.this, "当前有课，不能添加自定义任务，专心上课哦", Toast.LENGTH_SHORT).show();
+                if (set[position]!=null&&set[position].ishaveCourse) {
+                    Toast.makeText(AcCourseTable2.this, "当前有课，不能添加自定义任务，专心上课哦", Toast.LENGTH_LONG).show();
                 } else {
                     if (position == curPos) {//说明两次点击这个,需要跳转到添加时间段界面，此时只能编辑事件，不能编辑时间了
                         curPos = 200;
