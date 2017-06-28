@@ -35,43 +35,47 @@ public class IModelCourseTableImpl implements IModelCourseTable {
     public String getLesson(int column, int raw, int week, int year, int semester) {
 
         String lesson = "";
-        try {
-            List<CourseTable> list = SKApplication.getDbManager().selector(CourseTable.class).where(
-                    WhereBuilder.b().and("stuid", "=", SkUser.getCurrentUser(SkUser.class).getSchoolId()).and("semester", "=", "" + semester)
-                            .and("year", "=", "" + year).and("time", "=", getTime(raw)).and("day", "=", getDay(column))).findAll();
-            if (list != null && !list.isEmpty()) {
-                for (CourseTable courseTable : list) {
-                    String[] split = courseTable.getWeeks()
-                            .replace("[", "")
-                            .replace("]", "")
-                            .replace(" ", "")
-                            .split(",");
-                    for (String s : split) {
-                        if (s.equals(week + "")) {
-                            lesson = courseTable.getCourse();
+        if(SkUser.getCurrentUser(SkUser.class)!=null){
+            try {
+                List<CourseTable> list = SKApplication.getDbManager().selector(CourseTable.class).where(
+                        WhereBuilder.b().and("stuid", "=", SkUser.getCurrentUser(SkUser.class).getSchoolId()).and("semester", "=", "" + semester)
+                                .and("year", "=", "" + year).and("time", "=", getTime(raw)).and("day", "=", getDay(column))).findAll();
+                if (list != null && !list.isEmpty()) {
+                    for (CourseTable courseTable : list) {
+                        String[] split = courseTable.getWeeks()
+                                .replace("[", "")
+                                .replace("]", "")
+                                .replace(" ", "")
+                                .split(",");
+                        for (String s : split) {
+                            if (s.equals(week + "")) {
+                                lesson = courseTable.getCourse();
+                            }
                         }
+
                     }
-
                 }
+
+            } catch (DbException e) {
+
             }
-
-        } catch (DbException e) {
-
         }
         return lesson;
     }
 
     public boolean isNeedLoad(int year, int semester) {
         boolean need = false;
-        try {
-            List<CourseTable> list = SKApplication.getDbManager().selector(CourseTable.class).where(
-                    WhereBuilder.b().and("stuid", "=", SkUser.getCurrentUser(SkUser.class).getSchoolId()).and("semester", "=", "" + semester)
-                            .and("year", "=", "" + year)).findAll();
-            if (list == null || list.isEmpty()) {
-                need = true;
-            }
-        } catch (DbException e) {
+        if(SkUser.getCurrentUser(SkUser.class)!=null){
+            try {
+                List<CourseTable> list = SKApplication.getDbManager().selector(CourseTable.class).where(
+                        WhereBuilder.b().and("stuid", "=", SkUser.getCurrentUser(SkUser.class).getSchoolId()).and("semester", "=", "" + semester)
+                                .and("year", "=", "" + year)).findAll();
+                if (list == null || list.isEmpty()) {
+                    need = true;
+                }
+            } catch (DbException e) {
 
+            }
         }
         return need;
     }

@@ -18,6 +18,7 @@ import com.wpy.faxianbei.sk.activity.setting.view.AcSetting;
 import com.wpy.faxianbei.sk.activity.statistics.view.AcStatistics;
 import com.wpy.faxianbei.sk.activity.time.view.AcTime;
 import com.wpy.faxianbei.sk.service.SituationService;
+import com.wpy.faxianbei.sk.ui.clock.Clock;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -45,7 +46,8 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
     @ViewInject(R.id.id_ac_home_ll_dynamic)
     LinearLayout mLlDynamic;
     @ViewInject(R.id.id_ac_home_iv_startorclose)
-    ImageView mIvStartorclose;
+    Clock clock;
+
     @ViewInject(R.id.id_ac_home_tv_time)
     TextView mtvTime;
     @ViewInject(R.id.id_ac_home_tv_day)
