@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="@drawable/my_bg_green">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="15dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/id_ac_addevent_et_editevent"
+                    android:layout_width="175dp"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="60dp"
+                    android:background="@null"
+                    android:drawableBottom="@color/white"
+                    android:ellipsize="start"
+                    android:hint="@string/editevent"
+                    android:paddingBottom="2dp"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:paddingTop="2dp"
+                    android:textColor="#ffffff"
+                    android:textColorHint="@color/white"
+                    android:textSize="40sp" />
+                <View
+                    android:layout_width="175dp"
+                    android:layout_height="3dp"
+                    android:background="@drawable/line_white"/>
+            </LinearLayout>
+
+
+
+
+            <ImageView
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:layout_gravity="center_vertical"
+                android:scaleType="fitXY"
+                android:src="@drawable/edit_white" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="23dp"
+        android:paddingRight="31dp"
+        android:paddingTop="15dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/start_time"
+                android:textColor="#a4a7ac"
+                android:textSize="21sp" />
+
+            <ImageView
+                android:id="@+id/id_ac_addevent_iv_add_start_time"
+                android:layout_width="9dp"
+                android:layout_height="19dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/add_right" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="26dp"
+                android:layout_toLeftOf="@id/id_ac_addevent_iv_add_start_time"
+                android:text="12:00"
+                android:textColor="#a4a7ac"
+                android:textSize="21sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/end_time"
+                android:textColor="#a4a7ac"
+                android:textSize="21sp" />
+
+            <ImageView
+                android:id="@+id/id_ac_addevent_iv_add_end_time"
+                android:layout_width="9dp"
+                android:layout_height="19dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/add_right" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="26dp"
+                android:layout_toLeftOf="@id/id_ac_addevent_iv_add_end_time"
+                android:text="12:00"
+                android:textColor="#a4a7ac"
+                android:textSize="21sp" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/place"
+                android:textColor="#a4a7ac"
+                android:textSize="21sp" />
+
+            <ImageView
+                android:id="@+id/id_ac_addevent_iv_edit_place"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/edit_gray" />
+
+            <EditText
+                android:id="@+id/id_ac_addevent_et_place"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:hint="@string/place"
+                android:gravity="center|right"
+                android:textColorHint="#a4a7ac"
+                android:layout_marginRight="15dp"
+                android:layout_toLeftOf="@id/id_ac_addevent_iv_edit_place"
+                android:background="@null"
+                android:textColor="#a4a7ac"
+                android:textSize="21sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/type"
+                android:textColor="#a4a7ac"
+                android:textSize="21sp" />
+
+            <ImageView
+                android:id="@+id/id_ac_addevent_iv_edit_type_right"
+                android:layout_width="9dp"
+                android:layout_height="19dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/add_right" />
+
+            <TextView
+                android:id="@+id/id_ac_addevent_tv_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="26dp"
+                android:layout_toLeftOf="@id/id_ac_addevent_iv_edit_type_right"
+                android:text="@string/normal_event"
+                android:textColor="#a4a7ac"
+                android:textSize="21sp" />
+
+
+            <ImageView
+                android:id="@+id/id_ac_addevent_iv_edit_type_left"
+                android:layout_width="9dp"
+                android:layout_height="19dp"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="26dp"
+                android:layout_toLeftOf="@id/id_ac_addevent_tv_type"
+                android:scaleType="fitXY"
+                android:src="@drawable/add_left" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/week_count"
+                android:textColor="#a4a7ac"
+                android:textSize="21sp" />
+
+            <ImageView
+                android:id="@+id/id_ac_addevent_iv_edit_recycle"
+                android:layout_width="9dp"
+                android:layout_height="19dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/add_right" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="26dp"
+                android:layout_toLeftOf="@id/id_ac_addevent_iv_edit_recycle"
+                android:text="12:00"
+                android:textColor="#a4a7ac"
+                android:textSize="21sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <ImageView
+            android:id="@+id/id_ac_addevent_iv_confirm"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:scaleType="fitXY"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/confirm" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_above="@id/id_ac_addevent_iv_confirm"
+            android:layout_height="100dp"
+            android:layout_marginBottom="30dp"
+            android:gravity="center">
+
+            <ImageView
+                android:id="@+id/id_ac_addevent_iv_slient"
+                android:layout_width="79dp"
+                android:layout_height="79dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/slient" />
+
+
+            <ImageView
+                android:id="@+id/id_ac_addevent_iv_shake"
+                android:layout_width="79dp"
+                android:layout_height="79dp"
+                android:layout_marginLeft="38dp"
+                android:layout_toRightOf="@id/id_ac_addevent_iv_slient"
+                android:scaleType="fitXY"
+                android:src="@drawable/shake" />
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.addcourse.view.AcAddCourse;
+import com.wpy.faxianbei.sk.activity.addevent.view.AcAddEvent;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
 import com.wpy.faxianbei.sk.activity.coursetable.presenter.PresenterCourseTable;
 import com.wpy.faxianbei.sk.activity.coursetable.view.IViewCourseTable;
@@ -113,8 +114,8 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
                         adapter.setSelectPos(200);
                         adapter.notifyDataSetChanged();
                         /******************做其他操作***********************/
-                        Toast.makeText(AcCourseTable2.this, "等待设置时间", Toast.LENGTH_SHORT).show();
-
+                        Intent intent=new Intent(AcCourseTable2.this, AcAddEvent.class);
+                        AcCourseTable2.this.startActivity(intent);
 
                     } else {
                         TextView textView = (TextView) view.findViewById(R.id.id_ac_coursetable2_gv_item);

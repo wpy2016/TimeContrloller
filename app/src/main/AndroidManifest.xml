@@ -12,9 +12,8 @@
     <uses-permission android:name="android.permission.BIND_SCREENING_SERVICE" />
     <!-- 基础模块 END -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.CAPTURE_AUDIO_OUTPUT"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CAPTURE_AUDIO_OUTPUT" />
 
     <application
         android:name=".application.SKApplication"
@@ -69,8 +68,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.home.view.AcHome"
-            android:screenOrientation="portrait"
             android:launchMode="singleTask"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activity.my.view.AcMy"
@@ -128,7 +127,11 @@
         <service
             android:name=".service.SituationService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".activity.addevent.view.AcAddEvent"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
