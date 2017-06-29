@@ -18,7 +18,7 @@ import java.util.Calendar;
  * Created by wangpeiyu on 2017/6/28.
  */
 
-public class Clock extends SurfaceViewTemplate {
+public class ClockLine extends SurfaceViewTemplate {
 
     //左边内边距
     private int mPadding;
@@ -63,11 +63,11 @@ public class Clock extends SurfaceViewTemplate {
     Paint mPaintSecond;
 
 
-    public Clock(Context context) {
+    public ClockLine(Context context) {
         super(context);
     }
 
-    public Clock(Context context, AttributeSet attrs) {
+    public ClockLine(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -87,7 +87,6 @@ public class Clock extends SurfaceViewTemplate {
 
 
     private void drawSecondCircleInit() {
-        mPaintSecond.setColor(Color.parseColor("#e6e4e2"));
         for(int i=0;i<60;i++){
             float degree = (float) getDegree(i);
             double radian = getRadian(degree);

@@ -14,7 +14,7 @@
         android:layout_weight="3">
 
 
-        <com.wpy.faxianbei.sk.ui.clock.Clock
+        <com.wpy.faxianbei.sk.ui.clock.ClockBitmap
             android:id="@+id/id_ac_home_iv_startorclose"
             android:layout_width="233dp"
             android:layout_height="233dp"

@@ -18,7 +18,7 @@ import java.util.Calendar;
  * Created by wangpeiyu on 2017/6/28.
  */
 
-public class ClockCopy extends SurfaceViewTemplate {
+public class ClockBitmap extends SurfaceViewTemplate {
 
 
     //左边内边距
@@ -51,14 +51,19 @@ public class ClockCopy extends SurfaceViewTemplate {
     private Bitmap mbmSeconds;
 
 
-    //时针短的那边长度
-    private double hourLenght;
+    //秒针的宽度
+    private double secondWidth;
+    //分针的宽度
+    private double minuteWidth;
+    //时针的宽度
+    private double hourWidth;
 
-    //分针短的那边长度
-    private double minuteLenght;
+    //三个针短的那边的长度
+    private double shortLenght;
 
-    //秒针短的那边长度
-    private double secondLenght;
+    //时针，分针、秒针的交汇点的小圆点
+    private Bitmap mbmClockCircle;
+
 
     //日历，获取时间
     Calendar calendar;
@@ -68,14 +73,17 @@ public class ClockCopy extends SurfaceViewTemplate {
 
     Matrix matrix;
 
+    //绘制跟随秒针的小圆点
     Paint mPaintSecond;
 
+    private int rotate;
 
-    public ClockCopy(Context context) {
+
+    public ClockBitmap(Context context) {
         super(context);
     }
 
-    public ClockCopy(Context context, AttributeSet attrs) {
+    public ClockBitmap(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
@@ -89,66 +97,77 @@ public class ClockCopy extends SurfaceViewTemplate {
         drawSecondCircleInit();
         drawHour();
         drawMinute();
+        drawSecond();
         drawSecondCircle();
     }
 
     private void drawSecondCircleInit() {
         mPaintSecond.setColor(Color.parseColor("#e6e4e2"));
-        for(int i=0;i<60;i++){
+        for (int i = 0; i < 60; i++) {
             float degree = (float) getDegree(i);
             double radian = getRadian(degree);
-            float lenght= (float) (mDiameter*0.5*0.75);
-            int x= (int) (mCenter+lenght*Math.sin(radian));
-            int y= (int) (mCenter-lenght*Math.cos(radian));
-            mCanvas.drawCircle(x, y, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) (1.3+0.03*i), getResources().getDisplayMetrics()), mPaintSecond);
+            float lenght = (float) (mDiameter * 0.5 * 0.77);
+            int x = (int) (mCenter + lenght * Math.sin(radian));
+            int y = (int) (mCenter - lenght * Math.cos(radian));
+            mCanvas.drawCircle(x, y, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) (1.3 + 0.03 * i), getResources().getDisplayMetrics()), mPaintSecond);
         }
     }
 
     private void drawSecondCircle() {
         mPaintSecond.setColor(Color.parseColor("#458e4d"));
-            float degree = (float) getDegree(mSeconds);
-            double radian = getRadian(degree);
-            float lenght= (float) (mDiameter*0.5*0.75);
-            int x= (int) (mCenter+lenght*Math.sin(radian));
-            int y= (int) (mCenter-lenght*Math.cos(radian));
-            mCanvas.drawCircle(x, y, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) (1.3+0.03*mSeconds), getResources().getDisplayMetrics()), mPaintSecond);
+        float degree = (float) getDegree(mSeconds);
+        double radian = getRadian(degree);
+        float lenght = (float) (mDiameter * 0.5 * 0.77);
+        int x = (int) (mCenter + lenght * Math.sin(radian));
+        int y = (int) (mCenter - lenght * Math.cos(radian));
+        mCanvas.drawCircle(x, y, TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, (float) (1.3 + 0.03 * mSeconds), getResources().getDisplayMetrics()), mPaintSecond);
+        mPaintSecond.setColor(Color.parseColor("#e6e4e2"));
+        mCanvas.drawBitmap(mbmClockCircle, mCenter - mbmClockCircle.getWidth() / 2.0f, mCenter - mbmClockCircle.getHeight() / 2.0f, mPaint);
     }
 
     private void drawSecond() {
         matrix.reset();
         float degree = (float) getDegree(mSeconds);
         double radian = getRadian(degree);
-        float x = (float) (mCenter - secondLenght * Math.sin(radian));
-        float y = (float) (mCenter + secondLenght * Math.cos(radian));
-        mCanvas.translate(x, y);
-        matrix.postRotate(degree - 180);
+        double radian_90_sub = getRadian(90) - radian;
+        float x = (float) (mCenter - shortLenght * Math.sin(radian));
+        float y = (float) (mCenter + shortLenght * Math.cos(radian));
+        float x1 = (float) (x + (secondWidth / 2.0d) * Math.sin(radian_90_sub));
+        float y1 = (float) (y + (secondWidth / 2.0d) * Math.cos(radian_90_sub));
+        mCanvas.translate(x1, y1);
+        matrix.postRotate(degree - rotate);
         mCanvas.drawBitmap(mbmSeconds, matrix, mPaint);
-        mCanvas.translate(-x,-y);
+        mCanvas.translate(-x1, -y1);
     }
 
     private void drawMinute() {
-    //    matrix.reset();
+        matrix.reset();
         float degree = (float) getDegree(mMinute);
         double radian = getRadian(degree);
-        float x = (float) (mCenter - minuteLenght * Math.sin(radian));
-        float y = (float) (mCenter + minuteLenght * Math.cos(radian));
-        mCanvas.translate(x, y);
-      //  matrix.postRotate(degree - 180);
-       // mCanvas.drawBitmap(mbmMinute, matrix, mPaint);
-        mCanvas.translate(-x,-y);
+        double radian_90_sub = getRadian(90) - radian;
+        float x = (float) (mCenter - shortLenght * Math.sin(radian));
+        float y = (float) (mCenter + shortLenght * Math.cos(radian));
+        float x1 = (float) (x + (minuteWidth / 2.0d) * Math.sin(radian_90_sub));
+        float y1 = (float) (y + (minuteWidth / 2.0d) * Math.cos(radian_90_sub));
+        mCanvas.translate(x1, y1);
+        matrix.postRotate(degree - rotate);
+        mCanvas.drawBitmap(mbmMinute, matrix, mPaint);
+        mCanvas.translate(-x1, -y1);
     }
 
     private void drawHour() {
-      //  matrix.reset();
-        float degree = mHour * 30;
+        matrix.reset();
+        float degree = (float) (mHour * 30+(mMinute/60.0d)*30);
         double radian = getRadian(degree);
-        float x = (float) (mCenter - hourLenght * Math.sin(radian));
-        float y = (float) (mCenter + hourLenght * Math.cos(radian));
-        mCanvas.translate(x, y);
-     //   matrix.postRotate(degree-180);
-      //  mCanvas.drawBitmap(mbmHour, matrix, mPaint);
-
-        mCanvas.translate(-x,-y);
+        double radian_90_sub = getRadian(90) - radian;
+        float x = (float) (mCenter - shortLenght * Math.sin(radian));
+        float y = (float) (mCenter + shortLenght * Math.cos(radian));
+        float x1 = (float) (x + (hourWidth / 2.0d) * Math.sin(radian_90_sub));
+        float y1 = (float) (y + (hourWidth / 2.0d) * Math.cos(radian_90_sub));
+        mCanvas.translate(x1, y1);
+        matrix.postRotate(degree - rotate);
+        mCanvas.drawBitmap(mbmHour, matrix, mPaint);
+        mCanvas.translate(-x1, -y1);
     }
 
 
@@ -191,16 +210,17 @@ public class ClockCopy extends SurfaceViewTemplate {
         mbmHour = BitmapFactory.decodeResource(getResources(), R.drawable.clock_hour);
         mbmMinute = BitmapFactory.decodeResource(getResources(), R.drawable.clock_minute);
         mbmSeconds = BitmapFactory.decodeResource(getResources(), R.drawable.clock_seconds);
+        mbmClockCircle = BitmapFactory.decodeResource(getResources(), R.drawable.clock_circle);
         calendar = Calendar.getInstance();
         unit = Math.PI / 180;
-        hourLenght = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
-        minuteLenght = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 10, getResources().getDisplayMetrics());
-        secondLenght = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 13, getResources().getDisplayMetrics());
+        hourWidth = mbmHour.getWidth();
+        minuteWidth = mbmMinute.getWidth();
+        secondWidth = mbmSeconds.getWidth();
         matrix = new Matrix();
         mPaintSecond = new Paint();
         mPaintSecond.setAntiAlias(true);
         mPaintSecond.setDither(true);
-        mPaintSecond.setColor(Color.parseColor("#e6e4e2"));
+        rotate=180;
     }
 
     /**
@@ -218,5 +238,6 @@ public class ClockCopy extends SurfaceViewTemplate {
         mCenter = desireLenght / 2;
         mDiameter = desireLenght - mPadding * 2;
         mRectf = new RectF(mPadding, mPadding, desireLenght - mPadding, desireLenght - mPadding);
+        shortLenght = mDiameter * 0.5 * 0.5 * 0.2;
     }
 }
