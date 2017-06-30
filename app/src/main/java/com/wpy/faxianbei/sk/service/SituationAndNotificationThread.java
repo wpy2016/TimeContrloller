@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Handler;
 
 import com.wpy.faxianbei.sk.activity.addcourse.model.ModelImplPupCourse;
+import com.wpy.faxianbei.sk.activity.addevent.view.AcAddEvent;
 import com.wpy.faxianbei.sk.application.SKApplication;
 import com.wpy.faxianbei.sk.entity.SkUser;
 import com.wpy.faxianbei.sk.entity.db.CourseTable;
@@ -62,27 +63,122 @@ public class SituationAndNotificationThread extends Thread {
                 .getDbManager()
                 .selector(TimeItem.class).findAll();
         if (listtime == null || listtime.isEmpty()) {
-
         } else {
             for (final TimeItem timeitem : listtime) {
-                /*************************************待改***********************************************************/
-             /*  if (timeitem.getStart() < System.currentTimeMillis() && timeitem.getEnd() > System.currentTimeMillis()) {
-                    isNowhaveToLock = true;
-                    if (!isChange) {
-                        mhandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                setChange(timeitem.getModel());
+
+                if (timeitem.getType() == AcAddEvent.EVENTNORMAL) {
+                    if (0 == timeitem.getIsRecycle()) {
+                        //表示不重复的日常事件
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                        long startTime = format.parse(timeitem.getStart()).getTime();
+                        long endTime = format.parse(timeitem.getEnd()).getTime();
+                        long now = System.currentTimeMillis();
+                        if (now >= startTime && now <= endTime) {
+                            isNowhaveToLock = true;
+                            if (!isChange) {
+                                mhandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        setChange(timeitem.getModel());
+                                    }
+                                });
+                                isChange = true;
+                                break;
                             }
-                        });
-                        isChange = true;
-                        break;
+                        }
+                    } else {
+                        //表示重复的日常事件 recycle[0]=1
+                        int day = DateUtil.parseIntFormDayString(DateUtil.getDay(System.currentTimeMillis())) + 1;
+                        int recycle[] = getRecycle(timeitem);
+                        if (recycle[day] == 1) {
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+                            String strStart = format.format(new Date(System.currentTimeMillis())) + " " + timeitem.getStart();
+                            String strEnd = format.format(new Date(System.currentTimeMillis())) + " " + timeitem.getEnd();
+                            SimpleDateFormat format2 = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                            long start = format2.parse(strStart).getTime();
+                            long end = format2.parse(strEnd).getTime();
+                            long now = System.currentTimeMillis();
+                            if (now >= start && now <= end) {
+                                isNowhaveToLock = true;
+                                if (!isChange) {
+                                    mhandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            setChange(timeitem.getModel());
+                                        }
+                                    });
+                                    isChange = true;
+                                    break;
+                                }
+                            }
+                        }
                     }
-                }*/
+                } else {
+                    if (0 == timeitem.getIsRecycle()) {
+                        //表示不重复的课程事件
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                        long startTime = format.parse(timeitem.getStart()).getTime();
+                        long endTime = format.parse(timeitem.getEnd()).getTime();
+                        long now = System.currentTimeMillis();
+                        if (now >= startTime && now <= endTime) {
+                            isNowhaveToLock = true;
+                            if (!isChange) {
+                                mhandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        setChange(timeitem.getModel());
+                                    }
+                                });
+                                isChange = true;
+                                break;
+                            }
+                        }
+                    } else {
+                        //表示重复的课程事件
+                        int day = DateUtil.parseIntFormDayString(DateUtil.getDay(System.currentTimeMillis())) + 1;
+                        int recycle[] = getRecycle(timeitem);
+                        if (recycle[day] == 1) {
+                            int currentWeek = (int) Math.ceil((double) ((System.currentTimeMillis() - Long.parseLong(SharePreferenceUtil.instantiation.getWeek(mContext))) / (1000l * 60 * 60 * 24 * 7.0)));
+                            if (currentWeek >= timeitem.getStartWeek() && currentWeek <= timeitem.getEndWeek()) {
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+                                String strStart = format.format(new Date(System.currentTimeMillis())) + " " + timeitem.getStart();
+                                String strEnd = format.format(new Date(System.currentTimeMillis())) + " " + timeitem.getEnd();
+                                SimpleDateFormat format2 = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                                long start = format2.parse(strStart).getTime();
+                                long end = format2.parse(strEnd).getTime();
+                                long now = System.currentTimeMillis();
+                                if (now >= start && now <= end) {
+                                    isNowhaveToLock = true;
+                                    if (!isChange) {
+                                        mhandler.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                setChange(timeitem.getModel());
+                                            }
+                                        });
+                                        isChange = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
-
+    private int[] getRecycle(TimeItem item) {
+        int recycle[] = new int[8];
+        recycle[0] = 1;
+        recycle[1] = item.getMonday();
+        recycle[2] = item.getTuesday();
+        recycle[3] = item.getWednesday();
+        recycle[4] = item.getThursDay();
+        recycle[5] = item.getFriday();
+        recycle[6] = item.getSaturday();
+        recycle[7] = item.getSunday();
+        return recycle;
+    }
     /**
      * 获取当前年份、当前学期、当前星期几的所有课程
      *

@@ -75,11 +75,19 @@ public class AcAddEvent extends Activity implements SelectDayTimePickerModel.Sel
     @ViewInject(R.id.id_ac_addevent_rl_edit_recycle_week)
     RelativeLayout mrlRecycleWeek;
 
+    @ViewInject(R.id.id_ac_addevent_ll_start_time)
+    RelativeLayout mrlStartTime;
+
+    @ViewInject(R.id.id_ac_addevent_ll_end_time)
+    RelativeLayout mrlEndTime;
+
+    @ViewInject(R.id.id_ac_addevent_ll_recycle)
+    RelativeLayout mrlRecycle;
+
+
     @ViewInject(R.id.id_ac_addevent_tv_edit_recycle_week)
     TextView mtvRecycleWeek;
 
-    @ViewInject(R.id.id_ac_addevent_iv_edit_recycle_week)
-    ImageView mivRecycleWeek;
 
     @ViewInject(R.id.id_ac_addevent_iv_delete)
             ImageView mivDelete;
@@ -267,12 +275,15 @@ public class AcAddEvent extends Activity implements SelectDayTimePickerModel.Sel
             R.id.id_ac_addevent_iv_edit_place, R.id.id_ac_addevent_iv_edit_type_right,
             R.id.id_ac_addevent_iv_edit_type_left, R.id.id_ac_addevent_iv_edit_recycle,
             R.id.id_ac_addevent_iv_slient, R.id.id_ac_addevent_iv_shake, R.id.id_ac_addevent_iv_edit_recycle_week,
-            R.id.id_ac_addevent_iv_confirm,R.id.id_ac_addevent_iv_delete})
+            R.id.id_ac_addevent_iv_confirm,R.id.id_ac_addevent_iv_delete,R.id.id_ac_addevent_ll_start_time,
+            R.id.id_ac_addevent_ll_end_time,R.id.id_ac_addevent_ll_recycle,R.id.id_ac_addevent_rl_edit_recycle_week})
     private void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.id_ac_addevent_ll_start_time:
             case R.id.id_ac_addevent_iv_add_start_time:
                 dayTimePickerModel.showPopWindow(AcAddEvent.this, mtvStarttime, START);
                 break;
+            case R.id.id_ac_addevent_ll_end_time:
             case R.id.id_ac_addevent_iv_add_end_time:
                 dayTimePickerModel.showPopWindow(AcAddEvent.this, mtvEndtime, END);
                 break;
@@ -291,6 +302,7 @@ public class AcAddEvent extends Activity implements SelectDayTimePickerModel.Sel
                         type = EVENTCOURSE;
                     }
                 break;
+            case R.id.id_ac_addevent_ll_recycle:
             case R.id.id_ac_addevent_iv_edit_recycle:
                 if(has){
                     if(0==recycle[0]){
@@ -312,6 +324,7 @@ public class AcAddEvent extends Activity implements SelectDayTimePickerModel.Sel
                 model = SituationService.SHAKE;
                 mivShake.setImageResource(R.drawable.shake_red);
                 break;
+            case R.id.id_ac_addevent_rl_edit_recycle_week:
             case R.id.id_ac_addevent_iv_edit_recycle_week:
                 //进行选择周次
                 selectRecycleWeekPickerModel.showPopWindow(AcAddEvent.this, mtvStarttime);

@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.wpy.faxianbei.sk.activity.addcourse.model.ModelImplPupCourse;
+import com.wpy.faxianbei.sk.activity.addevent.view.AcAddEvent;
 import com.wpy.faxianbei.sk.application.SKApplication;
 import com.wpy.faxianbei.sk.entity.SkUser;
 import com.wpy.faxianbei.sk.entity.db.CourseTable;
@@ -26,7 +27,7 @@ import java.util.List;
  * Created by wangpeiyu on 2017/6/26.
  */
 
-public class IsNeedLockThread extends Thread{
+public class IsNeedLockThread extends Thread {
 
     boolean lock = false;
 
@@ -37,12 +38,12 @@ public class IsNeedLockThread extends Thread{
     Context mContext;
 
     LockInBackGroundService1.CalcuThread calcuThread;
-    public IsNeedLockThread(Handler handler, Context context, LockInBackGroundService1.CalcuThread thread){
-        this.mhandler=handler;
-        this.mContext=context;
-        this.calcuThread=thread;
-    }
 
+    public IsNeedLockThread(Handler handler, Context context, LockInBackGroundService1.CalcuThread thread) {
+        this.mhandler = handler;
+        this.mContext = context;
+        this.calcuThread = thread;
+    }
 
 
     /**
@@ -56,28 +57,132 @@ public class IsNeedLockThread extends Thread{
 
         } else {
             for (TimeItem timeitem : listtime) {
-                /********************************************待改***********************************************************/
-              /*  if (timeitem.getStart()<System.currentTimeMillis()&&timeitem.getEnd() > System.currentTimeMillis()) {
-                    if (!lock) {
-                        mhandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                Intent intentTOMain = new Intent(mContext, com.wpy.faxianbei.sk.activity.lock.LockMain.class);
-                                intentTOMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                                mContext.startActivity(intentTOMain);
+                if (timeitem.getType() == AcAddEvent.EVENTNORMAL) {
+                    if (0 == timeitem.getIsRecycle()) {
+                        //表示不重复的日常事件
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                        long startTime = format.parse(timeitem.getStart()).getTime();
+                        long endTime = format.parse(timeitem.getEnd()).getTime();
+                        long now = System.currentTimeMillis();
+                        if (now >= startTime && now <= endTime) {
+                            if (!lock) {
+                                mhandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intentTOMain = new Intent(mContext, com.wpy.faxianbei.sk.activity.lock.LockMain.class);
+                                        intentTOMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        mContext.startActivity(intentTOMain);
+                                    }
+                                });
+                                calcuThread.start();
                             }
-                        });
-                        calcuThread.start();
+                            lock = true;
+                            break;
+                        }
+                    } else {
+                        //表示重复的日常事件 recycle[0]=1
+                        int day = DateUtil.parseIntFormDayString(DateUtil.getDay(System.currentTimeMillis())) + 1;
+                        int recycle[] = getRecycle(timeitem);
+                        if (recycle[day] == 1) {
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+                            String strStart = format.format(new Date(System.currentTimeMillis())) + " " + timeitem.getStart();
+                            String strEnd = format.format(new Date(System.currentTimeMillis())) + " " + timeitem.getEnd();
+                            SimpleDateFormat format2 = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                            long start = format2.parse(strStart).getTime();
+                            long end = format2.parse(strEnd).getTime();
+                            long now = System.currentTimeMillis();
+                            if (now >= start && now <= end) {
+                                if (!lock) {
+                                    mhandler.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            Intent intentTOMain = new Intent(mContext, com.wpy.faxianbei.sk.activity.lock.LockMain.class);
+                                            intentTOMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                            mContext.startActivity(intentTOMain);
+                                        }
+                                    });
+                                    calcuThread.start();
+                                }
+                                lock = true;
+                                break;
+                            }
+                        }
                     }
-                    lock = true;
-                    break;
-                }*/
+                } else {
+                    if (0 == timeitem.getIsRecycle()) {
+                        //表示不重复的课程事件
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                        long startTime = format.parse(timeitem.getStart()).getTime();
+                        long endTime = format.parse(timeitem.getEnd()).getTime();
+                        long now = System.currentTimeMillis();
+                        if (now >= startTime && now <= endTime) {
+                            if (!lock) {
+                                mhandler.post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Intent intentTOMain = new Intent(mContext, com.wpy.faxianbei.sk.activity.lock.LockMain.class);
+                                        intentTOMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        mContext.startActivity(intentTOMain);
+                                    }
+                                });
+                                calcuThread.start();
+                            }
+                            lock = true;
+                            break;
+                        }
+                    } else {
+                        //表示重复的课程事件
+                        int day = DateUtil.parseIntFormDayString(DateUtil.getDay(System.currentTimeMillis())) + 1;
+                        int recycle[] = getRecycle(timeitem);
+                        if (recycle[day] == 1) {
+                            int currentWeek = (int) Math.ceil((double) ((System.currentTimeMillis() - Long.parseLong(SharePreferenceUtil.instantiation.getWeek(mContext))) / (1000l * 60 * 60 * 24 * 7.0)));
+                            if (currentWeek >= timeitem.getStartWeek() && currentWeek <= timeitem.getEndWeek()) {
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+                                String strStart = format.format(new Date(System.currentTimeMillis())) + " " + timeitem.getStart();
+                                String strEnd = format.format(new Date(System.currentTimeMillis())) + " " + timeitem.getEnd();
+                                SimpleDateFormat format2 = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                                long start = format2.parse(strStart).getTime();
+                                long end = format2.parse(strEnd).getTime();
+                                long now = System.currentTimeMillis();
+                                if (now >= start && now <= end) {
+                                    if (!lock) {
+                                        mhandler.post(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Intent intentTOMain = new Intent(mContext, com.wpy.faxianbei.sk.activity.lock.LockMain.class);
+                                                intentTOMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                                                mContext.startActivity(intentTOMain);
+                                            }
+                                        });
+                                        calcuThread.start();
+                                    }
+                                    lock = true;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 
+    private int[] getRecycle(TimeItem item) {
+        int recycle[] = new int[8];
+        recycle[0] = 1;
+        recycle[1] = item.getMonday();
+        recycle[2] = item.getTuesday();
+        recycle[3] = item.getWednesday();
+        recycle[4] = item.getThursDay();
+        recycle[5] = item.getFriday();
+        recycle[6] = item.getSaturday();
+        recycle[7] = item.getSunday();
+        return recycle;
+    }
+
     /**
      * 获取当前年份、当前学期、当前星期几的所有课程
+     *
      * @return
      */
     private List<CourseTable> getCurrentDayLessons() throws Exception {
@@ -99,6 +204,7 @@ public class IsNeedLockThread extends Thread{
 
     /**
      * 计算当前所有课程是否是本周的，并开始判断当前时间是否处于上课时间，进而转到锁屏界面，并进行提示
+     *
      * @param list
      */
     @TargetApi(Build.VERSION_CODES.N)
@@ -132,7 +238,7 @@ public class IsNeedLockThread extends Thread{
                         }
                         if (!isTip) {
                             if (System.currentTimeMillis() < DateUtil.getStartTime(list.get(i).getTime()))
-                                mhandler.post(new myRunnable(list.get(i),(Service) mContext));
+                                mhandler.post(new myRunnable(list.get(i), (Service) mContext));
                             isTip = true;
                         }
                     }
