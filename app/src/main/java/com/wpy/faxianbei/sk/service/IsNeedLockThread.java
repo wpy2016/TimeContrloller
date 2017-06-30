@@ -56,7 +56,8 @@ public class IsNeedLockThread extends Thread{
 
         } else {
             for (TimeItem timeitem : listtime) {
-                if (timeitem.getStart()<System.currentTimeMillis()&&timeitem.getEnd() > System.currentTimeMillis()) {
+                /********************************************待改***********************************************************/
+              /*  if (timeitem.getStart()<System.currentTimeMillis()&&timeitem.getEnd() > System.currentTimeMillis()) {
                     if (!lock) {
                         mhandler.post(new Runnable() {
                             @Override
@@ -70,7 +71,7 @@ public class IsNeedLockThread extends Thread{
                     }
                     lock = true;
                     break;
-                }
+                }*/
             }
         }
     }

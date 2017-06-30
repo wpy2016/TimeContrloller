@@ -35,43 +35,47 @@ public class IModelCourseTableImpl implements IModelCourseTable {
     public String getLesson(int column, int raw, int week, int year, int semester) {
 
         String lesson = "";
-        try {
-            List<CourseTable> list = SKApplication.getDbManager().selector(CourseTable.class).where(
-                    WhereBuilder.b().and("stuid", "=", SkUser.getCurrentUser(SkUser.class).getSchoolId()).and("semester", "=", "" + semester)
-                            .and("year", "=", "" + year).and("time", "=", getTime(raw)).and("day", "=", getDay(column))).findAll();
-            if (list != null && !list.isEmpty()) {
-                for (CourseTable courseTable : list) {
-                    String[] split = courseTable.getWeeks()
-                            .replace("[", "")
-                            .replace("]", "")
-                            .replace(" ", "")
-                            .split(",");
-                    for (String s : split) {
-                        if (s.equals(week + "")) {
-                            lesson = courseTable.getCourse();
+        if(SkUser.getCurrentUser(SkUser.class)!=null){
+            try {
+                List<CourseTable> list = SKApplication.getDbManager().selector(CourseTable.class).where(
+                        WhereBuilder.b().and("stuid", "=", SkUser.getCurrentUser(SkUser.class).getSchoolId()).and("semester", "=", "" + semester)
+                                .and("year", "=", "" + year).and("time", "=", getTime(raw)).and("day", "=", getDay(column))).findAll();
+                if (list != null && !list.isEmpty()) {
+                    for (CourseTable courseTable : list) {
+                        String[] split = courseTable.getWeeks()
+                                .replace("[", "")
+                                .replace("]", "")
+                                .replace(" ", "")
+                                .split(",");
+                        for (String s : split) {
+                            if (s.equals(week + "")) {
+                                lesson = courseTable.getCourse();
+                            }
                         }
+
                     }
-
                 }
+
+            } catch (DbException e) {
+
             }
-
-        } catch (DbException e) {
-
         }
         return lesson;
     }
 
     public boolean isNeedLoad(int year, int semester) {
         boolean need = false;
-        try {
-            List<CourseTable> list = SKApplication.getDbManager().selector(CourseTable.class).where(
-                    WhereBuilder.b().and("stuid", "=", SkUser.getCurrentUser(SkUser.class).getSchoolId()).and("semester", "=", "" + semester)
-                            .and("year", "=", "" + year)).findAll();
-            if (list == null || list.isEmpty()) {
-                need = true;
-            }
-        } catch (DbException e) {
+        if(SkUser.getCurrentUser(SkUser.class)!=null){
+            try {
+                List<CourseTable> list = SKApplication.getDbManager().selector(CourseTable.class).where(
+                        WhereBuilder.b().and("stuid", "=", SkUser.getCurrentUser(SkUser.class).getSchoolId()).and("semester", "=", "" + semester)
+                                .and("year", "=", "" + year)).findAll();
+                if (list == null || list.isEmpty()) {
+                    need = true;
+                }
+            } catch (DbException e) {
 
+            }
         }
         return need;
     }
@@ -80,7 +84,6 @@ public class IModelCourseTableImpl implements IModelCourseTable {
     public String getDay(int column) {
         String day = "";
         switch (column) {
-
             case 1:
                 day = "一";
                 break;
@@ -102,7 +105,6 @@ public class IModelCourseTableImpl implements IModelCourseTable {
             case 7:
                 day = "七";
                 break;
-
         }
         return day;
     }
@@ -112,7 +114,6 @@ public class IModelCourseTableImpl implements IModelCourseTable {
 
         String time = "";
         switch (raw) {
-
             case 1:
                 time = "1-2节";
                 break;
@@ -131,7 +132,6 @@ public class IModelCourseTableImpl implements IModelCourseTable {
             case 6:
                 time = "11-12节";
                 break;
-
         }
         return time;
     }
@@ -207,33 +207,19 @@ public TextView getDayTextView(int dayIndex,Object ac){
         return (int) Math.ceil((double) ((System.currentTimeMillis() - Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context))) / (1000 * 60 * 60 * 24 * 7.0)));
     }
 
+    /**
+     * 返回当前这一周的日期
+     * @return
+     */
     public String[] getDate() {
         String[] date = new String[7];
         long now=System.currentTimeMillis();
         String day = DateUtil.getDay(now);
-        int dayIndex=parseIntFormString(day);
+        int dayIndex=DateUtil.parseIntFormDayString(day);
         for(int i=0;i<7;i++){
            long offset= (i-dayIndex)*24*60*60*1000l;
             date[i]= DateUtil.getDateOnlyDay(now+offset);
         }
         return date;
-    }
-
-    private int parseIntFormString(String day) {
-        if (day.contains("星期一")) {
-            return 0;
-        } else if (day.equals("星期二")) {
-            return 1;
-        } else if (day.equals("星期三")) {
-            return 2;
-        } else if (day.equals("星期四")) {
-            return 3;
-        } else if (day.equals("星期五")) {
-            return 4;
-        } else if (day.equals("星期六")) {
-            return 5;
-        } else {
-            return 6;
-        }
     }
 }

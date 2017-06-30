@@ -45,7 +45,7 @@ public class SituationAndNotificationThread extends Thread {
 
     AudioManager manager;
 
-    boolean isNowhaveToLock=false;
+    boolean isNowhaveToLock = false;
 
     public SituationAndNotificationThread(Handler handler, Context context) {
         this.mhandler = handler;
@@ -65,8 +65,9 @@ public class SituationAndNotificationThread extends Thread {
 
         } else {
             for (final TimeItem timeitem : listtime) {
-                if (timeitem.getStart() < System.currentTimeMillis() && timeitem.getEnd() > System.currentTimeMillis()) {
-                    isNowhaveToLock=true;
+                /*************************************待改***********************************************************/
+             /*  if (timeitem.getStart() < System.currentTimeMillis() && timeitem.getEnd() > System.currentTimeMillis()) {
+                    isNowhaveToLock = true;
                     if (!isChange) {
                         mhandler.post(new Runnable() {
                             @Override
@@ -77,7 +78,7 @@ public class SituationAndNotificationThread extends Thread {
                         isChange = true;
                         break;
                     }
-                }
+                }*/
             }
         }
     }
@@ -116,7 +117,9 @@ public class SituationAndNotificationThread extends Thread {
             //获取当前是第几周
             int week = DateUtil.getCurrentWeek(mContext);
             //判断上面从数据库中获取的所有数据项中的课程的周次是否包含当前周
-            int size=list.size() / 2;
+            int size = list.size() / 2;
+            long offset = -1l;
+            int posCourse=-1;
             for (int i = 0; i < size; i++) {
                 //解析list中每一项的周次
                 String[] split = list.get(i).getWeeks()
@@ -128,7 +131,7 @@ public class SituationAndNotificationThread extends Thread {
                     //判断所有的周次中是否包含当前周
                     if (s.equals(week + "")) { //如果匹配当前周
                         if (System.currentTimeMillis() > DateUtil.getStartTime(list.get(i).getTime()) && System.currentTimeMillis() < DateUtil.getEndime(list.get(i).getTime())) {
-                            isNowhaveToLock=true;
+                            isNowhaveToLock = true;
                             if (!isChange) {
                                 mhandler.post(new Runnable() {
                                     @Override
@@ -139,16 +142,22 @@ public class SituationAndNotificationThread extends Thread {
                                 isChange = true;
                             }
                         }
-                        if (!isTip) {
-                            if (System.currentTimeMillis() < DateUtil.getStartTime(list.get(i).getTime()))
-                                mhandler.post(new myRunnable(list.get(i), (Service) mContext));
-                            isTip = true;
+                        //获取最接近当前时间的课程
+                        if (System.currentTimeMillis() < DateUtil.getStartTime(list.get(i).getTime())){
+                         if(-1==offset||DateUtil.getStartTime(list.get(i).getTime())-System.currentTimeMillis()<offset){
+                             offset=DateUtil.getStartTime(list.get(i).getTime())-System.currentTimeMillis();
+                             posCourse=i;
+                         }
                         }
                         break;
                     }
                 }
             }
-            if(!isNowhaveToLock){
+            //提示最新的课程
+            if(-1!=posCourse&&-1l!=offset){
+                mhandler.post(new myRunnable(list.get(posCourse), (Service) mContext));
+            }
+            if (!isNowhaveToLock) {
                 mhandler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -166,7 +175,7 @@ public class SituationAndNotificationThread extends Thread {
             try {
                 isChange = false;
                 isTip = false;
-                isNowhaveToLock=false;
+                isNowhaveToLock = false;
                 judgeCurrentTimeIsInMyAddTimeQuantum();
                 caculateCurrentDayLessonIsInTimeQuantum(getCurrentDayLessons());
                 sleep(30000);
@@ -181,9 +190,9 @@ public class SituationAndNotificationThread extends Thread {
                 manager.setRingerMode(RINGER_MODE_NORMAL);
                 break;
             case SLIENT:
-                try{
+                try {
                     manager.setRingerMode(RINGER_MODE_SILENT);
-                }catch (SecurityException e){
+                } catch (SecurityException e) {
                     //在部分手机不支持静音模式切换的时候，将其切换为震动模式
                     manager.setRingerMode(RINGER_MODE_VIBRATE);
                 }

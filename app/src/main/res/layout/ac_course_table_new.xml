@@ -29,7 +29,7 @@
                 android:paddingRight="6dp">
 
                 <TextView
-                    android:id="@+id/id_ac_coursetable_tv_semester"
+                    android:id="@+id/id_ac_coursetable2_tv_semester"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
@@ -38,7 +38,17 @@
                     android:textSize="15sp" />
 
                 <ImageView
-                    android:id="@+id/id_ac_coursetable_iv_add_semester"
+                    android:id="@+id/id_ac_coursetable2_iv_semester_down"
+                    android:layout_width="10dp"
+                    android:layout_height="6dp"
+                    android:layout_toRightOf="@id/id_ac_coursetable2_tv_semester"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/down"
+                    android:layout_centerVertical="true"/>
+
+                <ImageView
+                    android:id="@+id/id_ac_coursetable2_iv_add_semester"
                     android:layout_width="24dp"
                     android:layout_height="23dp"
                     android:layout_alignParentRight="true"
@@ -55,15 +65,27 @@
                 android:paddingRight="10dp">
 
                 <TextView
-                    android:id="@+id/id_ac_coursetable_tv_week"
+                    android:id="@+id/id_ac_coursetable2_tv_week"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="第八周"
                     android:textColor="#b7f276"
                     android:textSize="21sp" />
+
+                <ImageView
+                    android:id="@+id/id_ac_coursetable2_iv_week_down"
+                    android:layout_width="12dp"
+                    android:layout_height="8dp"
+                    android:layout_toRightOf="@id/id_ac_coursetable2_tv_week"
+                    android:layout_marginLeft="5dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/down"
+                    android:layout_centerVertical="true"/>
+
             </RelativeLayout>
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
@@ -71,22 +93,22 @@
             android:orientation="horizontal">
 
             <TextView
-                android:id="@+id/id_ac_coursetable_month"
+                android:id="@+id/id_ac_coursetable2_month"
                 android:layout_width="23dp"
-                android:layout_gravity="center_vertical"
                 android:layout_height="30dp"
-                android:text="六"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="13dp"
+                android:background="@drawable/calender"
                 android:gravity="center"
                 android:paddingTop="7dp"
-                android:textColor="#b7f276"
-                android:layout_marginLeft="3dp"
-                android:background="@drawable/calender"/>
+                android:text="六"
+                android:textColor="#b7f276" />
 
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:layout_marginLeft="8dp"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -99,7 +121,7 @@
                     android:textColor="#b7f276" />
 
                 <TextView
-                    android:id="@+id/id_ac_coursetable_tv_1"
+                    android:id="@+id/id_ac_coursetable2_tv_1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -124,7 +146,7 @@
                     android:textColor="#b7f276" />
 
                 <TextView
-                    android:id="@+id/id_ac_coursetable_tv_2"
+                    android:id="@+id/id_ac_coursetable2_tv_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -150,7 +172,7 @@
                     android:textColor="#b7f276" />
 
                 <TextView
-                    android:id="@+id/id_ac_coursetable_tv_3"
+                    android:id="@+id/id_ac_coursetable2_tv_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -163,6 +185,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_marginLeft="2dp"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -175,7 +198,7 @@
                     android:textColor="#b7f276" />
 
                 <TextView
-                    android:id="@+id/id_ac_coursetable_tv_4"
+                    android:id="@+id/id_ac_coursetable2_tv_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -190,6 +213,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
+                android:layout_marginLeft="1dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -201,7 +225,7 @@
                     android:textColor="#b7f276" />
 
                 <TextView
-                    android:id="@+id/id_ac_coursetable_tv_5"
+                    android:id="@+id/id_ac_coursetable2_tv_5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -216,6 +240,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical"
+                android:layout_marginLeft="2dp"
                 android:orientation="vertical">
 
                 <TextView
@@ -227,7 +252,7 @@
                     android:textColor="#b7f276" />
 
                 <TextView
-                    android:id="@+id/id_ac_coursetable_tv_6"
+                    android:id="@+id/id_ac_coursetable2_tv_6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -240,6 +265,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:layout_marginLeft="1dp"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -252,7 +278,7 @@
                     android:textColor="#b7f276" />
 
                 <TextView
-                    android:id="@+id/id_ac_coursetable_tv_7"
+                    android:id="@+id/id_ac_coursetable2_tv_7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -262,15 +288,23 @@
             </LinearLayout>
 
         </LinearLayout>
-        <GridView
-            android:id="@+id/id_ac_coursetable_gv_timeitem"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            android:orientation="vertical"
             android:paddingLeft="0dp"
             android:paddingBottom="6dp"
-            android:paddingRight="8dp"
-            android:numColumns="8" />
+            android:paddingRight="8dp">
+            <GridView
+                android:id="@+id/id_ac_coursetable2_gv_timeitem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="8"
+                android:horizontalSpacing="0.5dp"
+                android:verticalSpacing="0.5dp"
+                android:background="#dedede" />
+        </LinearLayout>
     </LinearLayout>
 
 </RelativeLayout>

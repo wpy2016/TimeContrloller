@@ -12,11 +12,11 @@ import android.widget.Toast;
 import com.avos.avoscloud.AVOSCloud;
 import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
+import com.wpy.faxianbei.sk.activity.coursetable2.view.AcCourseTable2;
 import com.wpy.faxianbei.sk.activity.home.presenter.PresenterHome;
-import com.wpy.faxianbei.sk.activity.setting.view.AcSetting;
 import com.wpy.faxianbei.sk.activity.statistics.view.AcStatistics;
-import com.wpy.faxianbei.sk.activity.time.view.AcTime;
 import com.wpy.faxianbei.sk.service.SituationService;
+import com.wpy.faxianbei.sk.ui.clock.ClockBitmap;
 
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -44,7 +44,8 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
     @ViewInject(R.id.id_ac_home_ll_dynamic)
     LinearLayout mLlDynamic;
     @ViewInject(R.id.id_ac_home_iv_startorclose)
-    ImageView mIvStartorclose;
+    ClockBitmap clock;
+
     @ViewInject(R.id.id_ac_home_tv_time)
     TextView mtvTime;
     @ViewInject(R.id.id_ac_home_tv_day)
@@ -120,7 +121,7 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
                 mPresenter.toMyOrRegister(mContext);
                 break;
             case R.id.id_ac_home_ll_lock:
-                mPresenter.toNext(mContext, AcTime.class,false);
+                mPresenter.toNext(mContext, AcCourseTable2.class,false);
                 break;
             case R.id.id_ac_home_ll_statistics:
                 mPresenter.toNext(mContext, AcStatistics.class,false);

@@ -17,4 +17,31 @@
     <string name="three">三</string>
     <string name="two">二</string>
     <string name="seven">七</string>
+    <string name="editevent">编辑事件</string>
+    <string name="start_time">开始时间</string>
+    <string name="end_time">结束时间</string>
+    <string name="place">地点</string>
+    <string name="type">类别</string>
+    <string name="week_count">周数</string>
+    <string name="normal_event">日常事件</string>
+    <string name="course_event">课程事件</string>
+    <string name="recycle">重复</string>
+    <string name="every_monday">每周一</string>
+    <string name="every_tuesday">每周二</string>
+    <string name="every_wednesday">每周三</string>
+    <string name="every_thursday">每周四</string>
+    <string name="every_friday">每周五</string>
+    <string name="every_saturday">每周六</string>
+    <string name="every_sunday">每周天</string>
+    <string name="no_recycle">不重复</string>
+    <string-array name="recycle_string">
+        <item>不重复</item>
+        <item>周一</item>
+        <item>周二</item>
+        <item>周三</item>
+        <item>周四</item>
+        <item>周五</item>
+        <item>周六</item>
+        <item>周日</item>
+    </string-array>
 </resources>

@@ -12,6 +12,7 @@ import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.addcourse.view.AcAddCourse;
 import com.wpy.faxianbei.sk.activity.addtime.view.AcAddTime;
 import com.wpy.faxianbei.sk.activity.coursetable.view.AcCourseTable;
+import com.wpy.faxianbei.sk.activity.coursetable2.view.AcCourseTable2;
 import com.wpy.faxianbei.sk.activity.register.view.AcRegister;
 import com.wpy.faxianbei.sk.activity.timelist.view.AcTimeList;
 
@@ -47,7 +48,7 @@ public class AcTime extends Activity {
                 if (AVUser.getCurrentUser() == null) {
                     toNext(AcRegister.class);
                 } else {
-                    toNext(AcCourseTable.class);
+                    toNext(AcCourseTable2.class);
                 }
                 break;
             case R.id.id_ac_time_iv_add_time:

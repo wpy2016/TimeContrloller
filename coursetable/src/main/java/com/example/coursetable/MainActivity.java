@@ -27,7 +27,8 @@ public class MainActivity extends Activity {
                 list.add(time+":00");
                 time++;
             }else{
-                list.add("item"+i);
+                //内容初始化部分
+                list.add("项目"+i);
             }
         }
         MyListAdapter listAdapter=new MyListAdapter(this,list);

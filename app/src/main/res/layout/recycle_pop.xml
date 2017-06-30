@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/pop_bg"
+    android:paddingBottom="30dp"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/id_recycle_ll_monday"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/every_monday"
+            android:textColor="#a4a7ac"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/id_recycle_iv_monday"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/confirm" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/id_recycle_ll_tuesday"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/every_tuesday"
+            android:textColor="#a4a7ac"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/id_recycle_iv_tuesday"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/confirm" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/id_recycle_ll_wednesday"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/every_wednesday"
+            android:textColor="#a4a7ac"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/id_recycle_iv_wednesday"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/confirm" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/id_recycle_ll_thursday"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/every_thursday"
+            android:textColor="#a4a7ac"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/id_recycle_iv_thursday"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/confirm" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/id_recycle_ll_firday"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/every_friday"
+            android:textColor="#a4a7ac"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/id_recycle_iv_firday"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/confirm" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/id_recycle_ll_saturday"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/every_saturday"
+            android:textColor="#a4a7ac"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/id_recycle_iv_saturday"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/confirm" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/id_recycle_ll_sunday"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/every_sunday"
+            android:textColor="#a4a7ac"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/id_recycle_iv_sunday"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/confirm" />
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:id="@+id/id_recycle_ll_no_recycle"
+        android:layout_width="match_parent"
+        android:layout_height="45dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="@string/no_recycle"
+            android:textColor="#a4a7ac"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/id_recycle_iv_no_recycle"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/confirm" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/id_recycle_iv_confirm"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/confirm"
+            android:layout_centerInParent="true" />
+    </RelativeLayout>
+
+</LinearLayout>

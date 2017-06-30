@@ -144,21 +144,12 @@ public class ModelImplStatistics implements IModelStatistics {
                 String time = simpleDateFormat.format(date) + " 00:00";
                 android.icu.text.SimpleDateFormat simpleDateFormat2 = new android.icu.text.SimpleDateFormat("yyyy.MM.dd HH:mm");
                 long today = simpleDateFormat2.parse(time).getTime();
-                for (TimeItem timeitem : list) {
+                /***********************************************************************************************************/
+             /*   for (TimeItem timeitem : list) {
                     if (timeitem.getEnd() > today&&timeitem.getEnd()<today+24*60*60*1000l) {
                         sum += timeitem.getEnd() - timeitem.getStart();
-//                        Intent intent = new Intent(context, SituationService.class);
-//                        intent.putExtra("situation", timeitem.getModel());
-//                        PendingIntent Pendingintent = PendingIntent.getService(context, request, intent, PendingIntent.FLAG_ONE_SHOT);
-//                        manager.set(AlarmManager.RTC_WAKEUP, timeitem.getStart(), Pendingintent);
-//                        request++;
-//                        Intent intentEnd = new Intent(context, SituationService.class);
-//                        intentEnd.putExtra("situation", timeitem.getModel());
-//                        PendingIntent pendingintentEnd = PendingIntent.getService(context, request, intentEnd, PendingIntent.FLAG_ONE_SHOT);
-//                        manager.set(AlarmManager.RTC_WAKEUP, timeitem.getEnd(), pendingintentEnd);
-//                        request++;
                     }
-                }
+                }*/
             }
         } catch (DbException e) {
 
