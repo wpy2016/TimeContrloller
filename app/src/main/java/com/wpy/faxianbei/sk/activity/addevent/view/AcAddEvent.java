@@ -228,6 +228,7 @@ public class AcAddEvent extends Activity implements SelectDayTimePickerModel.Sel
 
     @Override
     public void selectTimeSuccess(String time, int type) {
+
         switch (type) {
             case START:
                 startTime=time;
