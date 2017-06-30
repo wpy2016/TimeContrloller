@@ -26,8 +26,6 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 
-import butterknife.BindView;
-
 @ContentView(R.layout.ac_statistics)
 public class AcStatistics extends MvpBaseActivity<IViewStatistics, StatisticsPresenter> implements IViewStatistics {
 
@@ -55,7 +53,6 @@ public class AcStatistics extends MvpBaseActivity<IViewStatistics, StatisticsPre
         initEvent();
         mPresenter.loadDate(mContext);
     }
-
 
     @Override
     protected void onResume() {
@@ -151,7 +148,6 @@ public class AcStatistics extends MvpBaseActivity<IViewStatistics, StatisticsPre
         }else{
             mtvNeedtolock.setText((""+needtolock)+"h");
         }
-
     }
 
     @Override
