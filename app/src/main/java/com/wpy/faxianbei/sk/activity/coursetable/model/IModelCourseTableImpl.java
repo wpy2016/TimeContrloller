@@ -215,29 +215,11 @@ public TextView getDayTextView(int dayIndex,Object ac){
         String[] date = new String[7];
         long now=System.currentTimeMillis();
         String day = DateUtil.getDay(now);
-        int dayIndex=parseIntFormString(day);
+        int dayIndex=DateUtil.parseIntFormDayString(day);
         for(int i=0;i<7;i++){
            long offset= (i-dayIndex)*24*60*60*1000l;
             date[i]= DateUtil.getDateOnlyDay(now+offset);
         }
         return date;
-    }
-
-    private int parseIntFormString(String day) {
-        if (day.contains("星期一")) {
-            return 0;
-        } else if (day.equals("星期二")) {
-            return 1;
-        } else if (day.equals("星期三")) {
-            return 2;
-        } else if (day.equals("星期四")) {
-            return 3;
-        } else if (day.equals("星期五")) {
-            return 4;
-        } else if (day.equals("星期六")) {
-            return 5;
-        } else {
-            return 6;
-        }
     }
 }

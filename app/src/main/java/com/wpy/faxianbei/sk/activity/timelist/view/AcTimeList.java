@@ -62,10 +62,13 @@ public class AcTimeList extends Activity {
                 timeArrayList.clear();
                 for(TimeItem timeitem:list)
                 {
-                    if(timeitem.getEnd()>System.currentTimeMillis())
+                    /*****************************timeitem类改变了，此时不能用**********************************************************************/
+                 /*   if(timeitem.getEnd()>System.currentTimeMillis())
                     {
                         timeArrayList.add(timeitem);
                     }
+
+                    */
                 }
                 adapter.notifyDataSetChanged();
             }
@@ -87,7 +90,8 @@ public class AcTimeList extends Activity {
                 Date date=new Date(item.getStart());
                 SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd HH:mm");
                 helper.setText(R.id.id_timelist_start,simpleDateFormat.format(date).substring(5));
-                date.setTime(item.getEnd());
+               /******************************item类更新类，此时不能用*******************************************************/
+               // date.setTime(item.getEnd());
                 helper.setText(R.id.id_timelist_end,simpleDateFormat.format(date).substring(5));
             }
         };

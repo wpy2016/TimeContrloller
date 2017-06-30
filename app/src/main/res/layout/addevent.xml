@@ -87,6 +87,7 @@
                 android:src="@drawable/add_right" />
 
             <TextView
+                android:id="@+id/id_ac_addevent_tv_start_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -119,6 +120,7 @@
                 android:src="@drawable/add_right" />
 
             <TextView
+                android:id="@+id/id_ac_addevent_tv_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -157,6 +159,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:hint="@string/place"
+                android:enabled="false"
                 android:gravity="center|right"
                 android:textColorHint="#a4a7ac"
                 android:layout_marginRight="15dp"
@@ -220,7 +223,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="@string/week_count"
+                android:text="@string/recycle"
                 android:textColor="#a4a7ac"
                 android:textSize="21sp" />
 
@@ -234,11 +237,46 @@
                 android:src="@drawable/add_right" />
 
             <TextView
+                android:id="@+id/id_ac_addevent_tv_edit_recycle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="26dp"
                 android:layout_toLeftOf="@id/id_ac_addevent_iv_edit_recycle"
+                android:text="12:00"
+                android:textColor="#a4a7ac"
+                android:textSize="21sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/id_ac_addevent_rl_edit_recycle_week"
+            android:layout_width="match_parent"
+            android:visibility="invisible"
+            android:layout_height="45dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/week_count"
+                android:textColor="#a4a7ac"
+                android:textSize="21sp" />
+
+            <ImageView
+                android:id="@+id/id_ac_addevent_iv_edit_recycle_week"
+                android:layout_width="9dp"
+                android:layout_height="19dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/add_right" />
+
+            <TextView
+                android:id="@+id/id_ac_addevent_tv_edit_recycle_week"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="26dp"
+                android:layout_toLeftOf="@id/id_ac_addevent_iv_edit_recycle_week"
                 android:text="12:00"
                 android:textColor="#a4a7ac"
                 android:textSize="21sp" />
@@ -257,14 +295,14 @@
             android:scaleType="fitXY"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="20dp"
             android:src="@drawable/confirm" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_above="@id/id_ac_addevent_iv_confirm"
             android:layout_height="100dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center">
 
             <ImageView
@@ -272,7 +310,7 @@
                 android:layout_width="79dp"
                 android:layout_height="79dp"
                 android:scaleType="fitXY"
-                android:src="@drawable/slient" />
+                android:src="@drawable/silence_green" />
 
 
             <ImageView
@@ -282,7 +320,7 @@
                 android:layout_marginLeft="38dp"
                 android:layout_toRightOf="@id/id_ac_addevent_iv_slient"
                 android:scaleType="fitXY"
-                android:src="@drawable/shake" />
+                android:src="@drawable/shake_green" />
         </RelativeLayout>
     </RelativeLayout>
 </LinearLayout>

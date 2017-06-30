@@ -76,7 +76,7 @@ public class ClockLine extends SurfaceViewTemplate {
     protected void draw() {
         updateTime();
         mCanvas = mSurfaceHolder.lockCanvas();
-        mCanvas.drawColor(Color.parseColor("#f6f6f6"));
+        mCanvas.drawColor(Color.parseColor("#ffffff"));
         mCanvas.drawBitmap(mbmBackground, null, mRectf, null);
         drawSecondCircleInit();
         drawHour();

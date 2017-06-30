@@ -92,7 +92,7 @@ public class ClockBitmap extends SurfaceViewTemplate {
     protected void draw() {
         updateTime();
         mCanvas = mSurfaceHolder.lockCanvas();
-        mCanvas.drawColor(Color.parseColor("#f6f6f6"));
+        mCanvas.drawColor(Color.parseColor("#ffffff"));
         mCanvas.drawBitmap(mbmBackground, null, mRectf, null);
         drawSecondCircleInit();
         drawHour();
@@ -157,7 +157,7 @@ public class ClockBitmap extends SurfaceViewTemplate {
 
     private void drawHour() {
         matrix.reset();
-        float degree = (float) (mHour * 30+(mMinute/60.0d)*30);
+        float degree = (float) (mHour * 30 + (mMinute / 60.0d) * 30);
         double radian = getRadian(degree);
         double radian_90_sub = getRadian(90) - radian;
         float x = (float) (mCenter - shortLenght * Math.sin(radian));
@@ -220,7 +220,7 @@ public class ClockBitmap extends SurfaceViewTemplate {
         mPaintSecond = new Paint();
         mPaintSecond.setAntiAlias(true);
         mPaintSecond.setDither(true);
-        rotate=180;
+        rotate = 180;
     }
 
     /**

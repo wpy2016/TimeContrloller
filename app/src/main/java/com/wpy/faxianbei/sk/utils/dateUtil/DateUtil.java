@@ -175,4 +175,28 @@ public class DateUtil {
         String time = simpleDateFormat.format(date);
         return time;
     }
+
+
+    /**
+     * 将星期几转换为整数，例如，星期一转换为0
+     * @param day
+     * @return
+     */
+    public static int parseIntFormDayString(String day) {
+        if (day.contains("星期一")) {
+            return 0;
+        } else if (day.equals("星期二")) {
+            return 1;
+        } else if (day.equals("星期三")) {
+            return 2;
+        } else if (day.equals("星期四")) {
+            return 3;
+        } else if (day.equals("星期五")) {
+            return 4;
+        } else if (day.equals("星期六")) {
+            return 5;
+        } else {
+            return 6;
+        }
+    }
 }

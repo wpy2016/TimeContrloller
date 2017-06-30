@@ -20,6 +20,7 @@ import com.wpy.faxianbei.sk.activity.coursetable.view.IViewCourseTable;
 import com.wpy.faxianbei.sk.activity.coursetable2.presenter.PresenterCourseTable2;
 import com.wpy.faxianbei.sk.adapter.CommonAdapterArray;
 import com.wpy.faxianbei.sk.adapter.ViewHolder;
+import com.wpy.faxianbei.sk.utils.dateUtil.DateUtil;
 import com.wpy.faxianbei.sk.utils.save.sharepreference.SharePreferenceUtil;
 
 import org.xutils.view.annotation.ContentView;
@@ -27,6 +28,8 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashSet;
 
 
@@ -68,8 +71,8 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
     int[] bgid = {R.drawable.surround1, R.drawable.surround2, R.drawable.surround3,
             R.drawable.surround4, R.drawable.surround5,
             R.drawable.surround6, R.drawable.surround7,
-            R.drawable.surround8,R.drawable.surround9,
-            R.drawable.surround10,R.drawable.surround11,
+            R.drawable.surround8, R.drawable.surround9,
+            R.drawable.surround10, R.drawable.surround11,
             R.drawable.surround12};
 
     private PresenterCourseTable mPresenterCourseTable;
@@ -106,27 +109,65 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
         mGvTable.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (set[position]!=null&&set[position].ishaveCourse) {
-                    Toast.makeText(AcCourseTable2.this, "当前有课，不能添加自定义任务，专心上课哦", Toast.LENGTH_LONG).show();
-                } else {
-                    if (position == curPos) {//说明两次点击这个,需要跳转到添加时间段界面，此时只能编辑事件，不能编辑时间了
-                        curPos = 200;
-                        adapter.setSelectPos(200);
-                        adapter.notifyDataSetChanged();
-                        /******************做其他操作***********************/
-                        Intent intent=new Intent(AcCourseTable2.this, AcAddEvent.class);
-                        AcCourseTable2.this.startActivity(intent);
-
+                if (0 != position % 8) {
+                    if (set[position] != null && set[position].ishaveCourse) {
+                        Toast.makeText(AcCourseTable2.this, "当前有课，不能添加自定义任务，专心上课哦", Toast.LENGTH_LONG).show();
                     } else {
-                        TextView textView = (TextView) view.findViewById(R.id.id_ac_coursetable2_gv_item);
-                        textView.setBackgroundResource(R.drawable.add_new);
-                        curPos = position;
-                        adapter.setSelectPos(curPos);
-                        adapter.notifyDataSetChanged();
+                        if (position == curPos) {//说明两次点击这个,需要跳转到添加时间段界面，此时只能编辑事件，不能编辑时间了
+                            curPos = 200;
+                            adapter.setSelectPos(200);
+                            adapter.notifyDataSetChanged();
+                            /******************做其他操作***********************/
+                            String date = getDateString(position);
+                            String start = getStartOfPos(position);
+                            String end = getEndOfPos(position);
+                            int day=getDayOfPos(position);
+                            Intent intent = new Intent(AcCourseTable2.this, AcAddEvent.class);
+                            intent.putExtra("start", start);
+                            intent.putExtra("end", end);
+                            intent.putExtra("date", date);
+                            intent.putExtra("day",day);
+                            AcCourseTable2.this.startActivity(intent);
+                        } else {
+                            TextView textView = (TextView) view.findViewById(R.id.id_ac_coursetable2_gv_item);
+                            textView.setBackgroundResource(R.drawable.add_new);
+                            curPos = position;
+                            adapter.setSelectPos(curPos);
+                            adapter.notifyDataSetChanged();
+                        }
                     }
                 }
+
             }
+
+
+
+
         });
+    }
+
+    private int getDayOfPos(int position) {
+        return position%8-1;
+    }
+
+    private String getEndOfPos(int position) {
+        int offset = position / 8;
+        return offset + ":" + 59;
+    }
+
+    private String getStartOfPos(int position) {
+        int offset = position/8;
+        return offset + ":00";
+    }
+
+    private String getDateString(int position) {
+        int offset = position % 8-1;
+        int dayInt= DateUtil.parseIntFormDayString(DateUtil.getDay(System.currentTimeMillis()));
+        //获取到选中的时间
+        long time=(offset-dayInt)*24*60*60*1000l+System.currentTimeMillis();
+        SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
+        Date date=new Date(time);
+        return dateFormat.format(date);
     }
 
     private void initListData() {
@@ -146,7 +187,7 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
      */
     private void setData(int week) {
         mtvWeek.setText("第 " + week + " 周");
-        set=new CourseTableTogether[200];
+        set = new CourseTableTogether[200];
         for (int i = 1; i < 8; i++) {
             for (int j = 1; j < 7; j++) {
                 String lesson = mPresenterCourseTable.getLesson(i, j, week, year, semester);
@@ -156,14 +197,14 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
                     int row[] = mPresenter.getPos(j);
                     int size = row.length;
                     String lessonSub[] = mPresenter.getSubStringByParts(size, lesson);
-                    int color=((int)(Math.random()*1000))%12;
+                    int color = ((int) (Math.random() * 1000)) % 12;
                     for (int k = 0; k < size; k++) {
                         int pos = row[k] * 8 + i;
                         arrayCourstTable[pos] = lessonSub[k];
-                        set[pos]=new CourseTableTogether();
-                        set[pos].ishaveCourse=true;
-                        set[pos].together=row;
-                        set[pos].colorPos=bgid[color];
+                        set[pos] = new CourseTableTogether();
+                        set[pos].ishaveCourse = true;
+                        set[pos].together = row;
+                        set[pos].colorPos = bgid[color];
                     }
                 }
             }
@@ -177,8 +218,8 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
                     tvItem.setText(item);
                     int offset = pos % 8;
                     if (offset != 0) {
-                        if(set[pos]!=null)
-                        tvItem.setBackgroundResource(set[pos].colorPos);
+                        if (set[pos] != null)
+                            tvItem.setBackgroundResource(set[pos].colorPos);
                     }
                 } else {
                     tvItem.setText("");
@@ -240,6 +281,7 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
 
     @Override
     public void setDate(String[] date) {
+
         for (int i = 1; i < 8; i++) {
             TextView textView = mPresenterCourseTable.getDayTextView(i, this);
             textView.setText(date[i - 1]);

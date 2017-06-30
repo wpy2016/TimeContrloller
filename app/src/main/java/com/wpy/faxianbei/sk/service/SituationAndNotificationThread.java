@@ -65,7 +65,8 @@ public class SituationAndNotificationThread extends Thread {
 
         } else {
             for (final TimeItem timeitem : listtime) {
-                if (timeitem.getStart() < System.currentTimeMillis() && timeitem.getEnd() > System.currentTimeMillis()) {
+                /*************************************待改***********************************************************/
+             /*  if (timeitem.getStart() < System.currentTimeMillis() && timeitem.getEnd() > System.currentTimeMillis()) {
                     isNowhaveToLock = true;
                     if (!isChange) {
                         mhandler.post(new Runnable() {
@@ -77,7 +78,7 @@ public class SituationAndNotificationThread extends Thread {
                         isChange = true;
                         break;
                     }
-                }
+                }*/
             }
         }
     }
