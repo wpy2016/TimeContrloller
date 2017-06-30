@@ -80,9 +80,9 @@ public class AcAddTime extends MvpBaseActivity<IViewAddTime,PresenterAddTime> im
                     /**
                      * 保存当前的时间段
                      */
-                    TimeItem time=new TimeItem("12:00","12:00",model,"其他", AcAddEvent.EVENTNORMAL,0,0,0,0,0,0,0,"0-0",0);
+                  //  TimeItem time=new TimeItem("12:00","12:00",model,"其他", AcAddEvent.EVENTNORMAL,0,0,0,0,0,0,0,"0-0",0);
                     try {
-                        SKApplication.getDbManager().save(time);
+                    //    SKApplication.getDbManager().save(time);
                         Toast.makeText(mContext,"保存成功",Toast.LENGTH_SHORT).show();
                         finish();
                     } catch (Exception e) {
