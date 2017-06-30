@@ -56,12 +56,23 @@ public class TimeItem {
     @Column(name = "recycle")
     private int isRecycle;
 
+    @Column(name = "place")
+    private String place;
+
     public TimeItem() {
 
     }
 
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
     public TimeItem(String start, String end, int model, String content, int type, int monday,
-                    int tuesday, int wednesday, int thursDay, int friday, int saturday, int sunday, int startWeek, int endWeek, int isRecycle) {
+                    int tuesday, int wednesday, int thursDay, int friday, int saturday, int sunday, int startWeek, int endWeek, int isRecycle, String place) {
         this.start = start;
         this.end = end;
         this.model = model;
@@ -77,6 +88,8 @@ public class TimeItem {
         this.startWeek = startWeek;
         this.endWeek = endWeek;
         this.isRecycle = isRecycle;
+        this.place=place;
+
     }
 
     public long getId() {

@@ -288,19 +288,34 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <ImageView
-            android:id="@+id/id_ac_addevent_iv_confirm"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:scaleType="fitXY"
+        <RelativeLayout
+            android:id="@+id/id_ac_addevent_rl_confirm"
+            android:layout_width="match_parent"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
-            android:src="@drawable/confirm" />
+            android:gravity="center"
+            android:layout_height="32dp">
+            <ImageView
+                android:id="@+id/id_ac_addevent_iv_confirm"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/confirm" />
+            <ImageView
+                android:id="@+id/id_ac_addevent_iv_delete"
+                android:layout_toRightOf="@id/id_ac_addevent_iv_confirm"
+                android:layout_marginLeft="20dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/delete" />
+        </RelativeLayout>
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_above="@id/id_ac_addevent_iv_confirm"
+            android:layout_above="@id/id_ac_addevent_rl_confirm"
             android:layout_height="100dp"
             android:layout_marginBottom="10dp"
             android:gravity="center">

@@ -25,4 +25,7 @@ public class PresenterCourseTable2 extends BasePresenter<IViewCourstTable2> {
         return modelCourseTable.getSubStringByParts(parts,lesson);
     }
 
+    public int getRowIntByString(String string){
+        return modelCourseTable.getRowIntByString(string);
+    }
 }

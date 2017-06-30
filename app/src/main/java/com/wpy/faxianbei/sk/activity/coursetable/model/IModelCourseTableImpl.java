@@ -204,21 +204,20 @@ public TextView getDayTextView(int dayIndex,Object ac){
 
     @Override
     public int getCurrentWeek(Context context) {
-        return (int) Math.ceil((double) ((System.currentTimeMillis() - Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context))) / (1000 * 60 * 60 * 24 * 7.0)));
+        return (int) Math.ceil((double) ((System.currentTimeMillis() - Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context))) / (1000 * 60 * 60 * 24 * 7.0d)));
     }
 
     /**
      * 返回当前这一周的日期
      * @return
      */
-    public String[] getDate() {
+    public String[] getDate(long time) {
         String[] date = new String[7];
-        long now=System.currentTimeMillis();
-        String day = DateUtil.getDay(now);
+        String day = DateUtil.getDay(time);
         int dayIndex=DateUtil.parseIntFormDayString(day);
         for(int i=0;i<7;i++){
            long offset= (i-dayIndex)*24*60*60*1000l;
-            date[i]= DateUtil.getDateOnlyDay(now+offset);
+            date[i]= DateUtil.getDateOnlyDay(time+offset);
         }
         return date;
     }

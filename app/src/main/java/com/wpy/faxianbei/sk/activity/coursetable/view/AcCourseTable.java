@@ -237,7 +237,7 @@ public class AcCourseTable extends MvpBaseActivity<IViewCourseTable, PresenterCo
 
 
     @Override
-    public void setWeek(int week) {
+    public void setWeek(int week,int currentweek) {
         setData(week);
     }
 

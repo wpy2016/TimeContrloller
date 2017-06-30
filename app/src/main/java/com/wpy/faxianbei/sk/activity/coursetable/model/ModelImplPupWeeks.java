@@ -32,6 +32,10 @@ public class ModelImplPupWeeks implements IModelPup {
     private Context context;
 
     private  int week=1;
+    private Button btnCancel;
+    private Button btnConfirm;
+    private EditText editText;
+    private int currentweek;
 
     public ModelImplPupWeeks(PupListener mListener) {
         this.mListener = mListener;
@@ -63,10 +67,10 @@ public class ModelImplPupWeeks implements IModelPup {
 
             }
         });
-        Button btnCancel = (Button) view.findViewById(R.id.id_pop_select_week_cancel);
-        Button btnConfirm = (Button) view.findViewById(R.id.id_pop_select_week_confirm);
-        final EditText editText = (EditText) view.findViewById(R.id.id_pop_select_week_et_week);
-        int currentweek = (int) Math.ceil((double)((System.currentTimeMillis()-Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context)))/(1000*60*60*24*7.0)));
+         btnCancel = (Button) view.findViewById(R.id.id_pop_select_week_cancel);
+         btnConfirm = (Button) view.findViewById(R.id.id_pop_select_week_confirm);
+          editText = (EditText) view.findViewById(R.id.id_pop_select_week_et_week);
+        currentweek = (int) Math.ceil((double)((System.currentTimeMillis()-Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context)))/(1000l*60*60*24*7.0)));
         editText.setText(currentweek+"");
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,15 +81,16 @@ public class ModelImplPupWeeks implements IModelPup {
         btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 if(!editText.getText().toString().isEmpty())
                 {
-                    int currentweek2 = Integer.parseInt(editText.getText().toString())-1;
+                    currentweek = Integer.parseInt(editText.getText().toString())-1;
                     //如果单单是这样写currentweek2*7*24*60*60*1000是错误的，因为这样表示的是整数类型，整数类型不能表示这么大
                     //所以必须要这样写currentweek2*7*24*60*60*1000l，加上l表示长整形
-                    long first = System.currentTimeMillis()-currentweek2*7*24*60*60*1000l;
+                    long first = System.currentTimeMillis()-currentweek*7*24*60*60*1000l;
                     SharePreferenceUtil.instantiation.saveFirstWeek(context,first+"");
                 }
-                mListener.selectSuccess(week);
+                mListener.selectSuccess(week,currentweek+1);
                 mPopupWindow.dismiss();
             }
         });
@@ -103,6 +108,6 @@ public class ModelImplPupWeeks implements IModelPup {
     }
 
     public interface PupListener{
-        public void selectSuccess(int week);
+        public void selectSuccess(int week,int currentweek);
     }
 }

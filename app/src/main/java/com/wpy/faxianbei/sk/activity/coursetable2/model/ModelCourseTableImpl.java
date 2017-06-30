@@ -1,5 +1,7 @@
 package com.wpy.faxianbei.sk.activity.coursetable2.model;
 
+import com.wpy.faxianbei.sk.utils.general.StringToBaseDataType;
+
 /**
  * Created by wangpeiyu on 2017/6/27.
  */
@@ -24,6 +26,17 @@ public class ModelCourseTableImpl implements IModelCourseTable2 {
                 return new int[]{21,22};
         }
         return new int[]{};
+    }
+
+
+    /**
+     *
+     * @param string 12:00
+     * @return
+     */
+    public int getRowIntByString(String string){
+        String parts[]=string.split(":");
+        return StringToBaseDataType.convertToInt(parts[0],0);
     }
 
     @Override

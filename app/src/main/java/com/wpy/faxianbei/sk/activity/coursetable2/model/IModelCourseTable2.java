@@ -8,4 +8,5 @@ public interface IModelCourseTable2 {
 
     int[] getRow(int row);
     String[] getSubStringByParts(int parts,String lesson);
+    int getRowIntByString(String string);
 }
