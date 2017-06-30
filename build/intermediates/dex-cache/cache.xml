@@ -3,291 +3,66 @@
 
     <item
         is-multidex="true"
-        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/app/libs/validation.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="c390bc07baa8207abefb5e48aafd275f00d0c124">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/2/validation_f3b253dccb1769429f72214ce2cce815ed78252d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/b09d714c5f0b84dd33b3554935e27572683f4956/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="b24e1c688744078e1fa833ffadf696794761bbe5">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_1f25b2421faed641b0a00995eff8851f56a1782e/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/coursetable/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="b9467a5f9709a16ef55533825a7a69ee9d36bbee">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/coursetable/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_32841c03bf73488685e085f765ee31b5b4251515/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/fastjson/1.1.39-leancloud/94d4ebd4acdaf01d7445435382eea2d2d38e7534/fastjson-1.1.39-leancloud.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="94d4ebd4acdaf01d7445435382eea2d2d38e7534">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/fastjson-1.1.39-leancloud_590439206d846e84d77923aadcd431fe2c7e3194/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/b2b23feb4348fc38205bdbc80a523b4d3a699fd6/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="a525a7f2e266f577629f68820a462a807c66eec7">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_020ee9aa9504502f7f840b5126834196b9fcd1b2/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/25.0.1/support-annotations-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="a09194311f8f89c3e6db09d79f50897a889d615e">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/support-annotations-25.0.1_3cb5a24756f0924e12102d6d3561bf1494ab07a8/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="3c93a289076054d885ba62f1cad5e68b7d9a84a4">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_67e8db7a40ffb490dfc1ae1823d0e47e4597884c/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_c4a8f7a2040b9a3b07e40c47c4f0d981f6169121/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/situationchange/build/intermediates/incremental-classes/debug/instant-run-bootstrap.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="436daf8ccffb6bc1558c889a7d26010bc80b2836">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/situationchange/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run-bootstrap_106acdd32aee2e7c2c4fe1baea21e23be23ab1c4/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/fd65cc90b5f7304acf3c8e2d346dbd4b6a24bf20/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="51eba4a4dd73044f90a9d58dd7ca34adbebfcf4e">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_5eb865860814400240fe7ff58b0a30821252450d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/okhttp/2.6.0-leancloud/7d1a8dbbc128e91cf41ab6eafaa741ab2a6ff930/okhttp-2.6.0-leancloud.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="7d1a8dbbc128e91cf41ab6eafaa741ab2a6ff930">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/okhttp-2.6.0-leancloud_53226240c1bd912dc1e71290ceaa0e822506211d/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/969a57f079ace0361b7161d71e6ece7018452442/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="bc7e99e8d0fc279a05aa91378530f467ad62d443">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_6734a4c43b9893dd178de7e8fe086ce94d627631/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/56f9356f89dd864b878fb83c141a1bc578e30301/output/jars/libs/internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="c5b7145fb34779b6639147b8f2f8dd77c0db771b">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_69cd68985185bfc628e56022a19c161786a957ef/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/6279b306739753ea5f2c4f80e25bc34cdaa6465f/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="6a1479afe9f1b3645e1cd9a87318976893472818">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_dff090afebd86c43ef275316b6587239769e8e1b/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/74f96baf928fab4f8149eaaf78a05b4014535816/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="772bed2d992b67b9d0327f766cc95cd63031dcd3">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_9de7256a9ff72923d69211f730fc8da6751059a8/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/okio/1.6.0-leancloud/7086c00a30a6de0ee3b963ec2c3702d37f1de11d/okio-1.6.0-leancloud.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="7086c00a30a6de0ee3b963ec2c3702d37f1de11d">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/okio-1.6.0-leancloud_1debbc478a0b6bca33f3b9c450bd68a1293529a2/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/fd65cc90b5f7304acf3c8e2d346dbd4b6a24bf20/output/jars/libs/internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="3af8cc51ef7088e56f132780da8c0bd858b6a6ad">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_89680f667328f912a997324cfc69f51b8c0c0905/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/a61c10d3999ebc5bc56a0873ca26fcf8808d06f9/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="d7c42c80f6509b9ea4db28ca7859ffae08ec5741">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_807e09efee5fb8e643cab58867b6465cb8c748ff/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/app/libs/gson-1.6.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="0e420e7635e40fbef3e2cc257c702b1427962d1d">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/2/gson-1.6_3c3106ecac48dcf7a2bdc8b75842f5eb0bf5e0c9/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/coursetable/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/coursetable/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_75e3be6d992dcbfe2adad4d4cbbe527120fe1d00/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/ec7382a392d7146a22b9108b18db7e6bdbd78488/output/jars/libs/internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="c0bd6ffb002a85b5e7cad29f8558d1cc59539679">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_c62e2cb91e88cdda0f7d05735adc29502a45599a/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/ec34be2517641856c0256bba97c83cce0f4a8784/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="f7ac4b327fdb9e2ee386f5adc46164927658de4b">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_14776c13371e0c820b904f2ec7342712aa9accb4/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.gradle/caches/modules-2/files-2.1/cn.leancloud.android/avoscloud-sdk/v3.16.4/fb38431f760bee130fa4882ca7a93d7be2a817a5/avoscloud-sdk-v3.16.4.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="fb38431f760bee130fa4882ca7a93d7be2a817a5">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/avoscloud-sdk-v3.16.4_1d7671f3dd5310713a31336c2f7f715b9ed360b3/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/56f9356f89dd864b878fb83c141a1bc578e30301/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="00d4c8eebf2b681073c72a26bd0849549e51c7cb">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_f2e8de673cf81070100716fba8911a3f82621b37/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/ec7382a392d7146a22b9108b18db7e6bdbd78488/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="26c6eef571592c91f29e56fda0bac73321de0c92">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_62b4b69ad13a4729ddaf61944d197c580b25f0f8/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/app/libs/jsoup-1.10.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="6b471012876a440ae746860d80738be2dd104655">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/2/jsoup-1.10.1_52730592c5baacf03d7d065d4b134f5d0b11c166/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/89e3da82792178283c15efd9feab1bc6fafb36fd/output/jars/classes.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="d4ab8678882571a0a6f19c47a826ecbce5b4f42b">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/classes_8c38815a87334dfe540c0a7e61ebf192aa4b7be1/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/6279b306739753ea5f2c4f80e25bc34cdaa6465f/output/jars/libs/internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="f83b00041ecfba705603fec40363416c7de69719">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_bd275dec5e5ac17c9ae2734b8dd63e2d7043529f/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.android/build-cache/969a57f079ace0361b7161d71e6ece7018452442/output/jars/libs/internal_impl-25.0.1.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="e5343c9d19cb19ff55f6b268c7f3fe8c9d224f6f">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/internal_impl-25.0.1_48bb625cbdcf634a60aa4bfccbf1b5d7b6fbf279/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/.gradle/caches/modules-2/files-2.1/com.jakewharton/butterknife-annotations/8.1.0/d6854f42bfb4098d3d2358d93201307b9f1cc95d/butterknife-annotations-8.1.0.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="d6854f42bfb4098d3d2358d93201307b9f1cc95d">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/10/butterknife-annotations-8.1.0_db0a886a7cf454cd7d6c695e919cf85a91b75ba5/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/situationchange/build/intermediates/incremental-runtime-classes/debug/instant-run.jar"
-        jumboMode="true"
-        optimize="true"
-        revision="26.0.0"
-        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/situationchange/build/intermediates/transforms/dex/debug/folders/1000/10000/instant-run_fa0d8975ca78e36f2a1d9be8c0199a7c990b6ff3/classes.dex" />
-    </item>
-    <item
-        is-multidex="true"
-        jar="/Users/wangpeiyu/AndroidStudioProjects/SK/app/libs/realm-android-0.86.1.jar"
+        jar="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\libs\realm-android-0.86.1.jar"
         jumboMode="true"
         optimize="true"
         revision="26.0.0"
         sha1="36a845e6311c7cac5308562cf61e9ffcebbf532b">
-        <dex dex="/Users/wangpeiyu/AndroidStudioProjects/SK/app/build/intermediates/transforms/dex/debug/folders/1000/2/realm-android-0.86.1_e70a7aae6d2b7f15cb544ceececc4a06692f4554/classes.dex" />
+        <dex dex="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\build\intermediates\transforms\dex\debug\folders\1000\2\realm-android-0.86.1_1fc124f20d8cb3c68cc2c99289fdae352eab9238\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\libs\jsoup-1.10.1.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="6b471012876a440ae746860d80738be2dd104655">
+        <dex dex="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\build\intermediates\transforms\dex\debug\folders\1000\2\jsoup-1.10.1_4bfd2b08a180bb427636c73d8d016f2d35b6112c\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\build\intermediates\incremental-runtime-classes\debug\instant-run.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="caff8e51a24901cfc9cd7e1cf83d84f4cb0c103b">
+        <dex dex="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run_4442f20de4f2fd43e549fc8015e6005756bfa924\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\libs\fastjson.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="94d4ebd4acdaf01d7445435382eea2d2d38e7534">
+        <dex dex="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\build\intermediates\transforms\dex\debug\folders\1000\2\fastjson_866c78278a74339b470b258b7b6410a8b5a237df\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\libs\gson-1.6.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="0e420e7635e40fbef3e2cc257c702b1427962d1d">
+        <dex dex="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\build\intermediates\transforms\dex\debug\folders\1000\2\gson-1.6_468089e29d68296ccaf6153fa946203ffd020b18\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\libs\validation.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="c390bc07baa8207abefb5e48aafd275f00d0c124">
+        <dex dex="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\build\intermediates\transforms\dex\debug\folders\1000\2\validation_c4505830a02919a9b1b2927ce8dff6d9fe9618fc\classes.dex" />
+    </item>
+    <item
+        is-multidex="true"
+        jar="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\build\intermediates\incremental-classes\debug\instant-run-bootstrap.jar"
+        jumboMode="true"
+        optimize="true"
+        revision="26.0.0"
+        sha1="9045111c3f263a70e671aa4866b907837806083c">
+        <dex dex="C:\Users\CQEDU\StudioProjects\TimeContrloller\app\build\intermediates\transforms\dex\debug\folders\1000\10000\instant-run-bootstrap_de3a824733f58d64a70bb609fb18cf9fd93a9833\classes.dex" />
     </item>
 
 </items>
