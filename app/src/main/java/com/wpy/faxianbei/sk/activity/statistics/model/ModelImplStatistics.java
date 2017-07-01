@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.jn.chart.data.Entry;
 import com.wpy.faxianbei.sk.activity.addcourse.model.ModelImplPupCourse;
+import com.wpy.faxianbei.sk.activity.addevent.view.AcAddEvent;
 import com.wpy.faxianbei.sk.application.SKApplication;
 import com.wpy.faxianbei.sk.entity.SkUser;
 import com.wpy.faxianbei.sk.entity.db.CourseTable;
@@ -60,12 +61,16 @@ public class ModelImplStatistics implements IModelStatistics {
             long time=System.currentTimeMillis()-((6-i)*24*60*60*1000l);
             float minute = calcuMinutes(context,time);
             y1[i] = minute + "";
-            y2[i] = (minute- getOpenTime(time) * 60) + "";
+            float lock= (minute- getOpenTime(time) * 60);
+            if(lock<0)
+                lock=0;
+            y2[i] =lock+ "";
         }
         //设置x轴的数据
         ArrayList<String> xValues = new ArrayList<>();
         for (int i = 0; i < x.length; i++) {
-            xValues.add((DateUtil.getCurrentDay()-(x.length-1-i))+"");
+            long time=System.currentTimeMillis()-((6-i)*24*60*60*1000l);
+            xValues.add(DateUtil.getDateOnlyDay(time)+"");
         }
 
         //设置y轴的数据
@@ -125,8 +130,6 @@ public class ModelImplStatistics implements IModelStatistics {
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public long getNeedLockTime(Context context,long currentTimeMillis) {
-        AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        int request = 0;
         long sum = 0l;
         try {
 
@@ -139,24 +142,67 @@ public class ModelImplStatistics implements IModelStatistics {
             if (list == null || list.isEmpty()) {
 
             } else {
-                Date date = new Date(currentTimeMillis);
-                android.icu.text.SimpleDateFormat simpleDateFormat = new android.icu.text.SimpleDateFormat("yyyy.MM.dd");
-                String time = simpleDateFormat.format(date) + " 00:00";
-                android.icu.text.SimpleDateFormat simpleDateFormat2 = new android.icu.text.SimpleDateFormat("yyyy.MM.dd HH:mm");
-                long today = simpleDateFormat2.parse(time).getTime();
-                /***********************************************************************************************************/
-             /*   for (TimeItem timeitem : list) {
-                    if (timeitem.getEnd() > today&&timeitem.getEnd()<today+24*60*60*1000l) {
-                        sum += timeitem.getEnd() - timeitem.getStart();
+                long dayEarly=DateUtil.getEarlyestTimeOfDay(currentTimeMillis);
+                long dayLast=DateUtil.getLastestTimeOfDay(currentTimeMillis);
+                int day=DateUtil.parseIntFormDayString(DateUtil.getDay(currentTimeMillis))+1;//此时1表示星期一，2表示星期二
+                for (TimeItem timeitem : list) {
+                    if (timeitem.getType() == AcAddEvent.EVENTNORMAL) {
+                        if (0 == timeitem.getIsRecycle()) {
+                            //表示不重复的日常事件
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                            long startTime = format.parse(timeitem.getStart()).getTime();
+                            long endTime = format.parse(timeitem.getEnd()).getTime();
+                            if (startTime>=dayEarly&&endTime<=dayLast) {
+                                sum=sum+(endTime-startTime);
+                            }
+                        } else {
+                            //表示重复的日常事件 recycle[0]=1
+                            int recycle[] = getRecycle(timeitem);
+                            if (recycle[day] == 1) {
+                                SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+                                String formatdate=format.format(new Date(currentTimeMillis));
+                                String strStart = formatdate + " " + timeitem.getStart();
+                                String strEnd = formatdate + " " + timeitem.getEnd();
+                                SimpleDateFormat format2 = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                                long start = format2.parse(strStart).getTime();
+                                long end = format2.parse(strEnd).getTime();
+                                sum=sum+(end-start);
+                            }
+                        }
+                    } else {
+                        if (0 == timeitem.getIsRecycle()) {
+                            //表示不重复的课程事件
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                            long startTime = format.parse(timeitem.getStart()).getTime();
+                            long endTime = format.parse(timeitem.getEnd()).getTime();
+                            if (startTime>=dayEarly&&endTime<=dayLast) {
+                                sum=sum+(endTime-startTime);
+                            }
+                        } else {
+                            //表示重复的课程事件
+                            int recycle[] = getRecycle(timeitem);
+                            if (recycle[day] == 1) {
+                                int dayweek = (int) Math.ceil((double) ((currentTimeMillis - Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context))) / (1000l * 60 * 60 * 24 * 7.0)));
+                                if (dayweek >= timeitem.getStartWeek() && dayweek <= timeitem.getEndWeek()) {
+                                    SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+                                    String formatdate=format.format(new Date(currentTimeMillis));
+                                    String strStart = formatdate + " " + timeitem.getStart();
+                                    String strEnd = formatdate + " " + timeitem.getEnd();
+                                    SimpleDateFormat format2 = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+                                    long start = format2.parse(strStart).getTime();
+                                    long end = format2.parse(strEnd).getTime();
+                                    sum=sum+(end-start);
+                                }
+                            }
+                        }
                     }
-                }*/
+                }
             }
         } catch (DbException e) {
 
         } catch (ParseException e) {
 
         }
-
         /**
          * 计算当前课程的总时间
          */
@@ -181,16 +227,6 @@ public class ModelImplStatistics implements IModelStatistics {
                     for (String s : split) {
                         if (s.equals(week + "")) {
                             sum += 90 * 60 * 1000;
-//                            Intent intent3 = new Intent(context, SituationService.class);
-//                            intent3.putExtra("situation", SituationService.SHAKE);
-//                            PendingIntent Pendingintent = PendingIntent.getService(context, request, intent3, PendingIntent.FLAG_ONE_SHOT);
-//                            manager.set(AlarmManager.RTC_WAKEUP, getStartTime(list.get(i).getTime()), Pendingintent);
-//                            request++;
-//                            Intent intent4 = new Intent(context, SituationService.class);
-//                            intent4.putExtra("situation", SituationService.NORMAL);
-//                            PendingIntent pendingintentEnd = PendingIntent.getService(context, request, intent4, PendingIntent.FLAG_ONE_SHOT);
-//                            manager.set(AlarmManager.RTC_WAKEUP, getEndime(list.get(i).getTime()), pendingintentEnd);
-//                            request++;
                         }
                     }
 
@@ -201,6 +237,19 @@ public class ModelImplStatistics implements IModelStatistics {
         return sum;
     }
 
+
+    private int[] getRecycle(TimeItem item) {
+        int recycle[] = new int[8];
+        recycle[0] = 1;
+        recycle[1] = item.getMonday();
+        recycle[2] = item.getTuesday();
+        recycle[3] = item.getWednesday();
+        recycle[4] = item.getThursDay();
+        recycle[5] = item.getFriday();
+        recycle[6] = item.getSaturday();
+        recycle[7] = item.getSunday();
+        return recycle;
+    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public float calcuNeedToLock(Context context,long currentTimeMillis) {
@@ -218,10 +267,13 @@ public class ModelImplStatistics implements IModelStatistics {
     @Override
     public float getEffiency(Context context,long currentTimeMillis) {
         float needToLock = calcuNeedToLock(context,currentTimeMillis);
-        if ((needToLock - getOpenTime(currentTimeMillis)) != 0) {
+        if(needToLock==0){
+            return 100;
+        }
+        if ((needToLock - getOpenTime(currentTimeMillis)) >= 0) {
             return ((needToLock - getOpenTime(currentTimeMillis)) / needToLock) * 100;
         } else {
-            return 100;
+            return 0;
         }
     }
 
@@ -251,59 +303,4 @@ public class ModelImplStatistics implements IModelStatistics {
     public int getCurrentWeek(Context context,long currentTimeMillis) {
         return (int) Math.ceil((double) ((currentTimeMillis - Long.parseLong(SharePreferenceUtil.instantiation.getWeek(context))) / (1000 * 60 * 60 * 24 * 7.0)));
     }
-
-/*
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public long getStartTime(String strTime) {
-        Date date = new Date(System.currentTimeMillis());
-        android.icu.text.SimpleDateFormat simpleDateFormat = new android.icu.text.SimpleDateFormat("yyyy.MM.dd");
-        String time = "";
-        if (strTime.equals("1-2节")) {
-            time = simpleDateFormat.format(date) + " 08:30";
-        } else if (strTime.equals("3-4节")) {
-            time = simpleDateFormat.format(date) + " 10:30";
-        } else if (strTime.equals("5-6节")) {
-            time = simpleDateFormat.format(date) + " 14:00";
-        } else if (strTime.equals("7-8节")) {
-            time = simpleDateFormat.format(date) + " 16:00";
-        } else if (strTime.equals("9-10节")) {
-            time = simpleDateFormat.format(date) + " 19:00";
-        } else if (strTime.equals("10-11节")) {
-            time = simpleDateFormat.format(date) + " 21:00";
-        }
-        android.icu.text.SimpleDateFormat simpleDateFormat2 = new android.icu.text.SimpleDateFormat("yyyy.MM.dd HH:mm");
-        try {
-            return simpleDateFormat2.parse(time).getTime();
-        } catch (ParseException e) {
-            return 0l;
-        }
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.N)
-    public long getEndime(String strTime) {
-        Date date = new Date(System.currentTimeMillis());
-        android.icu.text.SimpleDateFormat simpleDateFormat = new android.icu.text.SimpleDateFormat("yyyy.MM.dd");
-        String time = "";
-        if (strTime.equals("1-2节")) {
-            time = simpleDateFormat.format(date) + " 10:10";
-        } else if (strTime.equals("3-4节")) {
-            time = simpleDateFormat.format(date) + " 12:10";
-        } else if (strTime.equals("5-6节")) {
-            time = simpleDateFormat.format(date) + " 15:40";
-        } else if (strTime.equals("7-8节")) {
-            time = simpleDateFormat.format(date) + " 17:40";
-        } else if (strTime.equals("9-10节")) {
-            time = simpleDateFormat.format(date) + " 20:40";
-        } else if (strTime.equals("10-11节")) {
-            time = simpleDateFormat.format(date) + " 22:40";
-        }
-        android.icu.text.SimpleDateFormat simpleDateFormat2 = new android.icu.text.SimpleDateFormat("yyyy.MM.dd HH:mm");
-        try {
-            return simpleDateFormat2.parse(time).getTime();
-        } catch (ParseException e) {
-            return 0l;
-        }
-    }
-*/
 }

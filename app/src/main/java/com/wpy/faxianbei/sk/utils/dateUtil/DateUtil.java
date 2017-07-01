@@ -176,6 +176,20 @@ public class DateUtil {
         return time;
     }
 
+    public static long getEarlyestTimeOfDay(long timeInMillis) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+       String strEarly= format.format(new Date(timeInMillis))+" 00:00";
+        SimpleDateFormat format2 = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+        return  format2.parse(strEarly).getTime();
+    }
+
+    public static long getLastestTimeOfDay(long timeInMillis) throws ParseException {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
+        String strLast= format.format(new Date(timeInMillis))+" 23:59";
+        SimpleDateFormat format2 = new SimpleDateFormat("yyyy.MM.dd HH:mm");
+        return  format2.parse(strLast).getTime();
+    }
+
 
     /**
      * 将星期几转换为整数，例如，星期一转换为0
