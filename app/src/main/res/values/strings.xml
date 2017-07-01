@@ -34,6 +34,8 @@
     <string name="every_saturday">每周六</string>
     <string name="every_sunday">每周天</string>
     <string name="no_recycle">不重复</string>
+    <string name="share">分享</string>
+    <string name="share_hint" >可以加上分享的文本哦</string>
     <string-array name="recycle_string">
         <item>不重复</item>
         <item>周一</item>

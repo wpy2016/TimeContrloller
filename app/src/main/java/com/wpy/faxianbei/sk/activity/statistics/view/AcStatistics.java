@@ -26,6 +26,8 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 
+import cn.sharesdk.onekeyshare.OnekeyShare;
+
 @ContentView(R.layout.ac_statistics)
 public class AcStatistics extends MvpBaseActivity<IViewStatistics, StatisticsPresenter> implements IViewStatistics {
 
@@ -172,4 +174,6 @@ public class AcStatistics extends MvpBaseActivity<IViewStatistics, StatisticsPre
         }
 
     }
+
+
 }
