@@ -5,12 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
@@ -77,6 +75,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             viewHolder.divider.setVisibility(View.VISIBLE);
             viewHolder.mtvComment.setText(dynamicWithComment.getComment());
         }
+        //加载点赞数量
+        viewHolder.mtvLikeCount.setText("");
+        if(0!=dynamicWithComment.getLike()){
+            viewHolder.mtvLikeCount.setText(dynamicWithComment.getLike()+"");
+        }
     }
 
     //获取数据的数量
@@ -95,6 +98,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public ImageView mivComment;
         public TextView mtvComment;
         public View divider;
+        public TextView mtvLikeCount;
 
         public ViewHolder(View view) {
             super(view);
@@ -102,10 +106,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             mtvUserName = (TextView) view.findViewById(R.id.id_dynamic_item_iv_user_name);
             mtvContent = (TextView) view.findViewById(R.id.id_dynamic_item_tv_dynamic_content);
             mivDynamic = (ImageView) view.findViewById(R.id.id_dynamic_item_tv_dynamic_img);
-            mivLike = (ImageView) view.findViewById(R.id.id_dynamic_item_tv_dynamic_like);
+            mivLike = (ImageView) view.findViewById(R.id.id_dynamic_item_iv_dynamic_like);
             mivComment = (ImageView) view.findViewById(R.id.id_dynamic_item_tv_dynamic_comment);
             mtvComment = (TextView) view.findViewById(R.id.id_ac_dynamic_tv_comment);
             divider = view.findViewById(R.id.id_dynamic_item_comment_divider);
+            mtvLikeCount= (TextView) view.findViewById(R.id.id_dynamic_item_tv_dynamic_like_count);
         }
     }
 

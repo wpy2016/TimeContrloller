@@ -13,6 +13,16 @@ import java.util.List;
 public class DynamicWithComment {
     private Dynamic dynamic;
     private String comment;
+    int like=0;
+
+    public void setLike(int like) {
+        this.like = like;
+    }
+
+    public int getLike() {
+
+        return like;
+    }
 
     private List<Comment> listComment;
 
@@ -52,6 +62,7 @@ public class DynamicWithComment {
 
     public void setDynamic(Dynamic dynamic) {
         this.dynamic = dynamic;
+        like=dynamic.getLike();
     }
 
     public void setComment(String comment) {

@@ -70,18 +70,32 @@
             android:layout_marginRight="15dp"
             android:orientation="horizontal">
 
+            <TextView
+                android:id="@+id/id_dynamic_item_tv_dynamic_like_count"
+                android:layout_width="wrap_content"
+                android:textSize="14sp"
+                android:text="100"
+                android:layout_gravity="center"
+                android:layout_marginRight="10dp"
+                android:textColor="@color/my_view_text"
+                android:layout_height="wrap_content" />
+
             <ImageView
-                android:id="@+id/id_dynamic_item_tv_dynamic_like"
-                android:layout_width="21dp"
-                android:layout_height="19dp"
+                android:id="@+id/id_dynamic_item_iv_dynamic_like"
+                android:layout_width="19dp"
+                android:layout_height="21dp"
                 android:scaleType="fitXY"
+                android:layout_gravity="center_vertical"
                 android:src="@drawable/like_selector" />
+
+
 
             <ImageView
                 android:id="@+id/id_dynamic_item_tv_dynamic_comment"
                 android:layout_width="23dp"
                 android:layout_height="20dp"
-                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/comment" />
 
@@ -90,6 +104,7 @@
     <View
         android:id="@+id/id_dynamic_item_comment_divider"
         android:layout_width="match_parent"
+        android:layout_marginBottom="5dp"
         android:layout_height="1dp"
         android:background="@drawable/divider" />
 
@@ -99,7 +114,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="22dp"
         android:layout_marginRight="20dp"
-        android:textSize="12sp"
+        android:textSize="13sp"
         android:textColor="@color/my_view_text"/>
 
     <View

@@ -2,15 +2,16 @@ package com.wpy.faxianbei.sk.activity.dynamic.view;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
@@ -18,15 +19,14 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.AVRelation;
 import com.avos.avoscloud.AVUser;
-import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.GetDataCallback;
 import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.base.CheckPermissionsActivity;
 import com.wpy.faxianbei.sk.activity.dynamic.model.FillCommentModel;
-import com.wpy.faxianbei.sk.application.SKApplication;
 import com.wpy.faxianbei.sk.entity.Comment;
 import com.wpy.faxianbei.sk.entity.Dynamic;
 import com.wpy.faxianbei.sk.entity.SkUser;
+import com.wpy.faxianbei.sk.ui.goodview.GoodView;
 import com.wpy.faxianbei.sk.ui.xrecyclerview.ProgressStyle;
 import com.wpy.faxianbei.sk.ui.xrecyclerview.XRecyclerView;
 
@@ -243,14 +243,21 @@ public class AcDynamic extends CheckPermissionsActivity implements XRecyclerView
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.id_dynamic_item_tv_dynamic_like:
+            case R.id.id_dynamic_item_iv_dynamic_like:
                 //处理点赞
-                /**************************************************************************************************************/
+                GoodView goodView=new GoodView(this);
+                goodView.setTextInfo("+1", Color.parseColor("#f24453"), (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP,10,getResources().getDisplayMetrics()));
+                goodView.show(v);
+                DynamicWithComment dynamicWithCommentLike=listData.get((Integer) v.getTag());
+                dynamicWithCommentLike.like++;
+                mAdapter.notifyDataSetChanged();
+                Dynamic dynamic = dynamicWithCommentLike.getDynamic();
+                dynamic.increment("like");
+                dynamic.saveInBackground();
                 break;
             case R.id.id_dynamic_item_tv_dynamic_comment:
                 clickPos = (int) v.getTag();
                 model.showPopWindow(AcDynamic.this, v);
-
                 break;
         }
     }
