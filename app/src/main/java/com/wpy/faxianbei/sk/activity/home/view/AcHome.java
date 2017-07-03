@@ -14,6 +14,7 @@ import com.wpy.faxianbei.sk.R;
 import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
 import com.wpy.faxianbei.sk.activity.coursetable2.view.AcCourseTable2;
 import com.wpy.faxianbei.sk.activity.dynamic.view.AcDynamic;
+import com.wpy.faxianbei.sk.activity.dynamic.webview.AcDynamicWebView;
 import com.wpy.faxianbei.sk.activity.home.presenter.PresenterHome;
 import com.wpy.faxianbei.sk.activity.statistics.view.AcStatistics;
 import com.wpy.faxianbei.sk.service.SituationService;
@@ -128,6 +129,7 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
                 mPresenter.toNext(mContext, AcStatistics.class,false);
                 break;
             case R.id.id_ac_home_ll_dynamic:
+                // mPresenter.toNext(mContext, AcDynamicWebView.class,false);//改为动态相应的Activity即可  yangxin
                  mPresenter.toNext(mContext, AcDynamic.class,false);//改为动态相应的Activity即可
                 break;
             case R.id.id_ac_home_iv_startorclose:

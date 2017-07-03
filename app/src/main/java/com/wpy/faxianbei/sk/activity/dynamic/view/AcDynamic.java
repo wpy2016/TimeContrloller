@@ -1,38 +1,75 @@
 package com.wpy.faxianbei.sk.activity.dynamic.view;
 
-import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
+import com.avos.avoscloud.AVObject;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.AVRelation;
 import com.avos.avoscloud.AVUser;
+import com.avos.avoscloud.FindCallback;
 import com.avos.avoscloud.GetDataCallback;
 import com.wpy.faxianbei.sk.R;
+import com.wpy.faxianbei.sk.activity.base.CheckPermissionsActivity;
+import com.wpy.faxianbei.sk.activity.dynamic.model.FillCommentModel;
+import com.wpy.faxianbei.sk.application.SKApplication;
+import com.wpy.faxianbei.sk.entity.Comment;
+import com.wpy.faxianbei.sk.entity.Dynamic;
 import com.wpy.faxianbei.sk.entity.SkUser;
 import com.wpy.faxianbei.sk.ui.xrecyclerview.ProgressStyle;
 import com.wpy.faxianbei.sk.ui.xrecyclerview.XRecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class AcDynamic extends Activity implements XRecyclerView.LoadingListener {
+public class AcDynamic extends CheckPermissionsActivity implements XRecyclerView.LoadingListener,
+        View.OnClickListener, FillCommentModel.FillCommentListener {
 
     private XRecyclerView mRecyclerView;
     private MyAdapter mAdapter;
-    private ArrayList<String> listData;
-    private int refreshTime = 0;
-    private int times = 0;
+    private List<DynamicWithComment> listData;
 
     private View Head;
 
     private ImageView mUserImg;
+
+    FillCommentModel model;
+
+    private int clickPos = 0;
+
+    private Handler mHandler=new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what){
+                case 0x11:
+                    mAdapter.notifyDataSetChanged();
+                    progressDialog.dismiss();
+                    break;
+                case 0x110:
+                    mAdapter.notifyDataSetChanged();
+                    mRecyclerView.refreshComplete();
+                    break;
+                case 0x111:
+                    mAdapter.notifyDataSetChanged();
+                    mRecyclerView.loadMoreComplete();
+                    break;
+                case 0x112:
+                    mRecyclerView.setNoMore(true);
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,19 +77,25 @@ public class AcDynamic extends Activity implements XRecyclerView.LoadingListener
         setContentView(R.layout.ac_dynamic);
         initView();
         initEvent();
-        initData();
+        try {
+            initData();
+        } catch (AVException e) {
+
+        }
     }
 
-    private void initData() {
-        listData = new ArrayList<String>();
-        for (int i = 0; i < 15; i++) {
-            listData.add("item" + i);
-        }
-        mAdapter = new MyAdapter(listData);
-
+    private void initData() throws AVException {
+        model = new FillCommentModel(this);
+        listData = new ArrayList<>();
+        AVQuery<Dynamic> query = AVObject.getQuery(Dynamic.class);
+        query.include("user");
+        query.limit(5);
+        query.orderByDescending("createdAt");
+        progressDialog.show();
+        loadData();
+        mAdapter = new MyAdapter(this, listData, this);
         mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.refresh();
-        AVFile file= AVUser.getCurrentUser(SkUser.class).getHeadImg();
+        AVFile file = AVUser.getCurrentUser(SkUser.class).getHeadImg();
         file.getDataInBackground(new GetDataCallback() {
             @Override
             public void done(byte[] bytes, AVException e) {
@@ -60,6 +103,41 @@ public class AcDynamic extends Activity implements XRecyclerView.LoadingListener
                 mUserImg.setImageBitmap(bitmap);
             }
         });
+    }
+
+    private void loadData() {
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    AVQuery<Dynamic> query = AVObject.getQuery(Dynamic.class);
+                    query.include("user");
+                    query.orderByDescending("createdAt");
+                    query.limit(5);
+                    List<Dynamic> dynamics = query.find();
+                    for (Dynamic dynamic : dynamics) {
+                        DynamicWithComment dynamicWithComment = new DynamicWithComment();
+                        dynamicWithComment.setDynamic(dynamic);
+                        dynamicWithComment.setComment("");
+                        AVRelation<Comment> commentRelation = dynamic.getRelation("comment");
+                        AVQuery<Comment> queryComment = commentRelation.getQuery();
+                        queryComment.include("user");
+                        List<Comment> comments = queryComment.find();
+                        if (comments != null && !comments.isEmpty()) {
+                            StringBuilder builder = new StringBuilder();
+                            for (Comment comment : comments) {
+                                SkUser user = comment.getUser();
+                                builder.append(user.getRealName() + ":" + comment.getContent() + "\n");
+                            }
+                            dynamicWithComment.setComment(builder.toString());
+                        }
+                        listData.add(dynamicWithComment);
+                    }
+                    mHandler.sendEmptyMessage(0x11);
+                } catch (AVException e) {
+                }
+            }
+        }.start();
     }
 
 
@@ -85,45 +163,110 @@ public class AcDynamic extends Activity implements XRecyclerView.LoadingListener
 
     @Override
     public void onRefresh() {
-        refreshTime++;
-        times = 0;
-        new Handler().postDelayed(new Runnable() {
+        new Thread() {
+            @Override
             public void run() {
-
-                listData.clear();
-                for (int i = 0; i < 15; i++) {
-                    listData.add("item" + i + "after " + refreshTime + " times of refresh");
+                try {
+                    listData.clear();
+                    AVQuery<Dynamic> query = AVObject.getQuery(Dynamic.class);
+                    query.include("user");
+                    query.orderByDescending("createdAt");
+                    query.limit(5);
+                    List<Dynamic> dynamics = query.find();
+                    for (Dynamic dynamic : dynamics) {
+                        DynamicWithComment dynamicWithComment = new DynamicWithComment();
+                        dynamicWithComment.setDynamic(dynamic);
+                        dynamicWithComment.setComment("");
+                        AVRelation<Comment> commentRelation = dynamic.getRelation("comment");
+                        AVQuery<Comment> queryComment = commentRelation.getQuery();
+                        queryComment.include("user");
+                        List<Comment> comments = queryComment.find();
+                        if (comments != null && !comments.isEmpty()) {
+                            StringBuilder builder = new StringBuilder();
+                            for (Comment comment : comments) {
+                                SkUser user = comment.getUser();
+                                builder.append(user.getRealName() + ":" + comment.getContent() + "\n");
+                            }
+                            dynamicWithComment.setComment(builder.toString());
+                        }
+                        listData.add(dynamicWithComment);
+                    }
+                    mHandler.sendEmptyMessage(0x110);
+                } catch (AVException e) {
                 }
-                mAdapter.notifyDataSetChanged();
-                mRecyclerView.refreshComplete();
             }
-
-        }, 1000);            //refresh data here
+        }.start();
     }
 
     @Override
     public void onLoadMore() {
-        if (times < 2) {
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    for (int i = 0; i < 15; i++) {
-                        listData.add("item" + (1 + listData.size()));
+
+        new Thread() {
+            @Override
+            public void run() {
+                try {
+                    AVQuery<Dynamic> query = AVObject.getQuery(Dynamic.class);
+                    query.include("user");
+                    query.orderByDescending("createdAt");
+                    query.skip(listData.size());
+                    query.limit(5);
+                    List<Dynamic> dynamics = query.find();
+                    if (dynamics != null && !dynamics.isEmpty()) {
+                        for (Dynamic dynamic : dynamics) {
+                            DynamicWithComment dynamicWithComment = new DynamicWithComment();
+                            dynamicWithComment.setDynamic(dynamic);
+                            dynamicWithComment.setComment("");
+                            AVRelation<Comment> commentRelation = dynamic.getRelation("comment");
+                            AVQuery<Comment> queryComment = commentRelation.getQuery();
+                            queryComment.include("user");
+                            List<Comment> comments = queryComment.find();
+                            if (comments != null && !comments.isEmpty()) {
+                                StringBuilder builder = new StringBuilder();
+                                for (Comment comment : comments) {
+                                    SkUser user = comment.getUser();
+                                    builder.append(user.getRealName() + ":" + comment.getContent() + "\n");
+                                }
+                                dynamicWithComment.setComment(builder.toString());
+                            }
+                            listData.add(dynamicWithComment);
+                        }
+                    } else {
+                        mHandler.sendEmptyMessage(0x112);
                     }
-                    mRecyclerView.loadMoreComplete();
-                    mAdapter.notifyDataSetChanged();
+                    mHandler.sendEmptyMessage(0x111);
+                } catch (AVException e) {
                 }
-            }, 1000);
-        } else {
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    for (int i = 0; i < 9; i++) {
-                        listData.add("item" + (1 + listData.size()));
-                    }
-                    mRecyclerView.setNoMore(true);
-                    mAdapter.notifyDataSetChanged();
-                }
-            }, 1000);
+            }
+        }.start();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.id_dynamic_item_tv_dynamic_like:
+                //处理点赞
+                /**************************************************************************************************************/
+                break;
+            case R.id.id_dynamic_item_tv_dynamic_comment:
+                clickPos = (int) v.getTag();
+                model.showPopWindow(AcDynamic.this, v);
+
+                break;
         }
-        times++;
+    }
+
+    @Override
+    public void fillComplete(String content) {
+        DynamicWithComment dynamicWithComment = listData.get(clickPos);
+        Dynamic dynamic = dynamicWithComment.getDynamic();
+        dynamicWithComment.setComment(dynamicWithComment.getComment()+dynamic.getUser().getRealName()+":"+content+"\n");
+        Comment comment = new Comment();
+        comment.setUser(SkUser.getCurrentUser(SkUser.class));
+        comment.setContent(content);
+        dynamic.increment("count");
+        comment.setDynamic(dynamic);
+        dynamic.setComment(comment);
+        //更新listview
+        mAdapter.notifyDataSetChanged();
     }
 }

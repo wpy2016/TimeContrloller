@@ -145,7 +145,7 @@ public class IModelCourseTableImpl implements IModelCourseTable {
                 AVQuery<LessonTable> query = lesson.getQuery();
                 query.include("teacher");
                 query.include("lesson");
-                query.findInBackground(new FindCallback<LessonTable>() {
+                        query.findInBackground(new FindCallback<LessonTable>() {
                     @Override
                     public void done(List<LessonTable> list, AVException e) {
                         try {

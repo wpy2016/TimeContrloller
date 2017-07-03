@@ -7,6 +7,8 @@ import com.avos.avoscloud.AVCloud;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVUser;
+import com.wpy.faxianbei.sk.entity.Comment;
+import com.wpy.faxianbei.sk.entity.Dynamic;
 import com.wpy.faxianbei.sk.entity.Lesson;
 import com.wpy.faxianbei.sk.entity.LessonTable;
 import com.wpy.faxianbei.sk.entity.SkUser;
@@ -48,6 +50,8 @@ public class SKApplication extends Application {
             public void run() {
                 AVObject.registerSubclass(Lesson.class);
                 AVObject.registerSubclass(Teacher.class);
+                AVObject.registerSubclass(Dynamic.class);
+                AVObject.registerSubclass(Comment.class);
                 AVObject.registerSubclass(LessonTable.class);
                 AVUser.alwaysUseSubUserClass(SkUser.class);
                 //图片保存路径

@@ -16,6 +16,14 @@
             android:layout_height="32dp"
             android:src="@drawable/share_new"
             android:layout_alignParentRight="true" />
+
+        <ImageView
+            android:id="@+id/id_ac_share_iv_share_in_owner"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_toLeftOf="@id/id_ac_share_iv_share"
+            android:src="@drawable/share_own"
+            android:layout_marginRight="15dp"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="300dp"
