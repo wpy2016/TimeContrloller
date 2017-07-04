@@ -80,6 +80,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         if(0!=dynamicWithComment.getLike()){
             viewHolder.mtvLikeCount.setText(dynamicWithComment.getLike()+"");
         }
+        //处理选择的点击事件
+
     }
 
     //获取数据的数量
@@ -99,6 +101,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         public TextView mtvComment;
         public View divider;
         public TextView mtvLikeCount;
+        private ImageView mivChoice;
 
         public ViewHolder(View view) {
             super(view);
@@ -111,6 +114,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
             mtvComment = (TextView) view.findViewById(R.id.id_ac_dynamic_tv_comment);
             divider = view.findViewById(R.id.id_dynamic_item_comment_divider);
             mtvLikeCount= (TextView) view.findViewById(R.id.id_dynamic_item_tv_dynamic_like_count);
+            mivChoice= (ImageView) view.findViewById(R.id.id_dynamic_item_iv_choice);
         }
     }
 

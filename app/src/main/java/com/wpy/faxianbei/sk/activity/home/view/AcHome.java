@@ -17,6 +17,7 @@ import com.wpy.faxianbei.sk.activity.dynamic.view.AcDynamic;
 import com.wpy.faxianbei.sk.activity.dynamic.webview.AcDynamicWebView;
 import com.wpy.faxianbei.sk.activity.home.presenter.PresenterHome;
 import com.wpy.faxianbei.sk.activity.statistics.view.AcStatistics;
+import com.wpy.faxianbei.sk.entity.SkUser;
 import com.wpy.faxianbei.sk.service.SituationService;
 import com.wpy.faxianbei.sk.ui.clock.ClockBitmap;
 
@@ -129,11 +130,16 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
                 mPresenter.toNext(mContext, AcStatistics.class,false);
                 break;
             case R.id.id_ac_home_ll_dynamic:
-                // mPresenter.toNext(mContext, AcDynamicWebView.class,false);//改为动态相应的Activity即可  yangxin
-                 mPresenter.toNext(mContext, AcDynamic.class,false);//改为动态相应的Activity即可
+                SkUser user=SkUser.getCurrentUser(SkUser.class);
+                if(user!=null){
+                    // mPresenter.toNext(mContext, AcDynamicWebView.class,false);//改为动态相应的Activity即可  yangxin
+                    mPresenter.toNext(mContext, AcDynamic.class,false);//改为动态相应的Activity即可
+                }else{
+                    Toast.makeText(AcHome.this,"只有登录了才可以进入动态o",Toast.LENGTH_SHORT).show();
+                }
+
                 break;
             case R.id.id_ac_home_iv_startorclose:
-               // mPresenter.startService(mContext);
                 break;
         }
     }

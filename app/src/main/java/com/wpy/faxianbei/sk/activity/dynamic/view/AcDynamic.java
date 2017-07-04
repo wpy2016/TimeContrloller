@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVFile;
@@ -44,7 +45,14 @@ public class AcDynamic extends CheckPermissionsActivity implements XRecyclerView
 
     private ImageView mUserImg;
 
+    private TextView mtvUserName;
+
+    private TextView mtvSchool;
+
+
     FillCommentModel model;
+
+    private SkUser user;
 
     private int clickPos = 0;
 
@@ -85,6 +93,7 @@ public class AcDynamic extends CheckPermissionsActivity implements XRecyclerView
     }
 
     private void initData() throws AVException {
+        user=AVUser.getCurrentUser(SkUser.class);
         model = new FillCommentModel(this);
         listData = new ArrayList<>();
         AVQuery<Dynamic> query = AVObject.getQuery(Dynamic.class);
@@ -95,14 +104,27 @@ public class AcDynamic extends CheckPermissionsActivity implements XRecyclerView
         loadData();
         mAdapter = new MyAdapter(this, listData, this);
         mRecyclerView.setAdapter(mAdapter);
-        AVFile file = AVUser.getCurrentUser(SkUser.class).getHeadImg();
-        file.getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] bytes, AVException e) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                mUserImg.setImageBitmap(bitmap);
-            }
-        });
+        try{
+            AVFile file = AVUser.getCurrentUser(SkUser.class).getHeadImg();
+            file.getDataInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] bytes, AVException e) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    mUserImg.setImageBitmap(bitmap);
+                }
+            });
+        }catch (NullPointerException e){
+            AVFile file = AVUser.getCurrentUser(SkUser.class).getHeadImg();
+            file.getDataInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] bytes, AVException e) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    mUserImg.setImageBitmap(bitmap);
+                }
+            });
+        }
+        mtvUserName.setText(user.getRealName());
+        mtvSchool.setText(user.getSchool());
     }
 
     private void loadData() {
@@ -158,6 +180,8 @@ public class AcDynamic extends CheckPermissionsActivity implements XRecyclerView
 
         Head = LayoutInflater.from(this).inflate(R.layout.view_header, (ViewGroup) findViewById(android.R.id.content), false);
         mUserImg = (ImageView) Head.findViewById(R.id.iv_user_head);
+        mtvUserName= (TextView) Head.findViewById(R.id.iv_user_name);
+        mtvSchool= (TextView) Head.findViewById(R.id.iv_user_school);
         mRecyclerView.addHeaderView(Head);
     }
 

@@ -18,9 +18,11 @@ import com.wpy.faxianbei.sk.activity.base.MvpBaseActivity;
 import com.wpy.faxianbei.sk.activity.coursetable.presenter.PresenterCourseTable;
 import com.wpy.faxianbei.sk.activity.coursetable.view.IViewCourseTable;
 import com.wpy.faxianbei.sk.activity.coursetable2.presenter.PresenterCourseTable2;
+import com.wpy.faxianbei.sk.activity.register.view.AcRegister;
 import com.wpy.faxianbei.sk.adapter.CommonAdapterArray;
 import com.wpy.faxianbei.sk.adapter.ViewHolder;
 import com.wpy.faxianbei.sk.application.SKApplication;
+import com.wpy.faxianbei.sk.entity.SkUser;
 import com.wpy.faxianbei.sk.entity.db.TimeItem;
 import com.wpy.faxianbei.sk.utils.dateUtil.DateUtil;
 import com.wpy.faxianbei.sk.utils.save.sharepreference.SharePreferenceUtil;
@@ -127,13 +129,12 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (0 != position % 8) {
                     if (set[position] != null) {
-                        if(set[position].isCourse)
-                        {
+                        if (set[position].isCourse) {
                             Toast.makeText(AcCourseTable2.this, "当前有课，不能添加自定义任务，专心上课哦", Toast.LENGTH_LONG).show();
-                        }else{
+                        } else {
                             Intent intent = new Intent(AcCourseTable2.this, AcAddEvent.class);
-                            intent.putExtra("has",true);
-                            intent.putExtra("id",set[position].id);
+                            intent.putExtra("has", true);
+                            intent.putExtra("id", set[position].id);
                             AcCourseTable2.this.startActivity(intent);
                         }
                     } else {
@@ -147,7 +148,7 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
                             String end = getEndOfPos(position);
                             int day = getDayOfPos(position);
                             Intent intent = new Intent(AcCourseTable2.this, AcAddEvent.class);
-                            intent.putExtra("has",false);
+                            intent.putExtra("has", false);
                             intent.putExtra("start", start);
                             intent.putExtra("end", end);
                             intent.putExtra("date", date);
@@ -313,7 +314,7 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
         //所选周的最早时间，也就是周一早上00：00点的时间戳
         long early = getEarlyTimeMillsOfWeek(week, format);
         long last = getLastTimeMillsOfWeek(week, format);
-        if (timeMills >= early && timeMills <=last) {//表示当前的item在所选的周中
+        if (timeMills >= early && timeMills <= last) {//表示当前的item在所选的周中
             int day = DateUtil.parseIntFormDayString(DateUtil.getDay(timeMills)) + 1;
             int rowstart = mPresenter.getRowIntByString(item.getStart().substring(item.getStart().indexOf(" ") + 1));
             int rowend = mPresenter.getRowIntByString(item.getEnd().substring(item.getEnd().indexOf(" ") + 1));
@@ -430,7 +431,12 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
                 mPresenterCourseTable.showSemester(mContext, mtvWeek);
                 break;
             case R.id.id_ac_coursetable2_iv_add_semester:
-                toNext(AcAddCourse.class);
+                SkUser user = SkUser.getCurrentUser(SkUser.class);
+                if (user != null) {
+                    toNext(AcAddCourse.class);
+                } else {
+                    toNext(AcRegister.class);
+                }
                 break;
             case R.id.id_ac_coursetable2_iv_week_down:
             case R.id.id_ac_coursetable2_tv_week:
@@ -452,9 +458,9 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
 
 
     @Override
-    public void setWeek(int week,int currentweek) {
+    public void setWeek(int week, int currentweek) {
         this.week = week;
-        this.currentweek=currentweek;
+        this.currentweek = currentweek;
         setData(week);
     }
 
@@ -466,15 +472,22 @@ public class AcCourseTable2 extends MvpBaseActivity<IViewCourstTable2, Presenter
         this.semester = semester;
         mPresenterCourseTable.getDateFormInternet(year, semester);
         week = currentweek = mPresenterCourseTable.getCurrentWeek(mContext);
-        setWeek(week,currentweek);
+        setWeek(week, currentweek);
     }
 
     @Override
     public void setDate(String[] date) {
-        for (int i = 1; i < 8; i++) {
-            TextView textView = mPresenterCourseTable.getDayTextView(i, this);
-            textView.setText(date[i - 1]);
-        }
+//        for (int i = 1; i < 8; i++) {
+//            TextView textView = mPresenterCourseTable.getDayTextView(i, this);
+//            textView.setText(date[i - 1]);
+//        }
+        mtvDay1.setText(date[0]);
+        mtvDay2.setText(date[1]);
+        mtvDay3.setText(date[2]);
+        mtvDay4.setText(date[3]);
+        mtvDay5.setText(date[4]);
+        mtvDay6.setText(date[5]);
+        mtvDay7.setText(date[6]);
     }
 
     public void setMonth(String month) {

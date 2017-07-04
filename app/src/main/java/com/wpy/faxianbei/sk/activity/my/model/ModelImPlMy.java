@@ -48,14 +48,18 @@ public class ModelImPlMy implements IModelMy {
 
     @Override
     public void getHeadimg() {
-        AVFile file= skUser.getHeadImg();
-        file.getDataInBackground(new GetDataCallback() {
-            @Override
-            public void done(byte[] bytes, AVException e) {
-                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                mLoadHeadimg.loadSuccess(bitmap);
-            }
-        });
+        try {
+            AVFile file= skUser.getHeadImg();
+            file.getDataInBackground(new GetDataCallback() {
+                @Override
+                public void done(byte[] bytes, AVException e) {
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    mLoadHeadimg.loadSuccess(bitmap);
+                }
+            });
+        }catch (NullPointerException e){
+            getHeadimg();
+        }
     }
 
     @Override
