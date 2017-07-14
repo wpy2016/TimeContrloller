@@ -20,7 +20,7 @@ import org.xutils.ex.DbException;
  * Created by peiyuwang on 16-12-18.
  */
 
-public class LockInBackGroundService1 extends Service {
+public class LockService extends Service {
 
     private Handler mhandler = new Handler() {
         @Override
@@ -54,7 +54,7 @@ public class LockInBackGroundService1 extends Service {
 
         @Override
         public void run() {
-            PowerManager manager = (PowerManager) LockInBackGroundService1.this.getSystemService(Context.POWER_SERVICE);
+            PowerManager manager = (PowerManager) LockService.this.getSystemService(Context.POWER_SERVICE);
             while (go) {
                 openTime += 1000;
                 try {

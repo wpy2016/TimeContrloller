@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
-import android.util.Log;
 
 import com.wpy.faxianbei.sk.activity.addcourse.model.ModelImplPupCourse;
 import com.wpy.faxianbei.sk.activity.addevent.view.AcAddEvent;
@@ -37,9 +36,9 @@ public class IsNeedLockThread extends Thread {
 
     Context mContext;
 
-    LockInBackGroundService1.CalcuThread calcuThread;
+    LockService.CalcuThread calcuThread;
 
-    public IsNeedLockThread(Handler handler, Context context, LockInBackGroundService1.CalcuThread thread) {
+    public IsNeedLockThread(Handler handler, Context context, LockService.CalcuThread thread) {
         this.mhandler = handler;
         this.mContext = context;
         this.calcuThread = thread;

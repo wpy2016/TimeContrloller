@@ -3,10 +3,9 @@ package com.wpy.faxianbei.sk.broadcast;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.wpy.faxianbei.sk.service.LockInBackGroundService1;
+import com.wpy.faxianbei.sk.service.LockService;
 
 
 /**
@@ -24,7 +23,7 @@ public class ScreenBroadcastReceiver extends BroadcastReceiver {
             Log.i("srceen","receive off");
         } else if (Intent.ACTION_USER_PRESENT.equals(action)) {
             //解锁后进行的操作
-            Intent intentService =new Intent(context, LockInBackGroundService1.class);
+            Intent intentService =new Intent(context, LockService.class);
             context.startService(intentService);
         }
     }

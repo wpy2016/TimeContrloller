@@ -64,8 +64,9 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".service.LockInBackGroundService1" />
-        <service android:name=".service.LockInBackGroundService2" />
+        <service android:name=".service.LockService" />
+        <service android:name=".service.RemoteService"
+            android:process=".skremoteservice"/>
 
         <activity
             android:name=".activity.register.view.AcRegister"

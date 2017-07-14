@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.media.AudioManager;
 import android.os.Build;
 import android.os.Handler;
+import android.widget.Toast;
 
 import com.wpy.faxianbei.sk.activity.addcourse.model.ModelImplPupCourse;
 import com.wpy.faxianbei.sk.activity.addevent.view.AcAddEvent;
@@ -281,23 +282,27 @@ public class SituationAndNotificationThread extends Thread {
     }
 
     private void setChange(int situation) {
-        switch (situation) {
-            case NORMAL:
-                manager.setRingerMode(RINGER_MODE_NORMAL);
-                break;
-            case SLIENT:
-                try {
-                    manager.setRingerMode(RINGER_MODE_SILENT);
-                } catch (SecurityException e) {
-                    //在部分手机不支持静音模式切换的时候，将其切换为震动模式
+        try{
+            switch (situation) {
+                case NORMAL:
+                    manager.setRingerMode(RINGER_MODE_NORMAL);
+                    break;
+                case SLIENT:
+                    try {
+                        manager.setRingerMode(RINGER_MODE_SILENT);
+                    } catch (SecurityException e) {
+                        //在部分手机不支持静音模式切换的时候，将其切换为震动模式
+                        manager.setRingerMode(RINGER_MODE_VIBRATE);
+                    }
+                    break;
+                case SHAKE:
                     manager.setRingerMode(RINGER_MODE_VIBRATE);
-                }
-                break;
-            case SHAKE:
-                manager.setRingerMode(RINGER_MODE_VIBRATE);
-                break;
-            default:
-                break;
+                    break;
+                default:
+                    break;
+            }
+        }catch (SecurityException e){
+            Toast.makeText(mContext.getApplicationContext(), "目前不支持自动更改，请手动更改", Toast.LENGTH_SHORT).show();
         }
     }
 

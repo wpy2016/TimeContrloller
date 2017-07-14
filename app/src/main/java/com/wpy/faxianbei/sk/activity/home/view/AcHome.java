@@ -18,6 +18,7 @@ import com.wpy.faxianbei.sk.activity.dynamic.webview.AcDynamicWebView;
 import com.wpy.faxianbei.sk.activity.home.presenter.PresenterHome;
 import com.wpy.faxianbei.sk.activity.statistics.view.AcStatistics;
 import com.wpy.faxianbei.sk.entity.SkUser;
+import com.wpy.faxianbei.sk.service.RemoteService;
 import com.wpy.faxianbei.sk.service.SituationService;
 import com.wpy.faxianbei.sk.ui.clock.ClockBitmap;
 
@@ -66,6 +67,7 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
         // 初始化参数依次为 this, AppId, AppKey
         AVOSCloud.initialize(this, "FFwHvC1gi4JDqPnfqkOmshDH-9Nh9j0Va", "aLETvSFc2y1G2jmBWeBpSX96");
         startSituationService();
+        startRemoteService();
     }
 
     @Override
@@ -153,6 +155,11 @@ public class AcHome extends MvpBaseActivity<IViewHome, PresenterHome> implements
 
     private void startSituationService() {
         Intent intent=new Intent(getApplicationContext(), SituationService.class);
+        startService(intent);
+    }
+
+    private void startRemoteService() {
+        Intent intent=new Intent(getApplicationContext(), RemoteService.class);
         startService(intent);
     }
 }

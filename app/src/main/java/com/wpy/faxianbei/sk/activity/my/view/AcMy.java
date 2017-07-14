@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.wpy.faxianbei.sk.R;
@@ -48,6 +49,7 @@ public class AcMy extends MvpBaseActivity<IViewMy, PresenterMy> implements IView
         mContext = AcMy.this;
         initData();
         initEvent();
+
     }
 
     private void initEvent() {

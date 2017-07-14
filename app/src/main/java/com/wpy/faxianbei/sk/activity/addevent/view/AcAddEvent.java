@@ -172,7 +172,12 @@ public class AcAddEvent extends Activity implements SelectDayTimePickerModel.Sel
         recycleString = getResources().getStringArray(R.array.recycle_string);
         has = intent.getBooleanExtra("has", false);
         if (has) {//进行对item的编辑，因为是从课表已经有的选项点击过来的
-            handlerIntentByItem(intent);
+
+            try {
+                handlerIntentByItem(intent);
+            } catch (NullPointerException e) {
+                handlerByNoItem(intent);
+            }
         } else {//新建item，因为是从课表已经有的选项点击过来的
             handlerByNoItem(intent);
         }
@@ -220,7 +225,7 @@ public class AcAddEvent extends Activity implements SelectDayTimePickerModel.Sel
         initRecycle();
     }
 
-    private void handlerIntentByItem(Intent intent) throws DbException, ParseException {
+    private void handlerIntentByItem(Intent intent) throws DbException, ParseException,NullPointerException {
         long id = intent.getLongExtra("id", 0l);
         TimeItem item = SKApplication.getDbManager().selector(TimeItem.class).where(WhereBuilder.b().and("id", "=", id)).findFirst();
         this.item = item;
