@@ -49,6 +49,8 @@ public class SituationAndNotificationThread extends Thread {
 
     boolean isNowhaveToLock = false;
 
+    long isHaveBug=0l;
+
     public SituationAndNotificationThread(Handler handler, Context context) {
         this.mhandler = handler;
         this.mContext = context;
@@ -283,25 +285,32 @@ public class SituationAndNotificationThread extends Thread {
 
     private void setChange(int situation) {
         try{
-            switch (situation) {
-                case NORMAL:
-                    manager.setRingerMode(RINGER_MODE_NORMAL);
-                    break;
-                case SLIENT:
-                    try {
-                        manager.setRingerMode(RINGER_MODE_SILENT);
-                    } catch (SecurityException e) {
-                        //在部分手机不支持静音模式切换的时候，将其切换为震动模式
+            if (isHaveBug==0l || System.currentTimeMillis()-isHaveBug>10*60*1000) {
+                switch (situation) {
+                    case NORMAL:
+                        manager.setRingerMode(RINGER_MODE_NORMAL);
+                        isHaveBug=0l;
+                        break;
+                    case SLIENT:
+                        try {
+                            manager.setRingerMode(RINGER_MODE_SILENT);
+                            isHaveBug=0l;
+                        } catch (SecurityException e) {
+                            //在部分手机不支持静音模式切换的时候，将其切换为震动模式
+                            manager.setRingerMode(RINGER_MODE_VIBRATE);
+                            isHaveBug=0l;
+                        }
+                        break;
+                    case SHAKE:
                         manager.setRingerMode(RINGER_MODE_VIBRATE);
-                    }
-                    break;
-                case SHAKE:
-                    manager.setRingerMode(RINGER_MODE_VIBRATE);
-                    break;
-                default:
-                    break;
+                        isHaveBug=0l;
+                        break;
+                    default:
+                        break;
+                }
             }
         }catch (SecurityException e){
+           isHaveBug=System.currentTimeMillis();
             Toast.makeText(mContext.getApplicationContext(), "目前不支持自动更改，请手动更改", Toast.LENGTH_SHORT).show();
         }
     }
